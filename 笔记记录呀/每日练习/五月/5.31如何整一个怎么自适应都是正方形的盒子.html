@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* 这个是利用vw和vh来实现的盒子 */
+        /*.box{*/
+        /*    width: 30vh;*/
+        /*    height: 30vh;*/
+        /*    background: #2a987d;*/
+        /*}*/
+        /*利用padding-bottom和宽度一样来实现
+         要注意的是height 必须为0 不然其中的元素会被弄上高度，这样他就不是正方形了
+        */
+        .box{
+            width: 20%;
+            height: 0;
+            padding-bottom: 20%;
+            background: #2a987d;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        我就是那个自适应的正方形盒子
+    </div>
+</body>
+<script>
+    /*
+    * 自我阐述：最近太忙就没时间去 更新笔记了，这个是恩泰学长给的每日一问！！记录一下
+    *
+    * 自我思考：使用vw，vh来实现，将width或者height都设置成统一的vw或者vh
+    * 知识点：
+    *
+    * （1）方法一、利用vw和vh 给宽度或者高度 设置一个值即可
+    * （2）利用pading和margin的特性：
+    * 当值为百分比值时：无论是宽度还是高度，都以父级对象的width作为参考基准
+    * （基于高度自适应的特性）。
+    * 将padding-bottom的百分比设置为和width一样的百分比即可
+    * */
+</script>
+</html>
