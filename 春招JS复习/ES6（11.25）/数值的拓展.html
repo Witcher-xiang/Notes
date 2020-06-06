@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数值的扩展</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * ES6 提供了二进制和八进制数值的新的写法，分别用前缀 0b 和 0o 表示。
+    * */
+    /*
+    * ES6新提供的两个方法
+    * (1)Number.isFinite()用来检查一个数值是否非无穷（infinity）。
+    * (2)Number.isNaN() 用来检查一个值是否为 NaN。
+    * */
+
+    /*Number.parseInt(), Number.parseFloat()*/
+        // ES5的写法
+        parseInt("12.34") // 12
+        parseFloat('123.45#') // 123.45
+
+        // ES6的写法
+        Number.parseInt("12.34") // 12
+        Number.parseFloat('123.45#') // 123.45
+    /*使用Number.isInteger()判断一个值是否为整数*/
+    console.log("2.0",Number.isInteger(2.0)) // true
+    console.log("2.1",Number.isInteger(2.1)) // false
+</script>
+</html>

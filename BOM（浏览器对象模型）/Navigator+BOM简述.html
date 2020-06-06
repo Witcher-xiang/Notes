@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    * BOM
+    * -浏览器对象模型
+    * -BOM可以使我们通过JS来操作浏览器
+    * -在BOM中提供了一组对象来操作浏览器
+    * -BOM对象
+    * Window
+    *      -代表的是整个浏览器的窗口，同时window,也是网页中的全局对象
+    * Navigator
+    *      -代表当前浏览器的信息，通过该对象可以来识别不同的浏览器
+    * Location
+    *      -代表当前浏览器的地址信息，可以通过location来获取地址信息，或者操作浏览器跳转页面
+    * history
+    *      -代表浏览器的历史记录，可以通过该对象操作浏览器的历史记录
+    *      由于隐私问题，该对象不能获取具体的历史记录，只能操作浏览器向前或者向后翻页
+    *      而且该操作只在当次访问有效
+    * screen
+    *      -代表用户的屏幕信息，通过该对象可以获取到用户的显示器的相关信息
+    *
+    *
+    *      这些BOM对象在浏览器中都是在为window对象的属性保存的
+    *      可以通过window对象来使用也可以直接使用
+    *
+     */
+      // alert(navigator.appName) 直接打印出浏览器名称，但如今不怎么使用
+    console.log(code)
+    var code=navigator.userAgent;
+    if(/firefox/i.test(code))
+    {alert("是火狐");}
+    if("ActiveXObject" in window)
+    {alert("是IE");}
+    if(/chrome/i.test(code))
+    {alert("是chrome");}//这是利用userAgent进行判断但是IE11进行了伪装我们无法从中盘
+    //判断IE方法2：
+    if("ActiveXObject" in window)
+    {alert("你是IE");}
+</script>
+</html>

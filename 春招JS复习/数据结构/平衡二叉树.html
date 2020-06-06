@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*判断一棵树是否是平衡二叉树*/
+    /*
+    * 个人思路：递归，判断他是不是平衡二叉树
+    * */
+
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+    let arr=[]
+    let IsBalanced =true
+    function IsBalanced_Solution(pRoot)
+    {
+        if (pRoot == null){
+            return true
+        }
+        isBalanced(pRoot)
+
+        // write code here
+        return IsBalanced
+    }
+    let ary =[]
+    function isBalanced(node) {
+
+        if (!node) return 0
+        ary.push(node.val)
+        let left = isBalanced(node.left)+1;
+        let right = isBalanced(node.right)+1;
+        if (Math.abs(left - right)>1)  IsBalanced = false
+        return left > right ?   left : right;
+
+    }
+</script>
+</html>

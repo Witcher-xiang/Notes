@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload=function(){
+           var ul1=document.getElementById("ul1");
+            var btn01=document.getElementById("btn01");
+            btn01.onclick=function () {
+                var li=document.createElement("li");
+                li.innerHTML="<a href='javascript:' class=\"link\">超链接4</a>";
+                ul1.appendChild(li);
+            };
+            //var allA=document.getElementsByTagName("a");
+            // for(var i=0;i<allA.length;i++)
+            // {
+            //     allA[i].onclick=function () {
+            //         alert("我是第"+i+"个超链接");
+            //     }
+            // } 这种方法导致后面的都无法点击
+            var ul1=document.getElementById("ul1");
+
+            ul1.onclick=function (event) {
+               if(event.target.className === "link") //判断方法
+                                                     //注意要用三个等号
+                   /*
+                   event中的target表示的是触发事件的对象 比如我鼠标点了p标签则其也会返回p标签
+                   */
+
+               {
+                   alert("我是超链接");
+               }
+
+            }//运用这种方法就叫做事件的委派
+            //但是存在一个问题这个祖先元素存在各处，点哪里哪里都会有反应因此我们使用class做个判断
+        };
+    </script>
+</head>
+<body>
+<button id="btn01" type="button">创建超链接</button>
+<ul id="ul1">
+    <li><a href="javascript:" class="link">超链接1</a></li>
+    <li><a href="javascript:" class="link">超链接2</a></li>
+    <li><a href="javascript:" class="link">超链接3</a></li>
+</ul>
+</body>
+</html>

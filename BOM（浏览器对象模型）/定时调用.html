@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="title">1</h1>
+
+</body>
+<script type="text/javascript">
+    var title=document.getElementById("title");
+    var i=1;
+    //setInterval(回调函数,定时器定时时间（毫秒）)
+    timer=setInterval(function () {//每个setInterval都有一个值用来控制计时器的开关停止
+      title.innerHTML=i++;
+      if (i===50){
+          clearInterval(1);
+          //clearInterval(1);其中的数值代表要停止的定时器的ID值
+      }
+    },100)
+</script>
+</html>

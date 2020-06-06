@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let a = ()=>{
+        console.log("this怎么用",this)
+    }
+    function A(){this.a = "324"}
+
+    let s ={
+        f:function () {
+               console.log(this)
+        }
+    }
+    let c= a.bind(s)
+    c();
+
+</script>
+</html>

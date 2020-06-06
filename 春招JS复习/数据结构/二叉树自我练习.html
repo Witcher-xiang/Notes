@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*创建节点*/
+    class Node{
+        constructor(key){
+            this.left=null;
+            this.right=null;
+            this.key=key;
+        }
+    }
+   class BinaryTree{
+        constructor(){
+            this.root = null;
+        }
+       insertNode(root,newNode){
+            if (newNode.key<root.key){
+                if (root.left===null){
+                    root.left = newNode
+                }else
+                    {
+                    this.insertNode(root.left,newNode)
+                    }
+            }
+            else {
+                if (root.right === null){
+                    root.right = newNode;
+                    alert("asf")
+                }
+                else
+                    {
+                    this.insertNode(root.right,newNode)
+                    }
+            }
+       }
+        insert(data){
+            let newNode = new Node(data);
+            if (this.root === null){
+                this.root = newNode
+            }
+            else {
+                this.insertNode(this.root,newNode)
+            }
+        }
+   }
+   let tree = new BinaryTree();
+    console.log("刚创建出来的tree实例",tree);
+    tree.insert(12);
+    console.log("加了一个值以后",tree);
+    tree.insert(14);
+    tree.insert(8);
+    tree.insert(9);
+    /*讲一讲我不明白的点，无论是class类还是构造函数，都会最后把 this接连不断的保存下来*/
+
+</script>
+</html>

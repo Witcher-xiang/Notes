@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let dataStack = [];
+    let helpStack = [];
+    function push(node)
+    {
+
+        dataStack.push(node)
+        if (!helpStack.length)
+            helpStack.push(node)
+        else if (node<helpStack[length-1])
+            helpStack.push(node)
+
+        // write code here
+    }
+    function pop()
+    {
+        if (helpStack[length-1] === dataStack[dataStack.length-1])
+            helpStack.pop()
+        dataStack.pop();
+        // write code here
+    }
+    // function top()
+    // {
+    //     return dataStack[dataStack.length-1]
+    //     // write code here
+    // }
+    function min()
+    {
+        return helpStack[helpStack.length-1]
+        // write code here
+    }
+    function IsPopOrder(pushV, popV)
+    {
+        const stack = [];
+        let index = 0;
+        while(pushV.length){
+            if(pushV[0] !== popV[index]){
+                stack.push(pushV.shift())
+            }else{
+                index++;
+                pushV.shift()
+            }
+        }
+        return pushV.length ? false:true
+    }
+    console.log(IsPopOrder([1,2,3,4,5],[4,5,3,2,1]))
+</script>
+</html>

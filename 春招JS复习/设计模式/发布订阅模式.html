@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*发布订阅模式
+    *
+    * 发布订阅模式指的是希望接受通知的对象（Subscriber）基于一个主题通过自定义事件订阅主题
+    * 被激活事件的对象通过发布主题（Publisher）事件的方式通知各个订阅该主题的Subscribe对象
+    *
+    * 订阅：key：订阅事件 fn：对应执行函数
+    *
+    * 发布：使用key取得对应订阅的所有fn，传参并且执行
+    *
+    * */
+    let pubSub = {
+        list:{},
+        subscribe:function (key,fn) {
+            if (!this.list[key]){
+                this.list[key] = [];
+            }
+            //在list这个对象，存入key且value是一个数组 数组中存入对应执行函数
+            this.list[key].push(fn)
+        },
+        publish:function () { //发布
+            let arg = arguments;
+            let key = [].shift.call(arg);
+            console.log("key",key)
+            let fns = this.list[key];//取出所有的订阅内容（函数）
+            if (!fns || fns.length<=0) return false;
+
+            for (var i = 0,len = fns.length;i<len;i++){
+                fns[i].apply(this,arg) //全部执行一遍
+            }
+        },
+        unSubscribe(key) {  // 取消订阅
+            delete this.list[key];
+        }
+    }
+    pubSub.subscribe('name', (name) => {
+        console.log('your name is ' + name);
+    });
+    pubSub.subscribe('sex', (sex) => {
+        console.log('your sex is ' + sex);
+    });
+    pubSub.subscribe('sex', (sex) => {
+        console.log('sex的测试' + sex);
+    });
+    pubSub.publish('sex', 'male');  // your sex is male
+</script>
+</html>

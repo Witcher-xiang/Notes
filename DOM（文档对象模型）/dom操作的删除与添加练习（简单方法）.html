@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #employeetable{
+            border: solid 1px black;
+            width: 400px;
+            height: 50px;
+            text-align: center;
+            margin: auto 0;
+        }
+        .cole{
+            border: solid 1px black;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<table id="EmployeeTable" border="1" >
+    <tr>
+        <td >Name</td>
+        <td>Email</td>
+        <td>Salary</td>
+        <td></td>
+    </tr>
+    <tr id="tr1">
+        <td >TOM</td>
+        <td>1214334086@qq.com</td>
+        <td>7008</td>
+        <td><a id="a1" href="javascript:;" >Delete</a></td>
+    </tr>
+    <tr>
+        <td >Jerry</td>
+        <td>324213234@163.com</td>
+        <td>6000</td>
+        <td><a id="a2" href="javascript:;">Delete</a></td>
+    </tr>
+    <tr>
+        <td>BOB</td>
+        <td>182235298@163.com</td>
+        <td>9748</td>
+        <td><a id="a3" href="javascript:;">Delete</a></td>
+    </tr>
+</table>
+
+<br>
+<div style="width: 300px; height: auto; border: solid 1px; margin-left:50px;">
+    <table align="center">
+        <tr><td>name:</td><td><input type="text" id="Name"></td></tr>
+        <tr><td>Email:</td><td><input type="text" id="Email"></td></tr>
+        <tr><td>Salary:</td><td><input type="text" id="Salary"></td></tr>
+        <tr><td align="center" colspan="2"><input type="submit" id="sub"><td></td></tr>
+        <!--在合并单元格时，记得在写个align="center";-->
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+
+    function Del() {
+        var tr=this.parentNode.parentNode;//this指向的就是当前我们所点击的路径即是标签<a>
+        var name=tr.children[0].innerHTML;
+        if(confirm("确认删除"+name+"么?"))
+        {
+            tr.parentNode.removeChild(tr);
+        }
+    }//删除列表函数
+
+    var alla=document.getElementsByTagName("a");//利用获取标签名返回的数组来进行输出
+    for(var i=0;i<alla.length;i++)             //获取a的操作权限对a设定单击响应函数
+    {
+        alla[i].onclick=Del;
+    }
+
+    var sub=document.getElementById("sub");
+    sub.onclick=function () {
+
+        var Name=document.getElementById("Name").value;//获取输入框的名字
+        var Email=document.getElementById("Email").value;//获取邮件地址
+        var Salary=document.getElementById("Salary").value;//获取薪水地址
+        //记得在写获取内容时记得将获取值的内容写在单击响应函数内部，不然一开始就会获取到一个内容为空的值
+        var tr=document.createElement("tr");
+        alert(Name);
+        tr.innerHTML +=
+            "<td>"+Name+"</td>"+  //加号的作用用来拼串
+            "<td>"+Email+"</td>"+
+            "<td>"+Salary+"</td>"+
+            "<td><a href='javascript:;'>Delete</a></td>";
+        var EmployeeTable=document.getElementById(EmployeeTable);
+        var tbody=document.getElementsByTagName("tbody")[0];
+        tbody.appendChild(tr);
+        //在这里获取tbody并将tr添加进去（开发时尤其推荐这种方法）
+
+        var alla=document.getElementsByTagName("a");//利用获取标签名返回的数组来进行输出
+        for(var i=0;i<alla.length;i++)
+        {
+            alla[i].onclick=Del; //放置在这里使得新加入的a标签链接可以直接删除
+        }
+    };
+</script>
+</html>

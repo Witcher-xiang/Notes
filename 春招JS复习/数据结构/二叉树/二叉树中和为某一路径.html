@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 剑指offer
+    *
+    * 输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+    * 路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+    * (注意: 在返回值的list中，数组长度大的数组靠前)
+    * */
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+    /*
+    * 个人思路，做个先序遍历，当他遍历到根的右边节点时 重新计数
+    * */
+    function FindPath(root, expectNumber)
+    {
+        let smallArr = [],result = [],stack = [],sum = 0;
+        // write code here
+        let p = root;
+        stack.push(p)
+        /*
+        * 遇到个问题stack.pop分不出左右
+        * */
+        while (stack.length){
+            let temp = stack.pop();
+            sum+= temp.val;
+            if (sum == expectNumber && !temp.left && !temp.right){
+                result.push()
+            }
+            stack.push(p.right);
+            stack.push(p.left);
+        }
+    }
+
+    function find(root, sum, path, expectNumber, result){
+        path.push(root.val);
+        sum+= root.val
+        if (sum == expectNumber && root.left == null && root.right == null) {
+            result.push(path.slice(0))
+            return;
+        }
+        if (sum  > expectNumber) return;
+        if (root.left) {
+            find(root.left,sum , path, expectNumber,result)
+        }
+        if (root.right) {
+            find(root.right, sum , path, expectNumber,result)
+        }
+        path.pop()
+    }
+    function FindPath(root, expectNumber) {
+        if (!root) return []
+        let result = [];
+        find(root, 0, [], expectNumber, result)
+        return result;
+    }
+        // write code here
+
+</script>
+</html>

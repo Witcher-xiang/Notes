@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let str = "1101";
+    /*
+    * 这个方法也是可以的，只是时间复杂度实在太大
+    * */
+    function NumberOf1(n)
+    {
+        function getReverse(n) {
+            let arr = [],str = "",tempPlus = "0001",res =0;
+            for (let i =0; i<n.length;i++){
+               arr.push(Math.pow(0,n[i]));
+            }
+            let reverseStr = arr.join('');
+            for (let i =reverseStr.length-1,j = tempPlus.length-1; i>=0;i--,j--){
+                let sum = res;
+                sum = sum + (i>=0 ? parseInt(reverseStr[i]):0);
+                sum = sum + (j>=0 ? parseInt(tempPlus[j]):0);
+                str += sum%2;
+                res = Math.floor(sum/2)
+
+            }
+            str = str + (res==1?res:"");
+            return str.split("").reverse().join("")
+        }
+        var str,count =0;
+        if (n>=0)
+          str =n.toString(2)
+        else {
+            let temp = Math.abs(n).toString(2);
+            str = getReverse(temp)
+        }
+        for (let i of str){
+            if (i == "1") count++
+        }
+        return count
+        // write code here
+    }
+    //console.log(NumberOf1(-6))
+    console.log(-1<<1)
+</script>
+</html>

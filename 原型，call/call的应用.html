@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Person(name, age, sex) {
+        this.name= name;
+        this.age = age;
+        this.sex = sex;
+    }
+    function Student(name, age, sex ,tel ,grade) {
+        //var this ={name :"",age :"",grad :""} 你也可以把这个this 理解为student
+        Person.call(this,name,age,sex);//这里this真正的意思是将Person中的数据全部加到了this的隐式中
+        this.tel=tel;
+        this.grade=grade;
+    }
+    var student = new Student("saf","23","man","324435345","87");
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+   /*
+   * 二叉搜索树找公共节点
+   * 左子树任意节点小于根节点
+   * 右子树任意节点大于根节点
+   * */
+   function lcaSearchTree(root,p,q) {
+       let node = root;
+       /*一个while遍历所有node节点*/
+       while (node){
+           if (node.val>p.val && node.val>q.val){
+               node = node.right
+           }
+          else if (node.val < p.val && node.val <q.val){
+               node.left = node;
+           }
+          else return node;
+
+       }
+   }
+   function LcaSearchTree(root,p,q){
+        if (root.val > p.val && root.val > q.val){
+            return LcaSearchTree(root.left,p,q)
+        }
+       else if (root.val < p.val && root.val < q.val){
+            return  LcaSearchTree(root.right,p,q)
+        }
+       else return toot
+   }
+   /*中序遍历*/
+   let prevNum;
+    function betOrder(root) {
+        if (root ==null) return true;
+        if (prevNum > root.val) return false;
+        if(!betOrder(root.left)) return false;
+        prevNum = root.val;
+       return  betOrder(root.right)
+    }
+    /*
+    * 利用边界来做更新
+    * */
+    function isValidBST(root,max,min) {
+        if (root == null) return true
+        if (root.val>=max && root.val<=min)return  false
+        return isValidBST(root.left,root.val,max) && isValidBST(root.right,max,root.val)
+    }
+
+    /*将有序数组 转化为二叉搜索树*/
+   let nums = []
+    function transValidBST(start,end) {
+
+    }
+
+    /*前序遍历 非递归*/
+    function preOrder(root) {
+        let stack = [];
+        let res = [];
+        stack.push(root)
+        while (stack.length){
+            if (!root) return null
+            let temp = stack.pop()
+            res.push(temp.val)
+            if (root.left) stack.push(root.left);
+            if (root.right) stack.push(root.right);
+        }
+    }
+    /*中序遍历 非递归*/
+    function midOrder(root) {
+        let  stack = [];
+        let  res   = [];
+
+        let p = root
+        while (stack.length || p){
+            while (p){
+                stack.push(p);
+                p = p.left
+            }
+            let temp = stack.pop();
+            res.push(temp.val);
+             p = temp.right
+        }
+    }
+
+    /*  后续遍历非递归 */
+   function postOrder(root) {
+       let  stack = [];
+       let  res   = [];
+       let  set   = new Set()
+
+       let p = root
+       while (stack.length || p){
+           while (p){
+               stack.push(p);
+               p = p.left
+           }
+           let temp = stack[stack.length-1]; //取出栈的最后一项
+           if (temp.right && !set.has(temp.right)){
+                                //如果右边存在 且还未遍历过 则直接跑去遍历右边的所有节点
+               p = temp.right
+               temp.add(temp.right)
+           }else {        //如果右节点为空或者他之前已经被遍历过
+               res.push(temp.val);
+               stack.pop()
+           }
+
+
+       }
+   }
+   function rectCover(number)
+   {
+       /*
+       2*n可以理解为宽度一直是2，长度在变化
+       */
+       if(number===0) return 0;
+       if(number===1) return 1;
+       if(number===2) return 2;
+       return rectCover(n-1)+retCover(n-2)
+   }
+</script>
+</html>

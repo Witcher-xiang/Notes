@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var obj={
+        name:"dzq",
+        age:20,
+        sex:"meal",
+        wife:"missLI"
+    };
+    for(var prop in obj){//这里的prop可以任意替换指的是里面的属性，obj指的则是对象
+        document.write(prop+" "+typeof (prop));
+        //或者也可以这么写consle.log(obj[prop]);但如果写obj.prop就会花式报错
+    }
+    obj.constructor();
+</script>
+</body>
+</html>

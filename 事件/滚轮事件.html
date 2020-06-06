@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #box1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+</body>
+<script type="text/javascript">
+
+    var box1=document.getElementById("box1");
+   /*
+    box1.onmousewheel=function () {
+        //使用onmousewheel来触发鼠标滚轮事件，但火狐不支持
+        alert("dsf");
+    };*/
+
+   //使用这种方法简化代码书写
+
+
+    box1.onmousewheel=function(event) {
+        alert(event.wheelDelta);
+    };//在chrome以及其他浏览器使用的方法
+
+    addEventListener("DOMMouseScroll",function (event) {
+        alert(event.detail);
+    },box1.onmousewheel,false)
+    //在火狐中使用的方法
+
+
+    /*
+     *火狐中的解决办法使用DOMMouseScroll
+    addEventListener("DOMMouseScroll",function () {
+        alert("d");
+    },false)
+*/
+</script>
+</html>

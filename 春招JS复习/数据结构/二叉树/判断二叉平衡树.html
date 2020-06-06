@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 自闭的一天，让我自己在做一个思考
+    * */
+    /*可以可以这个是对的 思路没有错*/
+    function IsBalanced_Solution(pRoot) {
+        if (pRoot == null) return true;
+        let find = (root)=>{
+            if (root == null) return 0;
+            let left =1+ find(root.left),
+                right =1+ find(root.right)
+            return Math.max(left,right);
+        }
+        let deal=(root)=>{
+            let left = find(root.left),
+                right =  find(root.right)
+            let abs = Math.abs(left-right)
+            if (abs>1) return false
+            if (!root.left || !root.right) return  true
+            return  deal(root.left) && deal(root.right)
+        }
+        return deal(pRoot)
+    }
+
+    /*如果考虑二叉查找树的haul*/
+    function IsBalanced_Solution(pRoot){
+        if (pRoot == null) return true;
+        let judge =(left,right)=>{
+            let temp = Math.abs(getDeep(left)-getDeep(right))
+            if (temp>1) return false;
+            if (left.val>=right.val) return false;
+            if (left.left && left.right)
+                judge(left.left,left.right)
+            if (right.left && right.right)
+                judge(right.left,right.right)
+            return true
+        };
+        let getDeep = (root)=>{
+            if (!root) return 0;
+            let left,right;
+            if (root.left)
+                left= getDeep(root.left)+1;
+            if (root.right)
+                right = getDeep(root.right)+1;
+            return Math.max(left,right)
+        }
+        judge(pRoot.left,pRoot.right)
+    }
+
+
+
+
+    /* 平衡二叉树：
+    * （1）他是一棵二叉查找树
+    * （2）他左右子树绝对值之差不小于1
+    * */
+    function IsBalanced_Solution(pRoot){
+        if (!pRoot) return true
+        let left = deepFind(pRoot.left)
+        let right = deepFind(pRoot.right)
+        if (Math.abs(left  - right)>1)
+            {return false;}
+
+       return IsBalanced_Solution(pRoot.left) && IsBalanced_Solution(pRoot.right)
+    }
+    function deepFind(pRoot) {
+        if (pRoot == null) return 0;
+
+
+        if(pRoot != null){
+            let left =  1+deepFind(pRoot.left);
+            let right = 1+deepFind(pRoot.right);
+            return 1 + Math.max(left,right);
+        }
+
+    }
+</script>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html,body{
+
+        margin:0;
+        padding:0;
+        height: 100%;
+    }
+    .outer{
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+    }
+    .box01{
+        height: 100%;
+        width: 200px;
+        background: #4b6f3e;
+
+    }
+    .box02{
+        flex: 1 1 auto;
+        height: 100%;
+        background: #925f98;
+    }
+    .box03{
+
+        height: 100%;
+        width: 200px;
+        background: #1d3f84;
+    }
+</style>
+<body>
+    <div style="width: 100px;height: 200px;background:#bf6bcc;display: inline-block" id="box01"></div>
+    <div style="width: 100px;height: 200px;background:#c3bbcc;display: inline-block" id="box02"></div>
+</body>
+<script>
+    console.log(box02.offsetLeft)
+    /*
+    * 字符串是否是回文串
+    * */
+
+    /*
+    * 简单的反转链表
+    *
+    * 定义一个pre = null;cur= head;
+    * 再取出next = cur.next;
+    * 这样就同时就有三个值了~pre cur next
+    * 接下来我们改变cur.next让其指向前面一个值
+    * 另pre = cur
+    * 在另cur = next 接下来开启下一轮循环
+    *     * */
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+    let reverseList =  (head) => {
+
+        let pre = null, cur = head;
+        while (cur){
+            let next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+    }
+
+    /*
+    *区间反转
+    * 从位置 m 到 n
+    *
+    * 额外记录前一个节点和后一点节点
+    * */
+    let reverseBetween = function(head, m, n) {
+        for (let i=0;i<head.length;i++){
+
+        }
+    }
+</script>
+</html>

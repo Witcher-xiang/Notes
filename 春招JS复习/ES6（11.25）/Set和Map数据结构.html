@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    * Set是一种不重复的数组，利用他也可以实现数组去重
+    * 他并不具有数组所有的方法，他有自己的方法去实现增删改查
+    * */
+    var items = new Set([1,2,3,4,5,5,5,5]);
+    items.size // 5
+    console.log(items)
+
+
+    /*Array.from()可以将Set数组变为普通的数组*/
+    function dedupe(array) {
+        return Array.from(new Set(array));
+    }
+    let set = new Set(['red', 'green', 'blue']);
+    console.log("扩展运算符",[...set])
+    let arr=["1","2","3"]
+    let arr01 = [...arr]
+    arr01.push("4")
+    console.log("arr",arr)
+    console.log("arr01",arr01)
+
+    /*Map 结构的目的和基本用法*/
+    /*
+    * 为了解决的问题：在js的传统中对象都是键值对的哈希结构来存储
+    * 而且键名只能是字符串，不能是其他类型。Map数据结构就是来解决这个问题所提出的
+    * */
+    /*
+    * 它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，
+    * 各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了“字符串—值”的对应，
+    * Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。
+    * */
+    let m = new Map()
+    let object= {jasd:"你好我的兄弟"} //你看着里对象都能做键名
+    let arr02=[]
+    m.set(object,"您好啊！！嘿嘿")
+    m.set(arr02,"李梦婷是沙雕哈哈哈哈")
+    console.log(m.get(object))
+    console.log(m.get(arr02))
+    /*同时Map也可以接受一个数组作为参数*/
+    var map = new Map([ ["name", "张三"], ["title", "Author"]]);
+    console.log(map.size)
+    console.log(map.get("name"))
+
+    for (const element of map) {
+        console.log("element",element);
+    }
+    /*
+    * 注意，只有对同一个对象的引用，Map 结构才将其视为同一个键。这一点要非常小心
+    * 这句话我不解释自己理解把 ，大概意思就是不能把字符串直接写进.ser([],"xxx")
+    * 这样的形式
+    * */
+</script>
+</html>

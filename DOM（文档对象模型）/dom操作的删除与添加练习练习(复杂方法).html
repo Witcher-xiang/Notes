@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #employeetable{
+            border: solid 1px black;
+            width: 400px;
+            height: 50px;
+            text-align: center;
+            margin: auto 0;
+        }
+        .cole{
+            border: solid 1px black;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<table id="employeetable" border="1" >
+    <tr>
+        <td >Name</td>
+        <td>Email</td>
+        <td>Salary</td>
+        <td></td>
+    </tr>
+    <tr id="tr1">
+        <td >TOM</td>
+        <td>1214334086@qq.com</td>
+        <td>7008</td>
+        <td><a id="a1" href="javascript:;" >Delete</a></td>
+    </tr>
+    <tr>
+        <td >Jerry</td>
+        <td>324213234@163.com</td>
+        <td>6000</td>
+        <td><a id="a2" href="javascript:;">Delete</a></td>
+    </tr>
+    <tr>
+        <td>BOB</td>
+        <td>182235298@163.com</td>
+        <td>9748</td>
+        <td><a id="a3" href="javascript:;">Delete</a></td>
+    </tr>
+</table>
+
+<br>
+<div style="width: 300px; height: auto; border: solid 1px; margin-left:50px;">
+    <table align="center" >
+        <tr><td>name:</td><td><input type="text" id="Name"></td></tr>
+        <tr><td>Email:</td><td><input type="text" id="Email"></td></tr>
+        <tr><td>Salary:</td><td><input type="text" id="Salary"></td></tr>
+        <tr><td align="center" colspan="2"><input type="submit" id="sub"><td></td></tr>
+        <!--在合并单元格时，记得在写个align="center";-->
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    //		var a1=document.getElementById("a1");
+    //		a1.onclick=function(){
+    //			var tr1=document.getElementById("tr1");
+    //			tr1.parentNode.removeChild(tr1);
+    //			return false;
+    //		}
+    function Del() {
+        var tr=this.parentNode.parentNode;//this指向的就是当前我们所点击的路径即是标签<a>
+        var name=tr.children[0].innerHTML;
+        if(confirm("确认删除"+name+"么?"))
+        {
+            tr.parentNode.removeChild(tr);
+        }
+    }
+    var alla=document.getElementsByTagName("a");//利用获取标签名返回的数组来进行输出
+    for(var i=0;i<alla.length;i++)
+    {
+        alla[i].onclick=Del;
+    }
+
+        var sub=document.getElementById("sub");
+        sub.onclick=function () {
+            var employeetable=document.getElementById("employeetable");
+            var Name=document.getElementById("Name").value;
+            var Email=document.getElementById("Email").value;
+            var Salary=document.getElementById("Salary").value;
+            var tr=document.createElement("tr");
+            var td1=document.createElement("td");
+            var td2=document.createElement("td");
+            var td3=document.createElement("td");
+            var td4=document.createElement("td");
+            var a1=document.createElement("a");
+            var td1Text=document.createTextNode(Name);
+            var td2Text=document.createTextNode(Email);
+            var td3Text=document.createTextNode(Salary);
+            var td4Text=document.createTextNode("Delete");
+            td1.appendChild(td1Text);
+            td2.appendChild(td2Text);
+            td3.appendChild(td3Text);
+            td4.appendChild(a1);
+
+            a1.appendChild(td4Text);
+            a1.href="javascript:;";  //s
+
+            employeetable.appendChild(tr);
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+
+            var tbody=employeetable.getElementsByTagName("tbody")[0];
+            employeetable.appendChild(tbody);
+            tbody.appendChild(tr);
+            //这里的目的是为了让新加入的内容写到tbody中，若不加到tbody中在样式修改会出现问题
+
+            var alla=document.getElementsByTagName("a");//利用获取标签名返回的数组来进行输出
+            for(var i=0;i<alla.length;i++)
+            {
+                alla[i].onclick=Del;
+            }
+        };
+</script>
+</html>

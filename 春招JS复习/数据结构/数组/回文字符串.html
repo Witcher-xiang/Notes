@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let str = "A man, a plan, a canal: Panama";
+
+    /*
+    * \w是指匹配所有字母及数组还有_
+    * \W 是指匹配除所有字母和数组以外的值
+    * */
+    function palindrome(str) {
+        /*判断回文串*/
+        let reg = new RegExp(/\w/)
+        console.log(str.replace(/\W/g,"").toLowerCase()) //匹配的都会被删掉 这里做个过滤并且转化为小写
+        let s= str.replace(/\W/g,"").toLowerCase()
+        let start =0,end = s.length-1,state = true;
+        // 懒得写了 好累啊
+        while ()
+    }
+    palindrome(str)
+</script>
+</html>

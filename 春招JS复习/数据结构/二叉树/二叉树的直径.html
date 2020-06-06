@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 二叉树的直径
+    * 大概意思就是说从二叉树的左边最深的地方，写到二叉树右边最深的地方， 当然他会过中间节点，
+    * 但是注意中间节点不一定就是根节点
+    * */
+    function diameterOfBinaryTree (tree) {
+        let getDeep = (node)=>{
+            if (!node) return 0
+            return Math.max(getDeep(node.left)+1,getDeep(node.right)+1)
+        };
+        /*
+        * 因为可能会出现只存在一个子树的情况
+        * 因此我们要去找下面子节点的一个最大值
+        * */
+        let help = (node) =>{
+            //先取得父节点的最大值
+            let fatherMax = getDeep(node.left)+getDeep(node.right)
+
+
+        }
+    }
+</script>
+</html>

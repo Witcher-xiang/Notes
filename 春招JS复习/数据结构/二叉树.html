@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+   /*   用类来创建二插搜索树  */
+    /*定义节点*/
+    class Node {
+        constructor(data){
+            this.root = this;
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    /*创建一个二叉搜索树*/
+    class BinarySearchTree{
+        constructor(){
+            this.root = null;
+        }
+        insert(data){
+            const newNode = new Node(data);
+            const insertNode=(node,newNode)=>{
+                if (newNode.data < node.data){ //如果插入数据小于根节点则
+                    if (node.left === null){
+                        node.left = newNode;
+                    }
+                    else {
+                        insertNode(node.left,newNode)
+                    }
+                }
+                else { //如果插入数据大于根节点
+                        if (node.right===null){
+                            node.right = newNode;
+                        }
+                        else {
+                            insertNode(node.right,newNode)
+                        }
+                }
+
+                if(!this.root){
+                    this.root = newNode
+                }else {
+                    insertNode(this.root,newNode)
+                }
+            }
+        }
+    }
+    const tree = new BinarySearchTree();
+    tree.insert(11);
+    tree.insert(7);
+    tree.insert(5);
+    tree.insert(3);
+    tree.insert(9);
+    tree.insert(8);
+    tree.insert(10);
+    tree.insert(13);
+    tree.insert(12);
+    tree.insert(14);
+    tree.insert(20);
+    tree.insert(18);
+    tree.insert(25);
+    console.log("tree:",tree);
+    console.log(tree.root);
+
+   /*   用使用构造函数来创建二插搜索树  */
+    //1.定义二叉树的整体结构
+   /*   注意这里是按照根部-左-右的顺序插入，可以还原先序遍历  */
+    function BinaryTree () {
+    //创建节点的构造函数
+        var Node = function (key) {
+            this.key = key;
+            this.left = null;
+            this.right = null
+        };
+        var root = null;
+        //创建根节点，后面的节点根据规则进行排序
+        this.rootNode = {};
+        var insertNode = function (node,newNode) {
+            if(newNode.key < node.key) {
+                //左侧没有节点就插入
+                if(node.left === null) {
+                    node.left = newNode
+                }else {
+                    //递归比较进行插入
+                    insertNode(node.left,newNode)
+                }
+            }else {
+                if(node.right === null) {
+                    node.right = newNode;
+                }else {
+                    insertNode(node.right,newNode)
+                }
+            }
+        };
+        /*判断节点是否为空，空则插入子节点*/
+        this.insert = function (key) {
+            var newNode = new Node(key);
+            if(root === null) {
+                root = newNode;
+                this.rootNode = root
+            }else {
+                insertNode(root,newNode)
+            }
+        }
+
+        /*  中序遍历  */
+        this.inOrder=function(){
+            let backs = [];
+            const inOrderNode = (node,callback) => {
+                if(node !== null){
+                    inOrderNode(node.left,callback); //如果此左节点没有就结束 如果树节点多的话就会把左边都遍历完
+                    backs.push(callback(node.key));    //直接推入
+                    inOrderNode(node.right,callback)    // 右节点没有就结束
+                }
+            };
+            /*如果这里直接写this.root的话必须将中序遍历放入数的那个类或者构造函数中*/
+            inOrderNode(root,callback);
+            function callback(v){
+                return v
+            }
+            return backs
+        };
+
+        /*  先序遍历-根，左，右 */
+        this.prOrder=function () {
+            let prArray=[];
+
+            const prOrderInsert=(node,callback)=>{
+                if (node!=null){
+                    prArray.push(callback(node.key));
+                    prOrderInsert(prOrderInsert(node.left,callback));
+                    prOrderInsert(prOrderInsert(node.right,callback))
+                }
+            };
+            function callback(v) {
+                return v
+            }
+
+            prOrderInsert(root,callback);
+            return prArray
+        };
+
+        /*  后序遍历-左，右，根 */
+        this.postOrder=function () {
+            let postArr=[];
+            const  postOrderInsert=(node,callback)=>{
+              if (node!=null){
+                  postOrderInsert(node.left,callback);
+                  postOrderInsert(node.right,callback);
+                  postArr.push(callback(node.key))
+              }
+            };
+            function callback(e) {
+                return e
+            }
+
+            postOrderInsert(root,callback);
+            return postArr
+        };
+
+        this.test = function () {
+            /*这里直接调用root*/
+            console.log("this.root",root)
+        }
+    }
+    /*中序遍历*/
+    function inOrder(){
+        let backs = [];
+        const inOrderNode = (node,callback) => {
+            if(node !== null){
+                inOrderNode(node.left,callback); //如果此左节点没有就结束 如果树节点多的话就会把左边都遍历完
+                backs.push(callback(node.data));    //直接推入
+                inOrderNode(node.right,callback)    // 右节点没有就结束
+            }
+        };
+        /*如果这里直接写this.root的话必须将中序遍历放入数的那个类或者构造函数中*/
+        inOrderNode(this.root,callback);
+        function callback(v){
+            return v
+        }
+        return backs
+    }
+
+    var nodesArr = [8,3,10,1,6,14,4,7,13];
+    var binaryTree = new BinaryTree();
+    nodesArr.forEach(key => binaryTree.insert(key));
+    console.log("构造函数创建的树",binaryTree.rootNode);
+   binaryTree.test()
+    console.log("中序遍历",binaryTree.inOrder());
+    console.log("先序遍历",binaryTree.prOrder());
+    console.log("后序遍历",binaryTree.postOrder());
+    let postArr= []
+    let prArr=[]
+    let  inArr=[]
+   postArr=binaryTree.postOrder();
+   prArr  = binaryTree.prOrder();
+   inArr  = binaryTree.inOrder();
+
+   let tree01 = new BinaryTree();
+   prArr.forEach((value => {
+        tree01.insert(value)
+    }));
+    console.log("tree01先序遍历",tree01.rootNode);
+
+
+   /*3.创建第二个二叉树 按照左中右的顺序插入*/
+   function NewNodeIn(key){
+       this.key=key;
+       this.left=null;
+       this.right=null;
+   }
+
+   function BinaryTreeIn(){
+      this.root = null;
+      let nodeInsert=(root,newNode)=>{
+            if (root.key<newNode.key){
+                if (root.left==null){
+                    root.left=newNode
+                }
+                else {nodeInsert(root.left,newNode)}
+            }
+            else {
+                if (root.right==null){
+                    root.right=newNode
+                }
+                else {
+                   nodeInsert(root.right,newNode)
+                }
+            }
+      };
+      let insert=(key)=>{
+          let newNode =new NewNodeIn(key);
+          if (this.root===null){
+              this.root=new NewNodeIn(null)
+          }else {
+
+              nodeInsert(this.root,newNode)
+          }
+      }
+   }
+
+   let tree02=new BinaryTree();
+   inArr.forEach((value => {
+       tree02.insert(value)
+   }));
+   console.log("tree02中序遍历",tree02.rootNode)
+
+
+
+
+</script>
+</html>

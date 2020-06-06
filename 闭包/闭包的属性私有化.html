@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <script type="text/javascript">
+          function Deng(name,wife) {
+              var prepareWife ="xiaozhang";
+              //如果在对象中直接去定义一个变量是查询不到的，可以通过其中的方法直接去访问到
+              //这张形式叫做变量私有化
+              this.name=name;
+              this.wife=wife;
+              this.divorce =function () {
+                  this.wife = prepareWife;
+              };
+              this.changePrepareWife =function (target) {
+                prepareWife = target;
+              };
+              this.sayPraprewife=function () {
+                  console.log(prepareWife);
+              }
+          }
+          var deng= new Deng('deng','xiaoliu');
+      </script>
+</body>
+</html>

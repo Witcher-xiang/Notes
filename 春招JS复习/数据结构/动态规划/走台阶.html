@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*js代码中的上楼梯的动态规划
+    *
+    * 我理解的自底向上，是说从i=1 开始向上推
+    * */
+    function climbStairs(n) {
+        let a=2,temp=0,b=1; //a在b前面 a>b
+        if ( n === 1) return 1;
+        if (n === 2) return 2;
+        for (let i=3;i<=n;i++){
+            temp = a+b;
+            b =a ;
+            a= temp
+        }
+    }
+    /**/
+
+
+    /*习题：
+    * LetCode：120.Triangle
+    * 给定一个三角形的数字阵列，选择一条自顶向下的路径，使得沿途的所有数字之和最小
+    * */
+    /*普通递归 */
+    function recursionTriangle(triangle,n=0) {
+        if (triangle.length ===0) return n;
+        let arr = triangle.shift();
+        const small = Math.min(...arr);
+       return  recursionTriangle(triangle,small+n)
+    }
+    let test = [[2],[3,4],[6,5,7],[4,1,8,3]]
+    console.log(recursionTriangle(test))
+    /*试着动态规划一下*/
+
+
+    /*习题
+    * 64、Minimum Path Sum
+    * 给出m*n的矩阵，其中每一个格子包含一个非负整数。寻找一条从左上角到右下角的路径，
+    * 使得沿路的数字和最小。
+    *
+    * 每一步只能左移或者下移
+    * */
+</script>
+</html>

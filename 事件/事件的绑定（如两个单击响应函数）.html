@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn01">点击这里</button>
+</body>
+<script type="text/javascript">
+    /*
+    通过这个函数也可以为元素绑定单击响应函数
+    1.不需要加on
+    2.需要一个回调函数
+    3.是否在捕获阶段触发事件，需要一个布尔值，一般都传false
+    使用此方法的优点：一次可以绑定多个响应函数(按照绑定顺序执行)
+    */
+
+    // var btn01=document.getElementById("btn01");
+    // btn01.addEventListener("click",function () {
+    //     alert("1");
+    // },false);
+    // btn01.addEventListener("click",function () {
+    //     alert("2");
+    // },false) //一般方法
+
+    //IE8不兼容方法
+    btn01.attachEvent("onclick",function () {
+
+    })//用此函数即可
+</script>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>今晚投亚信！</title>
+</head>
+<body>
+
+</body>
+<script>
+    function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+}
+function insertNode(root,x) {
+        if (root ==null){
+            root = new TreeNode(x)
+        }
+        if (root.left == null){
+            root.left = new TreeNode(x)
+        }else {
+            if (root.right == null) root.right = new TreeNode(x)
+            else  insertNode(root.left)
+        }
+}
+    function Tree(x) {
+            this.root = new TreeNode(x)
+        this.insert= (x)=>{
+            if (this.root == null){
+                this.root = new TreeNode(x)
+            } else {
+                insertNode(this.root,x)
+            }
+        }
+    }
+
+    function PrintFromTopToBottom(root)
+    {
+
+        if(root === null){
+            return [];
+        }
+        let arr = [];
+
+        let queue = [root];
+        if(root !== null){
+            while (queue.length !== 0){
+                let node = root
+                arr.unshift(node.val)
+                if(node.left){
+                    queue.unshift(node.left)
+                }
+                if(root.right){
+                    queue.unshift(node.right)
+                }
+            }
+        }
+        return arr
+        // write code here
+    }
+    let a= new Tree(5)
+
+
+
+    /*二叉树的广度优先*/
+    /*二叉树的广度优先*/
+    function VerifySquenceOfBST(sequence) {
+        if (sequence.length === 0) {
+            return false
+        }
+        let point = sequence.splice(-1,1);
+        let firstValueLeft = "";
+        let indexLeft = "";
+
+        for (let i = 0; i < sequence.length; i++){
+        if (sequence[i] > point) {
+            firstValueLeft = sequence[i];
+            indexLeft = i;
+            break
+        }
+    }
+        let rightArr = sequence.slice(indexLeft);  //右边大
+        let leftArr = sequence.slice(0,indexLeft); //左边小
+        console.log(rightArr)
+        console.log(leftArr)
+        return judge(rightArr) && judge(leftArr)
+        // write code here
+        function judge(arr) {
+            for (let i=0;i<=arr.length;i=i+2){
+                if ( arr[i]>arr[i+1]) return false;
+                if (arr.length<=i) return true
+            }
+        }
+    }
+
+
+
+
+    function VerifySquenceOfBST(sequence) {
+        debugger
+        if(!sequence.length) {
+            return false;
+        }
+        return adjustSquence(sequence,0,sequence.length-1);
+    }
+    function adjustSquence(sequence,start,end) {
+        if(start >= end) {
+            return true;
+        }
+        let i = start;
+        while (i<end && sequence[i]<sequence[end]) { //试图找到右子树的第一项
+            i++
+        }
+        for (let j = i;j<end; j++){
+            if(sequence[j] < sequence[end]) { //主要在看右子树
+                //如果右边子树 小于了中间节点则返回false
+                return false;
+            }
+        }
+        /*这里是将两颗树分开进行再遍历 左子树与右子树*/
+        return adjustSquence(sequence,start,i-1) && adjustSquence(sequence,i,end-1)
+    }
+    console.log(VerifySquenceOfBST([4,8,6,12,16,14,10]))
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>算法题</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*常用算法题*/
+
+    /*splice 和slice都是从自身开始计算如 slice(2,4)则是截取 数组2 3 因为4-2=2
+    * splice 则是也会将他的自身删掉 比如splice(2,3) 则会删除2以后的3项
+    * */
+    /*1数组去重和排序的多种实现算法*/
+        /*(0) SET  展开运算符或者Array.from */
+        let arr = new Set([1,2,3,3,4]);
+        console.log(Array.from(arr))
+        /*（1）拿出当前项和后面的内容进行比较 但有可能出现数组塌陷问题
+         * ary.splice(i,1) splice因为是对原数组进行直接改变
+         * indexOf() 寻找数组中的某一项 或添加到新数组
+          * */
+        /*(2)搞一个空容器 拿出数组的每一项向形容器存储，若存储过把当前项干掉*/
+
+    /*2.数组扁平化*/
+
+    /*3.斐波那锲数列*/
+
+    /*4.字节跳动算法*/
+</script>
+</html>

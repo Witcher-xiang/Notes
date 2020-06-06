@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*二叉树子树搜索*/
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+    function HasSubtree(pRoot1, pRoot2)
+    {
+        if (pRoot2 == null || pRoot1 == null) {
+            return false;
+        }
+        if(pRoot1.val === pRoot2.val) {
+
+            return binaryTree(pRoot1, pRoot2)
+                || HasSubtree(pRoot1.left, pRoot2)
+                || HasSubtree(pRoot1.right, pRoot2)
+        }
+        // write code here
+    }
+
+    function binaryTree(tree01,tree02){
+        /*
+        如果Tree2为空，则说明第二棵树遍历完了，即匹配成功（不管tree1是否还有）
+        tree1为空有两种情况（1）如果tree1为空&&tree2不为空说明不匹配，
+        （2）如果tree1为空，tree2为空，说明匹配。
+        */
+        if(tree01==null && tree02!==null){
+            return false
+        }
+        if(tree02 == null  ){ /*这里只能添加一个tree02 为空
+                            说明tree02已经遍历完成，但tree01有可能还有 这样条件依然成立的
+                            */
+            return true;
+        }
+        if (tree01.val === tree02.val){
+            return  binaryTree(tree01.left,tree02.left) && binaryTree(tree01.right,tree02.right);
+        } else {
+            return false
+        }
+    }
+
+
+
+
+    /*二叉树镜像 这方法不太行唉！！！ 只能变量交换三板斧*/
+    function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+}
+
+    let arr = [];
+    function Mirror(root)
+    {
+        // write code here
+    }
+
+
+    /*树的插入最好整两个函数，第一个用来判断根节点 第二个直接向左右节点插入即可 会方便很多*/
+    function Tree(){
+        this.insert =(value)=>{
+            if(this.root == null){
+                this.root = new TreeNode(value)
+            }
+            else{
+                insertNewNode(value,this.root)
+            }
+        }
+    }
+
+    function inOrder(root){
+
+        if(root!== null){
+            inOrder(root.left)
+            arr.push(root.val)
+            inOrder(root.right)
+        }
+    }
+    let insertNewNode = (value,root)=>{
+        if (root.left == null){
+            root.left=new TreeNode(value)
+        } else {
+            if (root.right == null) root.right=new TreeNode(value);
+            else insertNewNode(value,root.left)
+        }
+    };
+    let tree = new Tree();
+
+    tree.insert("0");
+    tree.insert("1");
+    tree.insert("4");
+    tree.insert("7");
+    console.log(tree)
+    console.log(inOrder(tree.root)); //一个成功的中序遍历
+    console.log(arr)
+    console.log(arr.reverse())
+    console.log(arr)
+    let tree01 = new Tree();
+    arr.forEach((item,index)=>{
+        tree01.insert(item)
+    })
+    console.log(tree01)
+
+    /*分割线！！*/
+    function Mirror(root)
+    {
+        if(root == null){
+            return ;
+        }
+        let temp = null;
+        temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        if(root.left){
+            Mirror(root.left)
+        }
+        if(root.right){
+            Mirror(root.rigth)
+        }
+        // write code here
+    }
+
+
+
+</script>
+</html>

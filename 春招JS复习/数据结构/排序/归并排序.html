@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 之所以把归并排序、快速排序、希尔排序、堆排序放在一起比较，
+    * 是因为它们的平均时间复杂度都为 O(nlogn)。
+    * */
+    /*
+    * 归并排序，同快速排序类似
+    * 排序一个数组，先把数组从中间分成前后两部分，然后对前后两部分分别排序，再将排序好的
+    * 两部分和并在一起，这样整个数组就都有序了
+    *
+    * 时间复杂度：
+    * 假设数组长度为 n，那么拆分数组共需 logn 步, 又每步都是一个普通的合并子数组的过程，
+    * 时间复杂度为 O(n)，故其综合时间复杂度为 O(nlogn)。
+        最佳情况：T(n) = O(nlogn)。
+        最差情况：T(n) = O(nlogn)。
+        平均情况：T(n) = O(nlogn)。
+        总的来看这个归并应该是最稳定的
+    * */
+    function mergeSort(arr) {
+        let length = arr.length
+        if (length<2) return arr;
+        let middle = Math.floor(length/2);
+        let left = arr.slice(0,middle)
+        let right = arr.slice(middle)
+        return merge(mergeSort(left),mergeSort(right))
+        // 这里调用自己分成了许多许多的数组
+    }
+    //这里可能不光只有一个单一的数组，但是因为都排序好了 所以push进去的顺序也是好的
+    function merge(left,right) {
+        let result = [];
+        while (left.length && right.length){
+            if (left[0] <= right[0]){
+                result.push(left.shift())
+            }
+           else {
+               result.push(right.shift())
+            }
+        }
+        while (left.length) result.push(left.shift());
+        while (right.length) result.push(right.shift());
+        return result
+    }
+
+
+    function judge(num) {
+        let temp = Math.floor(num/2);
+       for (let i = 2;i<temp-1;i++){
+           if (num%i === 0){
+               return false
+           }
+       }
+       return true
+    }
+
+
+
+    function translate(num01,num02) {
+        let temp01 = parseInt(num01);
+        let temp02 = parseInt(num02);
+        return (temp01+temp02).toString(26)
+    }
+
+
+    function fn(n,...arr) {
+        let temp = null,count = 0;
+        let res = [];
+        arr.map((item,index)=>{
+
+            if (temp && count>=1){
+                if (temp+1 === item){
+                    count>=2?res.pop():"";
+                    res.push(`${arr[index-count]}-${item}`);
+                    count++;
+                    temp = item
+                }else {
+                    res.push(temp+"")
+                    temp = null;
+                    count = 0;
+                }
+            }
+            else{
+                temp = item;
+                count++
+            }
+        })
+        return res
+    }
+
+</script>
+</html>

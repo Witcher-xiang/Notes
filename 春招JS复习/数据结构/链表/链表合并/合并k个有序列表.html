@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script rel="prev"></script>
+<script>
+    /*
+    * 和并k个有序列表
+    * 输入:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+输出: 1->1->2->3->4->4->5->6
+    *
+    * */
+    /*首先我们需要定义一个两个合并的*/
+    var mergeTwoLists = function(l1, l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        let  pNode = p = new Node() //创建一个新的节点
+        let p1 = l1, p2 = l2;
+        while (p1 && p2){
+            if (p1.val>p2.val){
+                pNode.next = p2;
+                p2 = p2.next;
+                pNode = pNode.next;
+            }else {
+                pNode.next = p1;
+                p1.next    = p1;
+                pNode = pNode.next;
+            }
+            if (p1) pNode.next = p1;
+            else pNode.next = p2;
+            return p.next
+        }
+
+    }
+    var mergeKLists = function(lists) {
+        let headArr = [];
+        /*接下来我们定义一个头指针队列*/
+        lists.forEach(item=>{
+            let dummyHead = new ListNode();
+            dummyHead.next = item;
+            headArr.push(dummyHead)
+        })
+        /*这里的目的是将所有的 链表 前后两两进行 合并
+        * 也是进行
+        * */
+        for (let i = 1;i<lists.length;i+=i){
+            for (let j=0;j<lists.length-i;j += i*2){
+                // 第二层俩俩归并
+                headArr[j].next = mergeTwoLists(headArr[j].next,headArr[j+i].next)
+            }
+        }
+    }
+    let promise01 = new Promise((resolve,reject) => {
+        setTimeout(()=>{
+            resolve("我是promise01")
+        },1000)
+        }),
+        promise02 = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                reject("我是promise02")
+
+            },10000)
+        })
+    Promise.all([promise01,promise02])
+        .then(res=>{console.log("我是.then",res)})
+        .catch(err =>{console.log("我是.catch",err)})
+    event.preventDefault()
+</script>
+</html>

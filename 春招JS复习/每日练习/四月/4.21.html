@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1, .box2 {
+            position: relative;
+            z-index: 0; /*z-index设置为0 产生了各自层叠上下文*/
+        }
+        .child1 {
+            box-sizing: border-box;
+            width: 200px;
+            border-right: 100px salmon solid;
+            padding-right: 100px;
+            background: #168bf5;
+
+
+        }
+        .child2 {
+            width: 100px;
+            height: 200px;
+            background: #32c292;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="box1">
+    <div class="child1"></div>
+</div>
+
+
+</body>
+<script>
+   /*单例模式*/
+    class CreateUser{
+        constructor(name) {
+            this.name = name;
+            this.getName()
+        }
+        getName(){
+            console.log(this.name)
+        }
+    }
+    let proxyMode = (function () {
+            let instance = null;
+            console.log(instance)
+            return function (name) {
+                if (!instance){
+                    instance = new CreateUser(name)
+                }
+                return instance;
+            }
+    })()
+</script>
+</html>

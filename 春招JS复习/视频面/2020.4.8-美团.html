@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .a{
+            width: 100%;
+            height: 40%;
+            border: #2a987d solid 1px;
+            display: flex;
+            justify-content: center;
+
+        }
+        .b{
+
+            background: #000;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+        <div class="b">
+
+        </div>
+    </div>
+</body>
+<script>
+    /*
+    * 冲冲！功不唐捐，玉汝于成
+    * 虽然一面就挂了，难受同学
+    * */
+    /*
+    题目描述
+
+    给出一个序列包含n个正整数的序列A，你可以从中删除若干个数，使得剩下的数字中的最大值和最小值之差不超过x，请问最少删除多少个数字。
+
+输入
+
+    输入第一行仅包含两个正整数n和x，表示给出的序列的长度和给定的正整数。(1<=n<=1000,1<=x<=10000)
+
+    接下来一行有n个正整数，即这个序列，中间用空格隔开。(1<=a_i<=10000)
+
+    输出
+
+    输出仅包含一个整数，表示最少删除的数字的数量。
+
+题目限制
+
+    时间限制：C/C++语言 1000MS；其他语言 3000 MS
+    内存限制：C/C++语言 65536KB；其他语言 589824KB
+
+    样例输入
+
+    5 2
+    2 1 3 2 5
+    样例输出
+
+    1
+
+    1 2 2 3 5
+
+    1 8 8 8 9
+    */
+    /*
+    * 在写一遍
+    * */
+    /*老写法
+    * 问题在哪里：每次取得最大值都得排序
+    * */
+    function fn(x,arr) {
+        let count =0;
+        while (1){
+            /*
+            * 这里相当于做了两次排序
+            * */
+            let max = Math.max(...arr);
+            let min = Math.min(...arr);
+            if (max-min<=x){
+                return count++
+            }else {
+                let index= arr.indexOf(max);
+                arr.splice(index,1);
+                count++
+            }
+        }
+        return count
+    }
+    /*
+    * 新写法
+    * */
+    function newFn(x,arr){
+        let count =0;
+        /*开局就做一个排序，取得最大值和最小值*/
+        arr.sort((a,b)=>a-b);
+        while (1){
+            let max =arr[arr.length-1],
+                min = arr[0];
+            if (max-min<=x){
+                return count
+            }
+            /*这种情况下可以出现从后取值和从前取值两种情况，两种都有比较极端的情况
+          * 因此我们需要做一个差值来决定从哪一头来取值
+          * */
+            /*看和下一项那边差距大，我们优先删除掉差距大的那一项*/
+            let subtractMax = arr[length-1] - arr[length-2];
+            let subtractMin = arr[1] - arr[0];
+           subtractMax>=subtractMin?arr.pop():arr.shift();
+           count++
+        }
+       return  count
+    }
+    console.log(newFn(2,[1,8,8,8,9]))
+
+    /*
+    * 怎么样判断一个变量是不是Number类型
+    * */
+    let a =1
+    console.log(typeof a)
+    console.log(a instanceof Number)
+    console.log(Object.prototype.toString.call(a))
+    console.log(Number.constructor === a)
+    /*
+    * 判断Arr类型
+    * */
+    console.log("——————————分割线——————");
+    let b = []
+    console.log(b instanceof Array)
+    console.log(Object.prototype.toString.call(b))
+    console.log(Array.isArray(b))
+    console.log( [].constructor === Array)
+</script>
+</html>

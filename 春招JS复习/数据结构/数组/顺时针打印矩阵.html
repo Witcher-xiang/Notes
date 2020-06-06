@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function printMatrix(matrix)
+    {
+        if(!matrix[0]) return [];
+        let up = 0, right = matrix.length - 1,down = matrix[0].length-1,left = 0,list = [] ;
+        while(1){
+
+            for(let colum = left;colum<=right;colum++){
+                list.push(matrix[up][colum])
+            }
+            up++;
+            if(up>down){break}
+
+            for(let row = up;row<=down;row++){
+                list.push(matrix[row][right]);
+            }
+            right--;
+            if(left>right) break;
+
+            for(let colum = right;colum>=left;colum--){
+                list.push(matrix[down][colum])
+            }
+            down--;
+            if(down<up) break;
+
+            for(let row = down;row>=up;row--){
+                list.push(matrix[row][left])
+            }
+            left++;
+            if(left>right) break;
+        }
+        return list;
+        // write code here
+    }
+    let arr = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+    //console.log(printMatrix(arr))
+
+    var name = 'outer'
+    function showName() {
+        console.log(name)
+        var name = 'inner'
+    }
+    name = 'updatedOuter'
+    showName()
+
+    //  let num=read_line();
+    //  let data=read_line().split(' ').map(Number);
+    //  print(fn(num,data))
+
+    function fn(num,...data) {
+        var a = null
+        var b = null
+        var index = 0
+        var arr = []
+        var newarr = null
+
+        //寻找第一组非升序
+        for(var i = 1 ; i < data.length ; i++){
+            if (data[i] < data[i-1]){
+                if (index == 0){
+                    a = i-1
+                    //把第一个非升序数放入到arr数组中
+                    arr.push(data[a])
+                }
+                index +=1
+                b = i
+                //将后面的非升序数一次放入到arr中
+                arr.push(data[b])
+            }
+        }
+
+        //字符反转加去重拼接原数组
+        newarr=[...new Set(arr.reverse().concat(data))]
+        //进行循环判断是否满足升序
+        for (var j = 1 ; j < newarr.length ; j ++){
+            if (newarr[j] < newarr[j-1]){
+                return 'no'
+            }
+        }
+        return 'yes'
+
+    }
+</script>
+</html>

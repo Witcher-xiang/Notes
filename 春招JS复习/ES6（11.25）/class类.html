@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    class Person{//定义了一个名字为Person的类
+        constructor(name,age){//constructor是一个构造方法，用来接收参数
+            this.name = name;//this代表的是实例对象
+            this.age=age;
+        }
+        say(){//这是一个类的方法，注意千万不要加上function
+            return "我的名字叫" + this.name+"今年"+this.age+"岁了";
+        }
+    }
+    var obj=new Person("laotie",88);
+    console.log(obj.say());//我的名字叫laotie今年88岁了
+
+    function Person01(name,age) {
+       this.name= name;
+       this.age = age;
+         this.say= function (){//这样写不行，必须通过prototyoe写入，才算构造了js中的类 可以试着打印看看
+            return "我的名字叫" + this.name+"今年"+this.age+"岁了";
+        }
+    }
+    Person01.prototype.eat = function () {}
+    let Anna = new Person01("wyk","18")
+    let Betta = new Person01("wykissb","18")
+    console.log(Anna.say());
+    console.log(Betta)
+    console.log(obj)
+
+    class person01 extends Person{
+        constructor(x,y){
+            super("我的名字是","年龄牛逼");
+            console.log(x,y)
+        }
+    }
+    let per01 = new person01(1,"好的")
+    console.log(per01)
+    let pers =new Person01("你好","年龄")
+    console.log(pers)
+
+
+
+
+        /*ES5的老版本继承 */
+        function User(name,pass) {
+            this.name=name;
+            this.pass=pass;
+        }
+    User.prototype.showName = function () {
+        alert(this.name)
+    };
+    User.prototype.showPass = function () {
+        alert(this.pass)
+    };
+    function Vip(name,pass,level) {
+        User.call(this,name,pass); //这里就和super里传参数是一样的
+        this.level=level
+    }
+    Vip.prototype=new User()
+    Vip.prototype.constructor=Vip
+    vip01=new Vip("Lasia","111","2")
+    vip02=new Vip("xiang","66","1")
+    vip01.showName()
+
+
+    /*class继承的写法*/
+    class VipUser extends User{
+        constructor(name,pass,level){
+            super(name,pass);//这里相当于ES5的call的写法
+            this.level = level
+        }
+    }
+    console.log(vip02);
+    console.log(new VipUser("xiang","66","1"))
+    /*二者打印的值相同*/
+</script>
+
+</html>

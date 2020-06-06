@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //原理：创建一个新的构造函数将原型继承给新构造函数，再将F的对象给Son的原型完成继承
+    //此后Son新创建的属性只能继承给F
+    //此种方法称之为圣杯模式
+    //简而言之：为了son继承father原型上的东西，还可以修改自己原型上的东西，对father原型不影响。
+    // Father().prototype
+    //            function F() {}
+    //            F.protoype = Father.prototype
+    //            Son.prototype=new F();
+    // Father                     Son
+    Father.prototype.lastname="affa";
+    function inherit(Target,Origin) {
+        function F() {}
+        F.prototype=Origin.prototype;
+        Target.prototype=new F();
+        Target.prototype.constructor=Target;//将constructor归位
+        Target.prototype.uber = Origin.prototype;//我们可以 通过这个查询我们继承了谁
+    }//这个完整的方法叫做圣杯模式 完整的实现了A继承B
+    function Father() {
+        Father.prototype.sex="male";
+        this.marry="unmarry";
+        var money="no";
+    }
+    function Son() {
+
+    }
+    inherit(Son,Father);
+    var son=new Son();
+    var father=new Father(); //但是会有一个问题Father内部的东西无法被继承，father的原型直接被继承
+
+</script>
+</body>
+</html>

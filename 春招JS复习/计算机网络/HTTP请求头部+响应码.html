@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*当在网页中输入url地址会发生什么
+    * 1.解析url地址，去dns服务器找寻当前域名的ip地址
+    *（1）浏览器会存储dns缓存
+    * （2）浏览器找不到找系统
+    * （3）系统找不到找路由器
+    * （4）实在没有去dns服务器找
+    * 2.当找到ip地址后 服务器有可能重定向
+    * 3.若服务器重定向，则浏览器跟踪重定向地址
+    *   现在，浏览器知道了要访问的正确地址，所以它会发送另一个获取请求。请求头部一般包括：
+   Accept
+   Accept-language
+   Accept-Encoding
+   Connection
+   User-Agent
+   Cookie
+   Host
+   4.服务器处理请求，并返回一个html响应
+   返回的具体格式
+
+       HTTP/1.1 200 OK
+    Date: Mon, 31 Aug 2015 03:06:34 GMT
+    Server: Apache
+    Cache-Control: max-age=86400
+    Expires: Tue, 01 Sep 2015 03:06:34 GMT
+    Last-Modified: Tue, 12 Jan 2010 13:48:00 GMT
+    ETag: "51-4b4c7d90"
+    Accept-Ranges: bytes
+    Content-Length: 81
+    Connection: Keep-Alive
+    Content-Type: text/html
+
+    <html>
+        .... 此处省略N多行
+    </html>
+
+   5. 浏览器开始显示HTML，浏览器发送请求 以此来获取嵌入在html中的对象
+   6、浏览器发送ajax，开始获取数据
+    * */
+
+    /*建立TCP链接的三次握手过程
+    *
+    * */
+</script>
+</html>

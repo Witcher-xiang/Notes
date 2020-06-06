@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，
+    * 每一列都按照从上到下递增的顺序排序。
+    * 请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+    * */
+    var arr = [[1,2,3],[4,5,6],[7,8,9]]
+    var arr1=[[1,2,8,9],[2,4,9,12],[4,7,10,13],[6,8,11,15]]
+    console.log("arr.length:",arr.length)
+    console.log("arr[0].length",arr[0].length)
+    function Find(target, array)
+    {
+        var sign=false;
+        array.map((value,index)=>{
+            array[index].map((item,index01)=>{
+                if (item===target) {
+                    sign=true
+                }
+            })
+        });
+        // write code here
+        return sign
+    }
+    console.log(Find(13,arr1))
+</script>
+</html>

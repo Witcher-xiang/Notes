@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>你好啊啊</p>
+</body>
+<script>
+    /*过了1秒 他才会返回
+    * async会返回一个promise 函数中的返回值即是resolve传递的值
+    * async中的await 后接返回promise的一个函数 在他执行后才会返回
+    * */
+    function timeout(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+            console.log("我在timeout函数中")
+        });
+    }
+
+    async function asyncPrint(value, ms) {
+        await timeout(ms);
+        console.log(value);
+    }
+
+    this.asyncPrint('hello world', 2000);
+
+    /*async和await generator函数的语法糖
+    * async内置执行器
+    * await 会把下面的代码变成微任务；是异步的
+    * */
+    function f(time){
+        //如果只是普通返回，则此函数立即执行 若为promise则当此函数异步执行完毕时执行
+        return new Promise((resolve,reject )=>{
+            setTimeout(()=>{
+                resolve("这里是resolve的值") //这里只能是resolve若为reject则会报错下面的微任务不在执行
+            },time)
+
+        })
+    }
+    async function fn() {
+        await f(1000);
+        console.log("我是await后面的东西");
+        /*
+        * await下面的代码受f返回的promise实例的影响；
+        * 如果f函数执行中有异步，那么await下面的代码会等到函数中异步执行完毕，才会执行这个微任务
+        * 如果promise返回的是reject则就不会不会执行下面的微任务
+        * */
+        return "证明async返回的是promise"
+    }
+    fn().then(res=>{
+        console.log(res)
+    })
+</script>
+</html>

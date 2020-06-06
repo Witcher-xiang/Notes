@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*观察者模式
+    *
+    * 观察者模式指的是一个对象，维持一系列依赖于他的对象，当有关状态发生变更时
+    * Subject对象则通知一系列Observer对象进行更新
+    * */
+    function Subject() {
+        this.observers = [];
+    }
+    Subject.prototype = {
+        add:function (observer) {
+            this.observers.push(observer)
+        },
+        remove:function (observer) {
+            let observers = this.observers;
+            for(let  i = 0;i < observers.length;i++){
+                if(observers[i] === observer){
+                    observers.splice(i,1);
+                }
+            }
+        },
+        notify:function () {
+            let observers = this.observers;
+            observers.forEach(item =>{
+                item.update()
+            })
+        }
+    }
+    function Observe(name) {
+        this.name = name;
+    }
+    Observe.prototype={
+        update:function () {
+            console.log("my Name is :"+this.name)
+        }
+    }
+    let sub = new Subject();
+    let obs01 = new Observe("王宇翔")
+    let obs02 = new Observe("李梦婷");
+    sub.add(obs01)
+    sub.add(obs02)
+    sub.notify()
+</script>
+</html>

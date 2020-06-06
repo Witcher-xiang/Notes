@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 二分法查找(有序数组查找)
+    * 找到中间项目 查看中间项大于或小于 然后去一半的那边再去中间项再查找
+    * */
+    let arr= [0,1,2,3,4,5,6,7,8];
+    arr.slice(2,0);
+    console.log(arr.slice(2));
+    console.log(arr.slice(0,2));
+    function bin(arr,key) {
+        let middleIndex = Math.floor(arr.length/2);
+        let tempArray = [];
+        if (key === arr[middleIndex]) return middleIndex;
+        if (key>arr[middleIndex]) {
+            tempArray = arr.slice(middleIndex)
+            bin(tempArray)
+        }else {
+            tempArray = arr.slice(0,middleIndex)
+            bin(tempArray)
+        }
+    }
+
+    document.cookie='myname=laihuamin;path=/;domain=.baidu.com';
+    console.log(document.cookie)
+   document.cookie='myname=huaminlai;path=/;domain=.localhost';
+
+    function binary(value,ary) {
+        let min = 0;
+        let max = ary.length;
+        let mid;
+        while (min <= max){
+            mid =min + (max - min)/2;
+            mid = Math.floor(mid)
+            if (value === ary[mid]){
+               return mid
+            }
+            else if (arr[mid]<value){
+                min = mid+1; //因为是闭区间 所以这里记得加个1
+            } else if (arr[mid]>value) {
+                max = mid
+            }
+        }
+        return -1
+    }
+
+    function firstMostWord(article) {
+        let wordList = article.match(/[a-z]+/g)
+        console.log(wordList)
+    }
+    let str = "my name is wyx"
+    firstMostWord(str)
+    console.log("____________分割线")
+    function TreeNode(x) {
+        this.val = x;
+        this.left = null;
+        this.right = null;
+    }
+   function treeInsert(node,val){
+        if (node===null){
+            node = new TreeNode(val)
+        }
+       if (node.left === null){
+           node.left = new TreeNode(val)
+       }
+       if (node.right === null){
+           node.right = new TreeNode(val)
+       }else {
+           treeInsert(node.left,val)
+       }
+   }
+    function Tree() {
+        this.root=null
+        this.insert= function (val) {
+            if (this.root == null) this.root = new TreeNode(val)
+            else treeInsert(this.root,val)
+        }
+    }
+
+  let tree = new Tree()
+    tree.insert("3")
+    tree.insert("32")
+    tree.insert("12")
+    tree.insert("890")
+    tree.insert("213")
+
+    console.log(tree)
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+ let fn =res01=>res02=>{
+     console.log("我是测试函数",res01)
+     console.log("我是测试函数",res02)
+ }
+ console.log(fn("\"我是呵呵1号")("我是呵呵2号"))
+    function judge(arr) {
+        let tempArr = JSON.parse(JSON.stringify(arr)),state =false
+        tempArr.forEach(value01=>{
+            tempArr.forEach((value,index)=>{
+                let sum = value01+value;
+                tempArr.forEach(value02=>{
+                    if (sum === value02) state = true
+                })
+            })
+        })
+        return state
+    }
+    console.log(judge([1,3,9]))
+
+</script>
+</html>

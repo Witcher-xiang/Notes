@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let str01 ="abcbc";
+    let str02 = "a(bc)*c";
+    function Match( s ,  p ) {
+        let str =""
+        let check = (val)=>{
+            if (val == ".") return "[A,z]{1}"
+            if (val == "*") return "{0,}";
+            if (val == "(") return "("
+            if (val == ")") return ")"
+            else return val
+        };
+        for (let i of str){
+            str=str+check(i)
+        }
+        let reg =new RegExp(p)
+        return reg.test(s)
+        // write code here
+    }
+   // console.log(Match())
+    let arr = [21,21,3,56,2134,6751,1]
+    arr.sort((a,b)=>a-b)
+    console.log(arr)
+</script>
+</html>

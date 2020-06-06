@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let flatten = (arr)=>{
+        let tempArr = [];
+        arr.forEach(item=>{
+            Array.isArray(item) ? tempArr = tempArr.concat(flatten(item)) : tempArr.push(item);
+        })
+        return tempArr
+    }
+    var arr = [1, [2, [3, 4]]];
+    console.log(flatten(arr))
+
+    /*第二种方法*/
+    let flatten01 = (arr)=>{
+        let tempArr = [];
+        let fn = (arr,target)=>{
+            arr.forEach(item=>{
+                Array.isArray(item)? fn(item,target):target.push(item)
+            })
+            return tempArr
+        }
+        return fn(arr,tempArr)
+    }
+    console.log(flatten01(arr))
+</script>
+</html>

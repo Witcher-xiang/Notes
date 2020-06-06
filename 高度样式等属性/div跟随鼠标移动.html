@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #box1{
+            width: 100px;
+            height: 100px;
+            background: #000;
+
+            position: absolute;
+            /* 当要改变位置时一定要开启定位（绝对相对固定定位都可以）*/
+        }
+    </style>
+</head>
+<body style="height: 500px">
+<div id="box1"></div>
+<div id="box2" style="height: 300px; width: 300px; background:greenyellow;"></div>
+</body>
+<script type="text/javascript">
+    var box1=document.getElementById("box1");
+    //这里我们不能使用box1
+    document.onmousemove=function (event) {
+        var left=event.pageX;
+        var top=event.pageY;
+        //client 客户端的意思
+        // clientX用于获取鼠标在当前窗口的坐标，如果用在这里面出现滚动条时就会有一个间隙
+        //解决方法：改为整个网页的坐标 pageX
+        box1.style.left=left + "px";//这里不能直接加数值，因为没有单位，要加上单位
+        box1.style.top=top + "px";
+
+        //var st=document.documentElement.scrollTop;用在火狐和IE中的
+       // var st=document.body.scrollTop;用在chrome中的
+        //解决方法：
+        var st=document.documentElement.scrollTop||document.body.scrollTop;
+        console.log(st);
+        //chrome认为浏览器的滚动条是body 的
+        //火狐则认为浏览器的滚动条是html的其中html用documentElement来表示
+        var box2=document.getElementById("box2");
+        box2.onmousemove=function (event) {
+            event=event||window.event;  //兼容性问题
+            event.cancelBubble=true;//取消事件冒泡
+            /*
+            为什么会出现阻挡问题
+            存在事件冒泡：若子元素与祖先元素有着相同的事件，则会在触发子元素之后去触发祖先元素
+            如这里先触发了box2.onmousemove之后触发了祖先元素
+            若这里不设置相同事件 块状元素也能移入：因为块状元素能移入说明产生了事件冒泡
+            只要将子元素的事件冒泡关闭就可以组织移入
+
+             */
+        }
+    }
+</script>
+</html>

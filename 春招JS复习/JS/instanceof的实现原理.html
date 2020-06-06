@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 原理：判断x对象是否为y的一个实例，会再原型链上一直找，找到则返回true
+    *
+    * 将
+    * */
+    /*
+    * 相当于 x instanceof y
+    * */
+    function instance(x,y) {
+        while (x.__proto__){
+            if (x.__proto__ === y.prototype){
+                return true
+            }
+            x.__proto__ = x.__proto__.__proto__
+        }
+        if (x.__proto__ == null) return false
+
+    }
+</script>
+</html>

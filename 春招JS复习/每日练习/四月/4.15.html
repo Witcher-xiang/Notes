@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var updateMatrix = function(matrix) {
+        let ans = JSON.parse(JSON.stringify(matrix));
+        for(let i =0 ;i<matrix.length;i++){
+            for(let j =0 ;j<matrix[i].length;j++){
+                if (matrix[i][j] === 0) continue;
+                ans[i][j] = myBfs([[i,j,0]]);
+            }
+        }
+        function myBfs(arr) {
+            let queue = arr, step = 0;
+            while (queue.length){
+                let temp = queue.shift();
+                step = temp[2]
+                ary = [[1,0],[0,1],[-1,0],[0,-1]];
+                for (let i=0;i<ary.length;i++){
+                    let row = temp[0] + ary[i][0],
+                        column = temp[1] + ary[i][1];
+                    if (row<0 || column<0 || row>=matrix.length || column >=matrix[0].length)
+                        continue
+                    if (matrix[row][column] === 0){
+                        step =step +1;
+                        queue = []; //记得清空队列
+                        break;
+                    }
+                    queue.push([row,column,step+1])
+                }
+            }
+            return step;
+        }
+        return ans;
+    };
+    console.log(updateMatrix([[0,0,0],[0,1,0],[0,0,0]]))
+    console.log(eval("111+222-100"))
+</script>
+</html>

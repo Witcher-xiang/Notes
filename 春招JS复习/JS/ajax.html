@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function ajax() {
+        return new Promise((resolve, reject) => {
+            let xmlHttp;
+            xmlHttp =new XMLHttpRequest();//这也可以考虑一下兼容性的问题加个if判断
+            xmlHttp.onreadystatechange=function() //每当 readyState 属性改变时，就会调用该函数。
+                /*
+                * 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+
+                 0: 请求未初始化      还没有调用open方法
+                 1: 服务器连接已建立   open方法已被调用，但send未被调用
+                 2: 请求已接收        send 已被调用。请求已经开始
+                 3: 请求处理中            正在与服务器交互中。服务器正在解析响应内容
+                 4: 请求已完成，且响应已就绪     响应发送完毕
+                * */
+            {
+                if (xmlHttp.readyState===4 && xmlHttp.status===200)
+                {
+                    resolve(xmlHttp.responseText)
+                }
+            }
+            xmlHttp.opnen("GET","JWT.html",true);//最后一个参数为是否异步
+            xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlHttp.send();
+        })
+
+    }
+</script>
+</body>
+</html>

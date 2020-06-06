@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .out{
+            width: 500px;
+            height: 500px;
+            background: grey;
+            position: relative;
+        }
+        .in{
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: absolute;
+            background: #3399CC;
+            width: 100px;
+            height: 100px;
+            margin: auto 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="out">
+        <div class="in"></div>
+        <select name="a" onclick="Oonclick(this)" size="1" id=”obj”>
+            <option value="a">1</option>
+            <option value="b">2</option>
+            <option value="c">3</option>
+            </select>
+    </div>
+</body>
+<script>
+let str = "-webkit-background-image"
+
+fun(str)
+function fun(str){
+    let  newStr = str.split("-").slice(1);
+    console.log(newStr);
+    newStr.forEach((item,index)=>{
+        console.log(item[0].toUpperCase())
+        newStr[index]=item[0].toUpperCase()+item.slice(1)
+    })
+    console.log(newStr)
+    console.log(newStr.join(""));
+
+    return newStr
+}
+
+/*一个简单的事件机制
+* function EventEmit() {
+    var obj = {}
+    var eventNames = []
+    var pid = 0
+
+    function on(eventName, callback) {
+        if (eventName in obj) {
+            obj[eventName].callbacks.push(callback)  }
+        else {
+            obj[eventName]= {
+                pid: pid++,
+                callbacks: []
+            }
+            obj[eventName].callbacks.push(callback)
+            eventNames.push(eventName)
+        }
+    }
+
+    function trigger(eventName) {
+        for( var i in obj) {
+            if(i == eventName) {
+                obj[eventName].callbacks.map(function (callback) {
+                    callback()
+                })
+            }
+        }
+
+    }
+    return {
+        on: on,
+        trigger: trigger
+   }
+}
+* */
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*数组去重 ES6写法*/
+    function arrToHeavy(arr) {
+        let ary = [];
+        let obj = new  Map()
+        arr.forEach(item=>{
+            if (!obj.has(item)){
+                obj.set(item,item)
+                ary.push(item)
+            }
+        })
+        return ary
+    }
+    /* ES5写法 */
+</script>
+</html>

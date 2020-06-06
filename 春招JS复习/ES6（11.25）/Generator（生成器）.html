@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>几乎没怎么用过的Generator（生成器） </title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+/*
+* 主要特征
+* 1.function关键字与函数名之间有一个*
+* 2.函数体内部使用yield表达式，定义不同的状态（yield在英语里的意思即为产出）
+* 3.与普通函数不同，只有当.next的时候才会去执行
+* */
+
+
+function* dataConsumer() {
+    console.log('Started');
+
+    console.log(`1. ${yield}`);
+    console.log(`3. ${yield}`);
+    console.log(`2.1`);
+    return 'result';
+}
+
+/*
+* yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，
+* 该参数就会被当作上一个yield表达式的返回值。
+* */
+
+let genObj = dataConsumer();
+genObj.next();
+genObj.next();
+genObj.next();
+// Started 记住是上一个表达式的返回值
+
+// 2. b
+    /*for...of 循环可以自动遍历 Generator 函数，且此时不再需要调用 next 方法。*/
+function *foo() {
+
+    yield 1;
+    yield 2;
+    yield 3;
+    console.log("执行")
+    yield 4;
+    yield 5;
+    return 6;
+}
+for (let v of foo()) {
+    console.log(v);
+}
+// 1 2 3 4 5
+
+/*
+* 可以使用Generator 函数来生成斐波拉切数列
+* */
+function* fibonacci() {
+    let [prev, curr] = [0, 1];
+    for (;;) {
+        [prev, curr] = [curr, prev + curr];
+        yield curr;
+    }
+}
+
+for (let n of fibonacci()) {
+    if (n > 1000) break;
+    console.log(n);
+}
+
+var gen = function* gen(){
+    yield console.log('hello');
+    yield console.log('world');
+    yield console.log('你好世界');
+}
+
+var g = gen();
+g.next();
+
+try {
+    throw new Error();
+} catch (e) {
+    g.next();
+    g.next()
+}
+
+/**/
+</script>
+</html>

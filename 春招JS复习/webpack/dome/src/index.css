@@ -1,0 +1,9 @@
+@import "a.css";
+body{
+    background: #989684;
+}
+p{
+    color: #ff9900;
+    transform: translate(10%,10%);
+    animation: linear;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function swap(arr, indexA, indexB) {
+        [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
+    }
+    function quickSort4(arr, left = 0, right = arr.length - 1) {
+        if (left < right) {
+            // const pivot = left + Math.ceil((right - left) * 0.5);
+            const pivot = Math.floor((right + left) / 2);
+            const newPivot = partition(arr, pivot, left, right);
+
+            quickSort4(arr, left, newPivot - 1);
+            quickSort4(arr, newPivot + 1, right);
+        }
+
+        return arr;
+    }
+
+    function partition(arr, pivot, left, right) {
+       console.log("pivot",pivot);
+        console.log("left",left);
+        console.log("_________")
+        const pivotValue = arr[pivot];
+        let newPivot = left;
+
+        swap(arr, pivot, right); //中间项和最大数做了交换
+
+        for (let i = left; i < right; i++) { //从第left项开始 到最后一项
+            if (arr[i] < pivotValue) { //如果当前项小于中间项
+                console.log("1",arr,i)
+                swap(arr, i, newPivot); //则当前被交换到最左边
+                console.log("2",arr,i)
+                newPivot += 1;
+            }
+        }
+
+        swap(arr, right, newPivot);
+
+        return newPivot;
+    }
+
+    const arr = [1,2,4,3,5];
+    const dataArr = [3,5,8,1,2,9,4,7,6];
+    function quickSort(arr,L,R) {
+        if (L >=R){
+            return false
+        }
+
+        let obj = partition(arr, L, R);
+        // 递归执行: 将没有大于p,和小于p区间的元素在进行三路快排
+        threeWayFastRow(arr,L,obj.lt);
+        threeWayFastRow(arr,obj.gt,R);
+
+    }
+    //L是指lt 即相等区域左边第一个的下标
+    const threeWayFastRow = function (arr,L,R) {
+        let p = arr[L];
+        let lt = L;
+        let gt = R +1 ;
+        for (let i = L+1;i<gt;){
+            if(arr[i] === p){
+                // 当前i指向的元素等于p
+                i++;
+            }else if(arr[i]>p){
+                [arr[i],arr[gt-1]] = [arr[gt-1],arr[i]];
+                gt--
+            }else {
+                [arr[i],arr[lt+1]] = [arr[lt+1],arr[i]];
+                lt++;
+                i++;
+            }
+            [arr[L],arr[lt]] = [arr[lt],arr[L]];
+            lt--;
+            return {lt:lt,gt:gt}
+        }
+    }
+
+
+</script>
+</html>

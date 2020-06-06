@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*今日算法*/
+    /*
+    * 1.重建二叉树并返回
+    *
+    * 思路：（1）先根据前序找到根节点
+    *       （2）确定左右子树的根节点
+    * */
+    function Node(x){
+        this.val = x;
+        this.left = "";
+        this.right  = ""
+    }
+
+    let preArr = [1,2,4,7,3,5,6,8];
+    let vinArr = [4,7,2,1,5,3,8,6];
+    function reConstructBinaryTree(pre, vin)
+    {
+
+        if (pre.length === 0 || vin.length === 0 )
+            return null;
+        let rootValue = pre[0];
+        let rootIndex =vin.indexOf(rootValue);
+        let leftTree = vin.slice(0,rootIndex);
+        let rightTree = vin.slice(rootIndex+1);
+        return {
+            val:rootValue,
+            left:reConstructBinaryTree(pre.slice(1,rootIndex+1),leftTree),
+            right:reConstructBinaryTree(pre.slice(rootIndex+1),rightTree)
+        }
+
+    }
+    let tree =reConstructBinaryTree(preArr,vinArr)
+    let arr= []
+    /*做个后续遍历*/
+    function behind(Node) {
+        if (Node!==null){
+            behind(Node.left);
+            behind(Node.right);
+            arr.push(Node.val)
+        }
+        const callback =(value)=>{
+            return value
+        }
+    }
+    console.log(behind(tree))
+    console.log(arr)
+
+
+    let str ="nahs ds"
+    console.log(str.indexOf(" "))
+    /*
+    * 简单实现一个浅拷贝
+    * 思路：一个简单的for in遍历即可
+    * */
+    let obj01 = {
+        a:"a2",
+        b:"555",
+        c:{s:"heihei"}
+    }
+    function clone(target) {
+        let obj = {};
+        for (let key in target){
+            obj[key] = target[key]
+        }
+        return obj
+    }
+    console.log(clone(obj01))
+    /*
+    * 一个简单深拷贝 只考虑数组
+    * 判断是基本类型直接递归返回，判断是对象新建一个对象遍历赋值
+    * 自己写的非递归版本
+    * 需要解决循环应用的问题 即自己引用自己而导致的循环引用
+    *解决思路：我们需要去存储空间去找。有没有拷贝过这个对象，如果有的话直接返回，没有的话继续拷贝
+    * */
+    function deepCloneSimple(target) {
+        let object ={};
+        for (const key in target){
+            if (typeof target[key] === "object"){
+                Array.isArray(target[key]) ? object[key] =
+                        new Array(...target[key]): object[key] = new Object(target[key])
+            }
+            else {
+                object[key] = target[key]
+            }
+        }
+        return object
+    }
+
+    /*
+    * 考虑基础深拷贝的递归写法
+    * 有点问题
+    * */
+    function deepCloneSimple01(target, map = new Map()) {
+        if (typeof target === 'object') {
+            let cloneTarget = Array.isArray(target) ? [] : {};
+            if (map.get(target)) {
+                return map.get(target);
+            }
+            map.set(target, cloneTarget);
+            for (const key in target) {
+                cloneTarget[key] = clone(target[key], map);
+            }
+            return cloneTarget;
+        } else {
+            return target;
+        }
+    };
+
+
+    const target = {
+        field1: 1,
+        field2: undefined,
+        field3: {
+            child: 'child'
+        },
+        field4: [2, 4, 8]
+    };
+    target.target = target;
+
+
+    let copy =deepCloneSimple01(target)
+    console.log(copy)
+
+
+</script>
+</html>

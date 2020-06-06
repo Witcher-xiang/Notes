@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        #box1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top: 30px;
+        }
+    </style>
+</head>
+<body>
+<button id="btn01">点击方块开始移动</button>
+<div id="box1"></div>
+</body>
+<script type="text/javascript">
+    var box1=document.getElementById("box1");
+    var btn01=document.getElementById("btn01");
+    var timer;//将
+
+    function getStyle(obj,name){
+        return getComputedStyle(obj, null)[name];
+    }  //获取元素属性的一种灵活函数，其中IE8还有区别
+
+    btn01.onclick=function () {
+        clearInterval(timer);
+         timer=setInterval(function () {
+             var oldPosition=parseInt(getStyle(box1,"left"));//记得这里➕引号
+             //parseInt()的作用目的是将字符串中的合法字符取出来
+             //有px的数字是无法计算的
+             var newPosition=oldPosition+19;
+             if (newPosition>800)
+             {newPosition=800;}
+             box1.style.left=newPosition+"px";
+             if (newPosition===800)
+             clearInterval(timer);
+         },10)
+    }
+</script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    let obj=new  function () {
+
+    }
+    console.log(obj)
+
+    function Person() {
+
+    }
+    let person = new Person();
+    person.name = 'Kevin';
+    console.log(person.name) // Kevi
+    Person.prototype.name="你好啊！"
+    let person01 = new Person()
+    console.log("person01",person01)
+    console.log("原型链",person01.__proto__.constructor===Person)
+    console.log("原型链",Person.prototype.__proto__===Object.prototype)
+    console.log("我打印了这个person01的对象",person01);
+    /*关于__proto__与prototype
+    * __proto__是每一个实例对象new出来的，他指向的是这个对象的原型如例1：
+    *每个原型都有一个 constructor 属性指向关联的构造函数 实例原型指向构造函数，你可以理解为constructor就是他本身
+    * 详见例2
+    * */
+    /*例1*/
+    console.log(person01.__proto__ === Person.prototype); // true
+    /*例2*/
+    function Person() {
+
+    }
+    console.log(Person === Person.prototype.constructor); // true
+
+    /*面试题*/
+    console.log("````````````````")
+    function A (name) {
+        this.name = name || 'Tom'
+    }
+
+    // 子类
+    function B () {
+    }
+    console.log("原A",A.prototype)
+    console.log("原B",B.prototype)
+
+
+    // 原型继承
+    B.prototype = new A();//相当于将B的prototype变成了a的实例
+    /*这里你还可以理解为let b = new A()
+    * B.__proto__ 变成了-> A
+    * */
+
+
+    //B.prototype =  A 若直接写A则B的原型就变成了一个函数（还是未被执行的函数）
+    /*
+    *  打印对比会发现 B.__proto__变成了A的构造函数，即
+    * */
+    let b = new A();
+    console.log("继承后A",A.prototype)
+    console.log("继承后B",B.prototype)
+    console.log("创建的A的实例小b",b)
+
+    let Btest = new B();
+    console.log(Btest)
+    console.log(Btest.name)
+
+    // /*此外new做了什么*/
+    // // 第一步，创建一个空 Object
+    // var obj = {}
+    //
+    // // 第二步，将构造函数原型链赋予 obj
+    // obj.__proto__ = B.prototype
+    //
+    // // 第三步，修改 this 指针
+    // var res = B.call(obj)
+</script>
+</html>

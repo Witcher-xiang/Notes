@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+/*
+* 冒泡排序
+* 用时间复杂度
+*用时间换空间的算法来做一个数组排序
+* 思路：
+*   比较相邻两个元素，如果前一个比后一个大，则交换位置
+*   因此第一轮过后最后一个元素应该是最大的
+*   我们需要-i-1 因为自己无需检测且后面几项无需检测了，因为已经是最大的了
+* */
+let arr01 = [9,1,22,49,2,867,32]
+    function buble(arr) {
+        for (let i =0; i<arr.length;i++){
+            for (let j=0;j<arr.length-i-1;j++){
+                if (arr[j]>arr[j+1]){
+                    [arr[j],arr[j+1]] = [arr[j+1],arr[j]]
+                }
+            }
+        }
+        return arr
+    }
+    console.log(buble(arr01));
+
+function bubble(arr) {
+    for (let i=0;i<arr.length;i++){
+        for (let j=0;j<arr.length-i-1;j++){
+            if (arr[j]>arr[j+1]){
+                [arr[j],arr[j+1]] = [arr[j+1],arr[j]]
+            }
+        }
+    }
+    return arr
+}
+console.log(bubble(arr01))
+
+    /*
+    * 插入排序
+    * 用空间复杂度换时间
+    * 从第一项将其插入到一个新的数组，进行排序
+    * 再从老数组再取 对新数组遍历插入排序
+    * */
+    function insertArr(arr) {
+        let newArr = [];
+        let num = arr.shift();
+        newArr.push(num);
+        while (arr.length!==0){
+            let temp = arr.shift();
+            for (let j = newArr.length;j>=0;j--){
+                if (temp>newArr[j]){
+                    newArr.splice(j+1,0,temp);
+                    break
+                }
+            }
+        }
+        return newArr
+    }
+    console.log(insertArr(arr01))
+
+let arr02 = [9,1,22,49,2,867,32]
+
+    /*快速排序
+    * 思路：
+    * 第一趟排序时，将数据分成两个部分，一部分比另一部分的所有数据都要小。然后递归调用两边都实现快速排序
+    * */
+    function quick(arr) {
+        if(arr.length<=1){
+            return arr;
+        }
+        let middleIndex =Math.floor(arr.length/2);
+        let middleNum = arr.splice(middleIndex,1)[0];
+        let right=[];
+        let left =[];
+        for (let i=0;i<arr.length;i++ ){
+            if (arr[i]<middleNum){
+                left.push(arr[i])
+            } else {
+                right.push(arr[i])
+            }
+        }
+        return quick(left).concat([middleNum],quick(right)) //这里的递归使得数组变成一个一个最后组合
+    }
+    console.log(quick(arr02))
+</script>
+</html>

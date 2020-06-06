@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let arr = [19,74,47,20];
+    arr.sort(function (a,b) { /*a代表当前项，b代表下一项*/
+        return a-b; //a》b升序
+    })
+    /*数组的ary.sort() 会改变原数组
+    * 在不传递参数的情况下只能处理10以内的数字排序
+    * */
+    /*冒泡排序
+    思想：
+    * 拿出数组的当前项和后一项比较，如果当前项比后一项大，则两项交换位置（让大的靠后即可）
+    * 每比较一轮都会有个最大数（这一轮最大的数字）在最后面，后面也可以
+    *
+    * 需要比较length - 1轮 （5个数，只需要把4个最大的依次放到末尾即可）
+
+    空间复杂度：O（1）
+    时间复杂度：On^2
+    * */
+    let ary = [12,8,24,16,1]
+    /*
+    * bubble:实现冒泡排序
+    *   @params
+    *       ary [ARRAY] 需要排序的数组
+    *   @return
+    *       [ARRAY] 排序后的数组
+    * by Bryce on 2020/02/21
+    * */
+    let arr01 =[6501,6828,6963,7036,7422,7674,8146,8468,8704,8717,9170,9359,9719,9895,9896,9913,9962,154,293,334,492,1323,1479,1539,1727,1870,1943,2383,2392,2996,3282,3812,3903,4465,4605,4665,4772,4828,5142,5437,5448,5668,5706,5725,6300,6335]
+    function bubble(ary) {
+        for (let i=0;i<ary.length-1;i++){
+                for (let j=0;j<ary.length-1-i;j++){
+                    //这里多个i代表 我们后面排序过的大数不用排
+                    ary[j]>ary[j+1] ? [ary[j],ary[j+1]] = [ary[j+1],ary[j]] : "";
+                }
+        }
+        return ary
+    }
+
+    console.log(bubble(ary))
+    console.log(bubble(arr01))
+</script>
+</html>

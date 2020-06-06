@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="s1">s1
+    <div id="s2">s2</div>
+</div>
+</body>
+<script>
+    s1.addEventListener("click",function(e){
+        console.log("s1 冒泡事件");
+    },false);
+    s2.addEventListener("click",function(e){
+        console.log("s2 冒泡事件");
+    },false);
+
+    s1.addEventListener("click",function(e){
+        console.log("s1 捕获事件");
+    },true);
+
+    s2.addEventListener("click",function(e){
+        console.log("s2 捕获事件");
+    },true);
+
+    /*正则表达式*/
+
+    /*横向可能数量疲惫*/
+    let regex = /hi/;
+    console.log("精准匹配",regex.test("hi"));
+    let regRow = /ab{2,5}c/g; //b代表是a开头b最少两个最多5个
+    let regRowString = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
+    console.log("横向匹配",regRow.test("abbc"))
+    console.log(regRowString.match(regRow)) //返回一个数组
+
+    /*纵向可能性模糊匹配*/
+    let regColum = /ab[123]{2,5}c/g;  //这里可能是什么
+    let regColumString = "ab123c";
+    console.log("纵向匹配",regColum.test(regColumString));
+
+    /*范围表示法*/
+    let rangeWay = /ab[1-6a-c]{2,5}d/;
+    let rangeWayString = "ab1ad";
+    console.log("范围表示法",rangeWay.test(rangeWayString))
+
+    /*模糊排除数组*/
+    let execptWay = /[^ad]/g; //^代表取反除了ad以外都可以
+    let execptWaySting = 'knl1'
+    console.log("模糊排除数组",execptWay.test(execptWaySting))
+
+    /*还有些系统自带的简写形式*/
+    let simpleWrite = /\d/; // 表示只能是数字
+    console.log(simpleWrite.test("123"))
+
+    /*电话号码*/
+    let phoneNumberTest = /1\d{10}/g
+    console.log("电话号码：",phoneNumberTest.test("15199072164"))
+
+    /*颜色进制匹配*/
+    let colorJudge  = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
+    console.log("颜色进制匹配",colorJudge.test("#Fc01DF"))
+    console.log("颜色进制匹配",colorJudge.test("#ffE"))
+
+    /*匹配时间*/
+    let timeJudge = /^([0-1][0-9]|[2][0-3]):[0-5][0-9]/g
+    console.log(timeJudge.test("24:59"))
+    /*
+    * 2.1 ^和$
+
+^（脱字符）匹配开头，在多行匹配中匹配行开头。
+
+$（美元符号）匹配结尾，在多行匹配中匹配行结尾。
+    * */
+
+    /*IP地址*/
+  let  ipJudge=/(2[0-5][0-5])|[0-1]?\d{1,2}/ //
+    console.log(ipJudge.test("182"))
+
+</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Person(name,age) {
+        //this == obj call将this的指向改为了传入的obj
+        this.name =name;
+        this.age =age;
+    }
+    var person = new Person('deng', 100);
+
+    var obj={ };
+
+    Person.call(obj,'safd',300);
+    //第一个obj是对象指的是将this指向的新对象，后面两个正常传参
+</script>
+</body>
+</html>

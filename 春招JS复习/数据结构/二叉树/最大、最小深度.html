@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*最大深度*/
+    /*递归解法*/
+    function maxDeep(root) {
+        if (!root) return -1
+        return Math.max(maxDeep(root.left)+1,maxDeep(root.right)+1)
+    }
+    /* 非递归解法
+     *  利用层次遍历
+      * */
+    function maxDeepHard(root) {
+        let queue = [],level = 0;
+        let res=[]
+        queue.push(root)
+        while (queue.length){
+            res.push([])
+            let size = queue.length
+            while (size--){
+                let temp = queue.shift();
+                res[level].push(temp.val)
+                if (temp.left) queue.push(temp.left) ;
+                if (temp.right) queue.push(temp.right) ;
+            }
+            level++
+        }
+        return level
+    }
+
+    /*最小深度*/
+    /*递归
+    * 注意有一个陷阱 如果根节点有一个没有叶子节点就完犊子了
+    * 因此做出改进
+    * */
+    function minDeep(root) {
+        if (!root) return  0;
+        if (root.left && root.right)
+        return Math.min(minDeep(root.left+1),minDeep(root.right+1))
+        if (root.left)
+            return minDeep(root.left+1)
+        if (root.right)
+            return minDeep(root.right+1)
+        else return 1; //说明两个都空则直接返回1
+    }
+    /*
+    * 非递归
+    * 使用层序遍历的方法
+    * */
+    function mindDeep01(root) {
+        let stack = [],arr =[];
+        let level = 0, p = root;
+        stack.push(p)
+        while (stack.length){
+            let size = stack.length
+            while (size--){
+                let temp = stack.shift()
+                if (!temp.left || !temp.right) return level
+                if (temp.left) stack.push(temp.left)
+                if (temp.right) stack.push(temp.right)
+
+            }
+        }
+    }
+
+</script>
+</html>

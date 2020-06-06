@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。
+    * 数值为0或者字符串不是一个合法的数值则返回0
+    *
+    * 这道题目在于探究合法边界
+    * 这题真的有点懵逼
+    * */
+    function StrToInt(str)
+    {
+
+        let temp = Number(str);
+        // write code here
+        console.log(temp)
+        if (-2147483649>=temp) temp =0
+        return temp ? temp :0
+    }
+    console.log(StrToInt(-2147483649))
+    console.log(Boolean(-1))
+</script>
+</html>

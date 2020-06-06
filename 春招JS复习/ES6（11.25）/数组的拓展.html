@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组的拓展</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*数组的拓展*/
+        /*
+        * Array.from方法用于将两类对象转为真正的数组：
+        * （1）类似数组的对象 （2）可遍历的对象
+        * */
+    let ps = document.querySelectorAll('p');
+    console.log(Array.from(ps));  //这里返回的是一个类数组对象，无法进行遍历
+    Array.from(ps).forEach(function (p) {
+        console.log(p);
+    });
+
+    function foo() {
+        console.log(arguments)
+        var args = Array.from( arguments );
+        console.log("args",args)//成功转化为数组,只要有length的属性就都能转化为数组
+    }
+    foo("a","b","c")
+    //同时Array.from还拥有第二个参数类似map 的作用直接使用即可
+
+    /*
+    *Array.of()方法用于将一组值，转换为数组。
+    * */
+    let arr=Array.of(1,2,3,4,5);
+    console.log(arr)
+    /*
+    * 数组实例的 find() 和 findIndex()
+    * 数组实例的 find 方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为 true 的成员，然后返回该成员。
+    * 如果没有符合条件的成员，则返回 undefined。
+    * */
+    var found = [1, 4, -5, 10].find((n) => n < 0);
+    console.log("found",found)      // 这里是一个回调函数 返回值就是他的条件
+
+    /*重点findIndex() 可以发现 NaN，弥补了数组的 IndexOf 方法的不足。 具体如下：*/
+        //[NaN].indexOf(NaN) 这个会报错的
+    /*这里可以直接打印出位置*/
+    console.log("使用indexOf检索数组",[1,2,3,"爱你"].indexOf("爱你")); //找的到返回下表找不到就返回-1
+      let  obsey=["1","2",NaN].findIndex(y => Object.is(NaN, y)) //我感觉Object.is也就这个作用了
+    console.log(obsey)
+
+    //key , value ,entries分别对应 键值对的遍历 很少用很少用
+    for (let [index, elem] of ['a', 'b'].entries()) {
+        console.log(index, elem);
+    }
+    // 0 "a"
+    // 1 "b"
+
+  let status= [1, 2, NaN].includes(NaN); // true
+    console.log(status)
+</script>
+</html>

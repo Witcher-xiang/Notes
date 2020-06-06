@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    组合中不考虑顺序
+    leetcode 77t
+    * 给出两个整数n和k，求在1....n这n个数字中选出k个数字的所有组合。
+    * 如 n=4，k = 2
+    * 结果为[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]
+    *
+    * 个人思路：
+    * （1）开始会把1-n的所有数字放入到数组
+    * （2）动态循环？我们不知道他有几层 这样循环有点麻烦所以不知道几层循环
+    *
+        看了别人的思路：
+         再次重整：（1）我们先假设他的例子 n=4 k=2，他是个树形结构，完了还要返回
+    * */
+    function Comb(n,k) {
+        if (n<=0 || k<=0 || k>n) return [[]]
+        let res = [],start = 1;
+            let fn =(n,k,start,arr = [])=>{
+                if (arr.length === k){
+                    console.log("执行了")
+                    console.log(arr.slice(0))
+                    res.push(arr.slice(0)); //日哦这里会出现一个引用类型的问题
+                    return
+                }
+                for (let i = start;i<=n;i++){
+                    arr.push(i);
+
+                    fn(n,k,i+1,arr)
+                    arr.pop()  //这里做个回溯把放进去的拿出来
+                }
+            };
+            fn(n,k,start)
+            return  res
+    }
+    //console.log(Comb(4,2))
+
+    /*
+    * 练习：
+    * leetCode 39
+    * 给出一个集合，其中所有的元素各不相同，以及一个数字T。寻找所有该集合中的元素组合
+    * ，使得组合中所有元素和为T。（注意：集合中每一个元素可以使用多次）
+    *
+    * 如给定集合 nums = [2,3,6,7] , T =7
+    * 返回[[7],[2,2,3]]
+    * */
+    let combinationSum = function(candidates, target) {
+        let res = [];
+        // 这里插入start 保证每次都是为了当前项开始 这样就不会有重复的值
+        let fn =(candidates,target,value = 0,arr = [],start = 0)=>{
+            if (value>target){
+                return
+            }
+            if (value === target){
+
+                res.push(arr.slice(0));
+                return;
+            }
+
+            for (let i=start;i<candidates.length;i++){
+                arr.push(candidates[i]);
+                /**我现在唯一的问题这个用数组的时候 这个arr.push是
+                 * 用做临时变量
+                 *
+                 * 这里的思路：依次遍历每一项 但是arr会进行回溯
+                 * 变为原状态
+                 * 这里调用fn表示了一个意思：
+                 * 我将以目前的变量去对后面的每一项做遍历
+                 * 如果有顺序要求插入index
+                 *
+                */
+                fn(candidates,target,value+candidates[i],arr,i);
+                arr.pop();
+            }
+        };
+        fn(candidates,target);
+        return res
+    };
+    console.log(combinationSum([2,3,5],8))
+    /*
+    * 练习：
+    * leetCode 40
+    * 给出一个集合，其中元素可能相同，以及一个数字T。寻找所有该集合中的元素组合，使得
+    * 组合中所有的元素和为T（注意：集合中每个元素只可以使用一次）
+    * 如给定集合 nums = [10,1,2,7,6,1,5] , T = 8
+    * 返回 [[1,7],[1,2,5],[2,66],[1,1,6]]
+    *
+    * */
+    var combinationSum2 = function(candidates, target) {
+        let sums =[];
+        candidates.sort((a,b)=>{
+           return a-b
+        })
+        let fn = (candidates, target,start =0,value =0,arr=[] ) =>{
+            if (value>target) return;
+            if (value === target){
+                sums.push(arr.slice(0));
+                return;
+            }
+
+            for (let i = start;i<candidates.length;i++){
+                console.log("i:",i)
+                console.log("start:",start)
+                console.log("arr:",arr)
+                if(i > start && candidates[i-1] === candidates[i]) continue;
+                // i>start 的意义 从支线(第二条线的)的第二段开始
+                //剪枝如果上一项和这一项相同则通过本次循环 为撒i>start
+
+                arr.push(candidates[i]);
+                fn(candidates, target,i+1,value+candidates[i],arr);
+                arr.pop();
+            }
+        }
+        fn(candidates,target)
+
+        return sums;
+        /*啊不行啊*/
+    };
+    console.log("组合",combinationSum2([2,5,2,1,2],5))
+
+    /*
+    * 练习：
+    * LeetCode 216
+    * 在1-9这9个数字中，选出k个数字，每个数字智能使用一次，使得其和为n
+    * 如 n=7，k=3 ，结果为[[1,2,4]]
+    * 如 n=9  k=3 , 结果为[[1,2,6],[1,3,5],[2,3,4]]
+    * */
+
+    /*
+    * leetcode 78
+    * */
+
+    /*
+    * leetCode 90
+    * */
+
+    /*
+    * leetcode 401
+    * */
+
+    /*
+    *
+    * */
+</script>
+</html>

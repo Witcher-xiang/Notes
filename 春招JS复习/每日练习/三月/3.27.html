@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function fn(money) {
+        let totalPrice =0,totalNum = 0,lowPrice;
+        let hash =[
+            {num:5,price:1},
+            {num:3,price:2},
+            {num: 3,price: 2},
+            {num:2,price:2},
+            {num:4,price:5},
+            {num:1,price:3},
+            ];
+        while (money>=totalPrice){
+            hash.map((item,index)=>{
+                if (item.price<=money){
+                    let temp = hash.slice(index,1)
+                    money = money - temp.price
+                    totalPrice = totalPrice +temp.price
+                    totalNum = totalNum+temp.num
+                }
+                    })
+        }
+        return totalNum
+    }
+    /*国王挖金矿问题
+    * 解法一：排列组合
+    * 我为什么不用一个二维数组呢
+    * */
+    function mining() {
+        let totalGold = 0,people = 0;
+        let golds = [
+            {people:5, gold:500},{people:3, gold:200},{people:4, gold:300},
+            {people:3, gold:350}, {people:5, gold:400}
+        ],
+            possible = []
+
+            golds.map((item,index)=>{
+                possible[index] = [{...item}];
+                people = item.people;
+                let tempPeople = people
+                let tempArr = JSON.parse(JSON.stringify(golds));
+                tempArr.splice(index,1);
+
+                for (let i = 0;i<tempArr.length;i++){
+                    possible[index][i] = [{...tempArr[i]}]
+                    people =people+ tempArr[i].people;
+                    if (people<10){
+                        let temp01 = people
+                        let tempArr01 = JSON.parse(JSON.stringify(tempArr));
+                        tempArr01.splice(i,1);
+                        for (let j = 0; j<tempArr01.length;j++){
+                            people = people + tempArr01[j].people;
+                            if (people<=10){
+                                possible[index][i].push({...tempArr01[j]})
+                            }
+                            people = temp01
+                        }
+                    }
+                    people = tempPeople
+                }
+            })
+        console.log(possible)
+
+    }
+    mining()
+</script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*
+        怪异盒模型
+        标准盒模型
+        flex-弹性伸缩盒模型
+        */
+        .box{
+            width: 100px;
+            height: 100px;
+            border: 20px saddlebrown solid;
+            padding: 10px;
+            box-sizing: border-box;
+            /*用来直接设置整个盒子的大小,会把padding也算进width与height，antd中也是使用的border-box*/
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #box1{
+           width: 100px;
+            height: 100px;
+            border: 1px black solid;
+        }
+        #box2{
+            width: 100px;
+            height: 50px;
+            border: 1px black solid;
+            /* 什么是事件对象
+             -当事件的响应函数触发时，浏览器每次都会将一个事件对象作为实参传递给响应函数
+             例如：你使用了getElement.onmouse=function(){};
+             浏览器会给你传递一个，mouse event进去
+             -在事件对象中封装了当前事件相关的一切信息。比如：鼠标的坐标，键盘中哪个键盘被按下
+
+            onmousemove
+             -该事件会在鼠标移动时，被触发
+              */
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<br>
+<div id="box2"></div>
+
+</body>
+<script type="text/javascript">
+    var box1=document.getElementById("box1");
+    var box2=document.getElementById("box2");
+    box1.onmousemove=function (event) {
+        /*
+        在IE8中，响应函数被触发时，浏览器不会传递事件对象
+        在IE8以及以下的浏览器中 事件对象作为window对象的属性保存
+        因此在使用时需要变为window.event.属性(但Firefox又不支持)
+        因此我们可以使用两种方法来解决此问题
+        （1）if判断
+        if(!event)
+        {var x=event}
+        （2）event = event || window.event;
+        事件对象兼容性问题
+        */
+        var x=event.clientX;  //事件对象.clientX 获取事件对象中的鼠标位置的X轴的值 IE8及其以下不兼容
+        var y=event.clientY;  //事件对象.clientY 获取事件对象中的鼠标位置的Y轴的值 IE8及其以下不兼容
+
+        box2.innerHTML ="X="+x+",Y="+y; //注意不要在这里写加号 若是添加内容则会加很多魔性的东西
+
+    }
+</script>
+</html>

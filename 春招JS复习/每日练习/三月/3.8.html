@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    class A{
+        constructor(){
+            this.a = "a"
+            let b = "123"
+        }
+        c=()=>{
+            console.log("11")
+        }
+        obj ={
+            dfs:"dsf"
+        }
+    }
+    let a =new A();
+    console.log(a);
+    class Promise01{
+        constructor(executor){
+
+            this.state = "pending";     // 初始化state为等待态
+            this.value = undefined;     //value刚开始默认为undefined
+            this.reason = undefined;     //失败的原因
+
+            /*成功存放的数组 为了解决异步*/
+            this.onResolveCallbacks = [];
+            /*失败的存放数组*/
+            this.onRejectedCallbacks = [];
+
+            /*为什么要在这里let 而不写this 因为这里得私有不能在实例里出现
+            * 构造函数的私有方法
+            * */
+            let resolve = value =>{
+                if (this.state === "pending"){
+                        this.state = "fulfilled";
+                        this.value = value;
+                this.onResolveCallbacks.forEach(fn=>fn())
+                }
+            };
+            let reject = reason =>{
+                if (this.state === "pending")
+                {
+                    this.state = "rejected";
+                    this.reason = reason;
+                    // 一旦reject执行，调用失败数组的函数
+                    this.onRejectedCallbacks.forEach(fn=>fn());
+
+                }
+            };
+            try {
+                executor(resolve,reject);
+            }
+            catch (err) {
+                reject(err)
+            }
+        }
+        then(onFulfilled,onRejected){
+            if (this.state === 'fulfilled'){
+                onFulfilled(this.value)
+            }
+            if (this.state === "rejected"){
+                onRejected(this.reason)
+            }
+        }
+    }
+    let b= new Promise01((resolve,reject)=>{
+
+    })
+
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .d1{
+             width: 400px;
+            height: 300px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<button id="btn01">改变样式</button>
+<br>
+<button id="btn02">获取样式数值</button>
+<div class="d1" id="id1"></div>
+</body>
+<script type="text/javascript">
+    var btn01=document.getElementById("btn01");
+    var id1=document.getElementById("id1");
+    btn01.onclick=function () {
+        id1.style.width="20px";  //改变id1即是去改变div的样式块
+    };
+    
+    var btn02=document.getElementById("btn02");
+    btn02.onclick=function () {
+        alert(id1.style.width);  //去获取id1中的width值
+    };
+    //ps：但是要注意此操作针对的是只是对于内联元素的修改
+    //若尝试读取的是嵌入式或者外联时的元素则会出现内容为空的问题
+    //但是如果在样式中有！important则此时样式会有一个最高的优先级，此时会导致代码失效（考虑优先级问题）
+</script>
+</html>

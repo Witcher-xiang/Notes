@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 输入: 1->2->3->4->5->NULL, m = 2, n = 4
+      输出: 1->4->3->2->5->NULL
+      *
+      * 思路：只需要保存 m前的一个节点，n的后一个节点
+    * */
+    var reverseBetween = function(head, m, n) {
+        let count = m-n;
+        let front,tail,pre = null,cur ,start;
+        let p =head;
+        /*如果你打算取得前一项就得-2*/
+        for (let i=0;i<count-2;i++){
+            p = p.next  //注意这个p得有
+        }
+        front = p;
+        start = p.next;
+        cur   = p.next; //且在这里使用后p不能在发生变化，因为是为了存储地址而存在的变量
+        pre   = null;
+        for (let i=0;i<count;i++){
+            let next = cur.next;
+            cur.next = pre;
+                pre  = cur;
+                cur  = next;
+        }
+
+        // 区间首节点的 next 指向后节点(循环完后的cur就是区间后面第一个节点，即后节点)
+        start.next       = cur;
+        // 前节点的 next 指向区间末尾
+        front.next = pre;
+
+    };
+</script>
+</html>

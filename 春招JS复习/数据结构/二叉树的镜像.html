@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*二叉树的镜像
+    *操作给定的二叉树，将其变换为源二叉树的镜像。
+    * 主要思路：如果他是能镜像则证明他是一个满二叉树，他上面的根节点不变，让其左右节点交换
+    * 让其不断递归直到左右节点为null即可
+    * 思路：
+    * 注意：这里可能会出现一个思维误区，因为是树不需 左子树的左右节点 与 右子树的左右节点 交换
+    * 只需要单个节点交换就可以（因为下面的节点会跟着整体去换）
+    * */
+
+
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+
+    function Mirror(root)
+    {
+        if (root == null){
+            return
+        }
+        let temp;
+        temp = root.right;
+        root.right = root.left;
+        root.left = temp;
+        Mirror(root.left)
+        Mirror(root.right)
+        // write code here
+        return root
+    }
+</script>
+</html>

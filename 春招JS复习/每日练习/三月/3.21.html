@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let arr = [2,4,56,56,8,90,2];
+    /*数组去重*/
+    function arrToHeavy(arr) {
+        let ary = [];
+        let obj = {};
+        arr.forEach(item=>{
+            if (!obj[item]){
+                obj[item] = item
+                ary.push(item)
+            }
+        })
+        return ary
+    }
+    console.log(arrToHeavy(arr))
+</script>
+</html>

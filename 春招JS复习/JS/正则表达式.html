@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 字符串边界匹配
+    * 很迷我么搞懂，大概目前理解的意思就是：
+    * 这是一个边界 开头结尾必须是这个不是就返回false 或者匹配不到
+    * */
+    let reg = new RegExp(/^scq000\./g)
+    let str = "192.168.1.1"
+    let ipReg = new RegExp(/((\d{0,3})|(1\d\d)|(2[0-4]\d)|(25[0-5])\.){3}((\d)|(1\d\d)|(2[0-4]\d)|(25[0-5]))/);
+    console.log(ipReg.test(str))
+
+    let ipReg01 = new RegExp(/([0-1]?\d{1,2})|(2[0-4]\d)|(25[0-5])/);
+    console.log(ipReg01.test("678hgj7686"))
+    console.log(typeof null)
+</script>
+</html>

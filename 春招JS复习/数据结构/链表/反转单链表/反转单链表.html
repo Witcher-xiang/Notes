@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function reverseList(head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        reverseList(head.next)
+    }
+
+
+
+
+
+
+
+
+
+    function ListNode(val) {
+        this.val = val;
+        this.next = null;
+    }
+    function reverseListNode(head) {
+        if (!head) return null;
+        let cur = head; let pre = null
+        while (head){
+            let next = cur.next
+            cur.next = pre;
+            pre = cur;
+            cur = next
+        }
+    }
+    /*递归版本*/
+    function reverseListNodeRe(pre,cur) {
+        if (!cur) return pre
+        let next = cur.next;
+        cur.next = pre;
+        return reverseListNodeRe(cur,next)
+    }
+    /*区间反转*/
+    function rangeReverse(head,m,n) {
+        let count = 1;
+        let cur = head;
+        let pre = null;
+        while (cur){
+            let next = cur.next;
+            if (count>=m && count <=n){
+                cur.next = pre
+            }
+            pre = cur;
+            cur = next;
+            count++
+        }
+    }
+    /*
+    * 区间反转标准版（移花接木）
+    * 要存储住要反转的首节点
+    * （1）首先我们先找到反转的第一个节点和他前面那个节点
+    * （2）我们反转那段节点
+    * （3）反转完成后利用cur 和 next 重新嫁接指向原链表断开的位置
+    * */
+    function rangeReverseStander(head,m,n) {
+        let count  = n-m; //需要反转的数量
+        let front;
+        let pre = null,start,cur,tail;
+        let p = dummyHead  = new ListNode(); //创建一个空节点,用来存储判断到的空节点
+        p.next = head
+        for (let i=1;i<count;i++){
+            p = p.next
+        }
+        front = p;          //保存需要翻转的前一个节点
+        start = front.next; // 开始翻转的那个节点
+        cur =start;          //
+        for (let i=1;i<=count;i++){ //区间反转开始
+            let next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next
+        }
+        front.next=pre; //前一个节点指向反转后节点的末尾；
+        start.next = cur; //反转后节点的首部指向 原末尾的下个节点
+        return dummyHead;
+    }
+    /*
+    * 递归版本
+    * 我感觉这个有点难顶
+    * 哈哈哈 三元大佬可还行 直接就是链表反转在里面递归一下
+    * */
+    function rangeReverseStanderRe(head,m,n) {
+
+    }
+</script>
+</html>

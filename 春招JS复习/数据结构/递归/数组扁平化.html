@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div></div>
+</body>
+<script>
+    function flat(arr) {
+        const  list = [];
+        arr.forEach(item=>{
+            if (Array.isArray(item)){
+                list.push(...flat(item))
+            }
+            else {
+                list.push(item)
+            }
+        });
+        return list
+    }
+    console.log(Math.floor(Math.random()))
+
+        /*
+        * 让我们用传统的方法解决一些数组去重
+        * */
+    function solve(arr) {
+        const result = [];
+        let map = {};
+        arr.forEach((item)=>{
+            if (!map[item]){
+                map[item] = true;
+                result.push(item)
+            }
+        });
+        return result
+    }
+    let arr = [32,4325,34645,6234,1,2,3,2,1,1,2]
+    console.log(solve(arr))
+</script>
+</html>

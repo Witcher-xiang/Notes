@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="qrcode.js"></script>
+</head>
+<body>
+请输入网址(若加上http://则会生成的二维码直接跳转): <input id="input"> <button onclick="handleClick()">生成</button>
+<br><br><br>
+<div id="qrcode"></div>
+</body>
+<script type="text/javascript">
+    let QR=document.getElementById("qrcode")
+
+    function handleClick(){
+        QR.innerHTML="";
+        let input = document.getElementById("input")
+        let value=input.value;
+        console.log(value)
+        var qrcode = new QRCode('qrcode', {
+            text: `${value}`,
+            width: 256,
+            height: 256,
+            colorDark : '#000000',
+            colorLight : '#ffffff',
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+
+</script>
+</html>

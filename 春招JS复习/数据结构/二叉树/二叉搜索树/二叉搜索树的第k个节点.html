@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    剑指offer
+    * 给定一棵二叉搜索树，请找出其中的第k小的结点。
+    * 例如， （5，3，7，2，4，6，8）    中，按结点数值大小顺序第三小结点的值为4。
+    * */
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+    /*
+    * 个人思路：写下来发现这是一个广度优先遍历
+    * 然而发现这个是有问题的
+    * 二叉搜索树做一个中序遍历就可以取得从大到小的排序，具体看pad上的解释
+    * */
+
+    /*
+    * 标准的非递归中序遍历，但是牛客上的有些问题I dont know why？？
+    * */
+    function KthNode(pRoot, k)
+    {
+        // write code here
+        let dfs = (pRoot,k)=>{
+            let p = pRoot,stack = [],count =0;
+            stack.push(p);
+            while(stack.length||p){
+                while(p){
+                    stack.push(p)
+                    p = p.left
+                }
+                let temp = stack.pop();
+                console.log()
+                if(count === k){
+                    return temp.val;
+                }
+                count++;
+                p = temp.right
+            }
+        }
+        return dfs(pRoot,k)
+    }
+
+    function KthNode01(pRoot, k)
+    {
+        // write code here
+        if(pRoot == null || k==0)
+            return null
+        let count =0 ;
+        let dfs = (root)=>{
+            if(root){
+                let node = dfs(root.left);
+                if (node) return node;//有返回值的 说明已经找到直接返回
+                count++;
+                if(count == k)
+                    return root;
+                node = dfs(root.right);
+                if (node) return node;
+            }
+        }
+        return dfs(pRoot)
+    }
+
+console.log(KthNode01({val:"4",
+    left:{val:"2",left:{val:"1",left:null,right:null},right:null}
+    ,right:{val:"6",left:null,right:null}},1),0)
+
+    // function BFS(node) {
+    //         let queue = [],arr = [],p = node,level = 0;
+    //         queue.push(node);
+    //         while (queue.length){
+    //             let size = queue.length;
+    //             while (size--){
+    //                 let temp = queue.shift();
+    //                 arr.push(temp.val)
+    //                 if (temp.left) queue.push(temp.left)
+    //                 if (temp.right) queue.push(temp.right)
+    //             }
+    //             level++
+    //         }
+    //     return arr;
+    // }
+    // function KthNode(pRoot, k)
+    // {
+    //
+    //     let arr = BFS(pRoot)
+    //     arr.sort((A,B)=>A-B)
+    //     let temp = arr.reverse()
+    //     return temp[k]
+    //     // write code here
+    // }
+    // let arr = [1,21,2,312,3,4]
+    // arr.sort((a,b)=>a-b)
+    // console.log(arr)
+</script>
+</html>

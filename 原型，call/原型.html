@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // Peron.prototype  --原型
+    // Peron.prototype = {}  Person 的祖先是一个空对象
+    Person.prototype.say=function () {
+        consle.log('dsfdsf');
+    };
+    function Person() {
+        // var this={  根据构建对象的三步式
+        //     __proto__: Person.prototype
+        // }
+
+
+    }
+    Person.prototype.name="dzq";//我们可以直接在原型中添加属性和方法
+    var person = new Person();
+    person._proto_=Obj;
+    function Obj() {
+        var name="sunny";
+    }
+    //在原型中添加的属性和方法会被继承到类创建的对象中
+    //若要修改原型则需要通过原型来修改
+
+    //var person = new Person();
+
+    // Person.prototype ={
+    //     height :1400,
+    //     lang:4900,
+    //     carName:"BMW"
+    // }  这样去写原型也是OK的
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body{
+        font-size: 30px;
+    }
+    .box01{
+        width: 100px;
+        height: 100px;
+        background: #3bdb44;
+    }
+    .box02{
+        width: 200px;
+        height: 200px;
+        background: #3399CC;
+        position: absolute;
+        left: 0;
+        top: 0;
+        /*
+        绝对定位：
+            -当元素的position属性设置为absolute时，则开启了元素的绝对定位
+                1.当开启绝对定位时这里的元素的位置（这里强调了元素的位置）不会发生变化
+                2.开启了绝对定位后，元素会从文档流中脱离
+                3.绝对定位会改变元素的性质,可以理解为变成了inline-block，可以设置宽高，未设置则会被内容撑开
+                4.元素会提升层级
+                5.绝对定位元素的原生位置，由第一个祖先元素设置不为position:static的位置决定!!
+
+        固定定位类似绝对定位
+            永远参考浏览器的视口
+        */
+    }
+    .box{
+        margin-top: 100px;
+        width: 500px;
+        height: 500px;
+        background: gainsboro;
+        position: relative;
+    }
+    .box4{
+        width:700px;
+        height: 700px;
+        background: red;
+        position: relative;
+    }
+    .box03{
+        width: 100px;
+        height: 100px;
+        background: #db763d;
+        position: relative;
+    }
+    .box05{
+        margin-top: 10%;
+        width: 500px;
+        height: 500px;
+        background: saddlebrown;
+    }
+    .box06{
+        background: #60abeb;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        top: 50px;
+        right: 0;
+    }
+</style>
+<body>
+    <div class="box01">BO1</div>
+    <div class="box4">
+        box4
+        <div class="box">
+            box
+            <div class="box02">box2</div>
+        </div>
+    </div>
+
+
+    <div class="box03">3</div>
+    <div style="display: inline-block;background: #60abeb">213321</div>
+
+
+    <div class="box05">
+        <div class="box06">
+            box06
+        </div>
+    </div>
+<script>
+    /*
+       relative相对定位
+           1.开启相对定位若不设置偏移量则元素（这里强调了元素）不发生任何变化（top定位元素与定位位置上边的距离）
+           2.相对定位是参照文档流中的位置进行定位的
+           3.相对定位会提升元素的层级
+           4.相对定位不会使得元素脱离文档流
+           5.相对定位不会改变元素原性质 块还是块
+       */
+</script>
+</body>
+</html>

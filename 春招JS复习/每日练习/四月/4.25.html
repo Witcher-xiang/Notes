@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bigBox{
+
+        }
+        .box01{
+            width: 100px;
+            height: 100px;
+            background: #eb2bd4;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        .box02{
+
+            width: 100px;
+            height: 100px;
+            background: #1b28eb;
+            margin: 30px 0;
+        }
+        .center{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="bigBox">
+        <div class="box01"></div>
+        <div class="center"></div>
+        <div class="box02"></div>
+    </div>
+</body>
+<script>
+    let a = addEventListener("mousemove", (e)=>{
+
+    })
+    function foo(a) {
+        this.a = a
+        // 返回一个箭头函数
+        return (a) => {
+            // `this` here is lexically adopted from `foo()`
+            console.log( this);
+        };
+    }
+    let f = new foo(1)
+    let c = new foo(2)
+    f()
+    c()
+    foo()()
+    var obj1 = {
+        a: 2
+    };
+    var obj2 = {
+        a: 3
+    };
+    // foo()不是箭头函数，他的this被绑定到obj1
+    var bar = foo.call( obj1 ); // foo.call( obj1 )返回箭头函数，所以bar为箭头函数
+    bar(  ); // 2! 箭头函数的this无法被修改，new也不行
+
+    function slow(delay){
+        return new Promise(resolve => {
+
+            setTimeout(()=>{
+                console.log("我是slow")
+                resolve("1")
+        },delay)
+        })
+
+    }
+    async function fn() {
+        await slow(2000)
+        console.log("我在后面")
+        new RegExp(/[A-z]{10}/)
+    }
+    fn()
+    console.log([]==0)
+    let b= 1
+    console.log(b instanceof Number)
+    let myInstance = (left,right)=>{
+        if (!right || typeof left !== "object") return false
+        let a = Object.getPrototypeOf(left)
+        while (1){
+            if (!a) return false
+            if (a === right.prototype) return true
+            a = Object.getPrototypeOf(a)
+
+        }
+    }
+    (function v() {
+            for (var i=0;i<6;i++){
+
+                let promise = new Promise(resolve => {
+                    setTimeout(()=>{
+                        resolve(i)
+                    },1000)
+                })
+                promise.then(res=>console.log(res))
+
+
+            }
+    })()
+    /*手写一个promise.all*/
+    function myPromiseAll(arr) {
+        let length = arr.length;
+       while (true){
+
+       }
+    }
+    /*
+    * 手写一个flatten
+    * */
+    function flatten(arr,ary = []) {
+
+        arr.forEach(item=>{
+            if (Array.isArray(item)){
+              ary.concat(flatten(item,ary))
+            }else ary.push(item)
+        })
+        return ary
+    }
+    console.log([...flatten([1,2,[3,4,[8]]])])
+
+    /*
+    * 手写一个biand
+    * */
+    Function.prototype.myBind=function(context){
+        const fn = this;
+        let arg = [...arguments].slice(1)
+        return function (args) {
+          return   fn.apply(context,[...args,...arg])
+        }
+    }
+    /*手写一个克里化*/
+    function fnKeLi(fn) {
+        const length = fn.length;
+        let arr = [].slice.call(this,1)
+        return function fn(...args) {
+            arr = [arr,...args]
+            if (arr.length === length){
+                return fn.apply(this,...arr)
+            }
+            return  fn
+        }
+    }
+    let str = "a b c"
+
+    console.log(str.split(" "))
+    /**/
+
+    var maxSubArray = function(nums) {
+        let dp = new Array(nums.length)
+        let result = [],max = 0;
+        nums.forEach(item=>{
+        })
+        return result
+        /*
+        * dp[i]在为i项时的最大连续子数组的最大和
+        * */
+
+        /*
+        * 状态转换方程：
+        *  dp[i] = Math(dp[i-1],dp[i])
+        * */
+    };
+    console.log([...maxSubArray([-2,1,-3,4,-1,2,1,-5,4])])
+</script>
+</html>

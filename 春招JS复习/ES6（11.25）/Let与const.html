@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 11/25
+    * let与const 除了我所熟知的都是块级作用域
+    * 其次let与const都不存在变量提升
+    * 最重要const一般是用来声明常量的，在声明后无法更改这个要特别注意（看例1）
+    * 其次const只是指向变量所在的地址，因此若声明为对象 （例2理论上来说这个应该是报错但现在就可以了）
+    * */
+
+    // 例1
+    let a1=1;
+    const b1=2;
+   // b1=66;
+    console.log(b1);
+
+    // 例2(理论上来说const 定义的变量指向的应该是地址（也可以理解为常量的性质） 无法将其指向另外一个新对象,或是数组)
+    const foo = {};
+    foo.prop = 1;
+    const arr=["1"];
+    console.log(arr);
+    console.log(foo);
+    //arr=[] 这里再去指定就会报错
+
+    // 例3
+    var a=1;
+    console.log("window.a",window.a)
+    let b=1;
+    console.log("window.b",window.b)
+
+    /*别的就没有什么很特别的了
+    * 补充一下：全局对象的属性
+    * ES6 规定，var 命令和 function 命令声明的全局变量，
+    * 属于全局对象的属性；let 命令、const 命令、class 命令声明的全局变量，不属于全局对象的属性。
+    * 详情请去看例3
+    * */
+
+    /*
+    * 块级作用域：ES6允许在块级作用域中声明函数es5时则不被允许
+    * */
+</script>
+</html>

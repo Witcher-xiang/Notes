@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 函数柯里化
+    * */
+    function keLi(fn,arg) {
+        let length = fn.length, //函数的参数长度
+            arr = [];
+        return function () {
+            if (arr.length>= length){
+                return  fn(...arr)
+
+            }
+            return  arguments.callee
+        }
+    }
+    /*
+    * 手写一个bind
+    * */
+    Function.prototype.MyBind = function (context) {
+        let fn = this,arg = [...arguments].slice(1);
+        context.fn = fn;
+            return function () {
+              return   fn.apply(context,arg.concat(...[arguments]))
+            }
+    }
+    let a= ()=>{}
+    console.log(a instanceof Function)
+
+</script>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function n() {
+       if (n<=2){
+           return 1
+       }
+       return n()
+    }
+    /*递归求和
+    * 1.求和公式:sum(n-1)+n
+    * */
+    function sum(n) {
+        if ( n===0 ) return 0
+        return n+sum(n-1)
+    }
+    /*
+    * 楼梯问题
+    * */
+    function climbStairs(n) {
+        if (n===2) return 2;
+        if (n===1) return 1;
+        return climbStairs(n-1)+climbStairs(n-2)
+    }
+
+    /* 实现深拷贝
+     * 记得判断一下数组呀
+      * */
+    function deepClone(obj) {
+        if (typeof obj !== "object") return ;
+
+        let newObj  =new Object();
+        /*   */
+        for (let key in obj){
+            if (typeof obj[key] === "object"){
+                newObj[key] = deepClone(obj[key])
+            }else {
+                newObj[key] = obj[key]
+            }
+        }
+        return newObj
+    }
+
+    /*   数组扁平化   */
+    function flatten(arr) {
+        let result = [];
+        arr.forEach((item,index)=>{
+            if (Array.isArray(item)){
+                result=result.concat(flatten(item))
+            } else {
+                result.push(arr[index])
+            }
+        })
+        return result;
+    }
+    const arr = [1, [2, [3, 4, 5]]];
+    console.log(flatten(arr))
+</script>
+</html>

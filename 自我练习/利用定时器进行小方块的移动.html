@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #box1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<button id="btn01">我要移动</button>
+<div id="box1"></div>
+</body>
+<script type="text/javascript">
+var box1=document.getElementById("box1");
+var btn01=document.getElementById("btn01");
+function getStyle(obj,name){
+   return getComputedStyle(obj,null)[name];
+}
+
+btn01.onclick=function () {
+    timer=setInterval(function () {
+        var oldPosition=parseInt(getStyle(box1,left));
+        var newPosition=oldPosition+10;
+        box1.style.left=newPosition+"px";
+    },10)
+}
+
+
+
+</script>
+</html>

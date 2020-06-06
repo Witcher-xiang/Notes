@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 这是一个先序遍历
+    * 思路：利用栈的特点
+    * 我先去左子树，我发现左子树下还有子树 则我就先将根节点存到栈中 然后去左子树
+    * 直到左子树空了然后我取出根节点 之后取出再看看右子树
+    * */
+    function Tree(root) {
+        let stack = []
+        let arr = []
+        if (root == null) return [];
+
+        while (root || stack.length!==0){
+            /*一直向下直到left不存在时*/
+            while (root){
+                arr.push(root.val);
+                stack.push(root)
+                root = root.left
+            }
+            /*然后我们回顾右边*/
+            if (stack.length>0){
+                root = stack.pop();
+                root = root.right;
+            }
+
+        }
+    }
+
+    var preListUnRec = []; //定义保存先序遍历结果的数组
+    var preOrderUnRecursion = function(node) {
+        if (node) { //判断二叉树是否为空
+            var stack = [node]; //将二叉树压入栈
+            while (stack.length !== 0) { //如果栈为空，则循环遍历
+                node = stack.pop(); //从栈中取出一个结点
+                preListUnRec.push(node.value); //将取出结点的值存入数组中
+                if (node.right) stack.push(node.right); //如果存在右子树，将右子树压入栈
+                if (node.left) stack.push(node.left); //如果存在左子树，将左子树压入栈
+            }
+        }
+    }
+    preOrderUnRecursion(tree);
+    console.log(preListUnRec);
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            float: left;
+            width: 100%;
+        }
+        .content{
+            position: relative;
+            margin-left: 200px;
+            margin-right: 180px;
+          height: 200px;
+            background: #60abeb;
+        }
+        .left{
+            margin-left: -100%;
+            float: left;
+            background: #2a987d;
+            height: 200px;
+            width: 200px;
+        }
+        .right{
+            margin-left: -180px;
+            float: left;
+            background: #982626;
+            height: 200px;
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div style="position: absolute;top:50%;left:50%;transform: translate(50%);">你好</div>
+        </div>
+    </div>
+        <div class="left"></div>
+        <div class="right"></div>
+
+</body>
+<script type="text/javascript">
+    /*JSX*/
+
+    /*
+    目录：
+        1.JSX的事件委托
+        2、jQuery的事件处理方式
+        3、React的理念
+        4、虚拟DOM
+    */
+
+    /*
+    *   1、事件委托（关于DOM树）
+    *   如果要动态的从DOM树中删除click事件，还需要对应的把事件处理器注销
+    *   在JSX中onClick事件使用的是事件委托的方式
+    *   无论有多少个onClick出现，其实最后都只在DOM树上添加了一个事件处理函数，挂在最顶层的DOM节点。
+    *   所有的DOM节点都会被这个事件处理函数所捕获，然后根据具体组件分配给特定函数，因此使用事件委托的性能较高
+    *
+    *   2、jQuery的事件处理方式
+    *   （1）选中DOM元素 （2）然后对这些元素做一些操作
+    *
+    *   3、React的理念
+    *   React所做的就是渲染
+    *   UI=render(data)
+    *   需要注意的是React在数据变化时候并不是每次都去渲染所有组件，React利用虚拟DOM，让每次渲染都只重新渲染最少的DOM元素
+    *
+    *   4、虚拟DOM
+    *   Web前端关于性能优化有一个原则：尽量减少DOM操作
+    *   什么是虚拟DOM，虚拟DOM是对DOM树的一种抽象
+    *   虚拟DOM不会触及浏览器部分，只是存在于JS空间的树形结构，每次自伤而下渲染React组件时，会对比这一次产生的虚拟DOM和
+    *   上一次渲染的虚拟DOM，对比发现差别，然后修改真正的DOM树中差别的部分
+    * */
+    function A() {
+
+    }
+    console.log(A());
+    console.log(new A())
+</script>
+</html>

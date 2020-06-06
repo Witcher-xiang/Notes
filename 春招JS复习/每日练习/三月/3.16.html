@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .bigBox{
+            height: 100px;
+            width: 100px;
+            overflow: auto;
+        }
+        .smallBox{
+            width: 200px;
+            height: 200px;
+            background: #3399CC;
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="bigBox" onchange="onChange()">
+        <div class="smallBox"></div>
+    </div>
+
+</body>
+<script>
+    let bBox = document.querySelector(".bigBox");
+    let sBox = document.querySelector(".smallBox");
+    console.log(bBox)
+    bBox.onscroll =function(){
+        console.log("clientTop",sBox.clientTop)
+        console.log("offsetTop",sBox.offsetTop)
+        console.log("scrollTop",sBox.scrollTop)
+    }
+    console.log("clientTop",bBox.clientTop)
+    console.log("offsetTop",bBox.offsetTop)
+    console.log("scrollTop",bBox.scrollTop)
+</script>
+</html>

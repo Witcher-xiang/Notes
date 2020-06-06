@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 我假设字符串是一个数组
+    * */
+    function makeMap(m,n,arr) {
+        /*取得余数,即多余的行数*/
+        let excessLine = m%3;
+        let count =0,tempArr =[] ,resultArr = [];
+            for (let i=0;i<arr.length;i++){
+                let item= arr[i].replace(arr[i][2],"");
+                item= item.replace(arr[i][3],"");
+                tempArr.push(item)
+                count++;
+                if (count ===n){
+                    resultArr.push(tempArr)
+                    count =0;
+                    tempArr =[]
+                }
+                if (i+n === arr.length && excessLine){
+                    for (let j=i;j<arr.length;j++){
+                        if (excessLine===1){
+                            /*这里我只要中间字符串*/
+                        }
+                        if (excessLine === 2){
+                            /*这里我上中字符串都要*/
+                        }
+                    }
+                    break;
+                }
+            }
+    }
+    let str = "abcde"
+    let item= str.replace(str[2],"");
+    item= item.replace(str[3],"");
+    console.log(item )
+</script>
+</html>

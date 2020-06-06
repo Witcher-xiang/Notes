@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * X+1
+    * Y+1
+    * */
+
+    let sum = 0;
+
+    function fn(win,invalid,preProb = 1){
+        if(win <=0) return;
+        if (invalid <=0) {
+            sum = sum+preProb;
+            return ;
+        }
+
+        let nowProb;
+        /*如果甲中奖了*/
+        let Awin = win/(invalid+win);
+        sum = sum+Awin*preProb;
+        /*如果B中将了*/
+        let Bwin = (win/(invalid+win-1));
+        /*nowProb*甲没中奖*/
+        nowProb = preProb*(1-Bwin);
+        /*如果AB都没有中奖,B多抽的那一张为无效*/
+        console.log("dfs",win/(invalid+win-2));
+        fn(win,invalid-3,1-win/(invalid+win-2));
+        /*如果AB都没有中奖,B多抽的那一张为中将*/
+        fn(win-1,invalid-2,win/(invalid+win-2))
+    }
+    fn(1,3);
+    console.log("结果",sum)
+
+</script>
+</html>

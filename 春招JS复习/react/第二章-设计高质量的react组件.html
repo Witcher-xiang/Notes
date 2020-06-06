@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+         margin: 0; padding: 0;
+        }
+        .container{
+          margin-left: 200px;
+            margin-right: 180px;
+            float: left;
+        }
+
+        .content{
+            height: 200px;
+            width: 100%;
+            background: #55aacc;
+
+        }
+        .left{
+            height: 200px;
+            margin-left: -100%;
+            float: left;
+            width: 200px;
+            background: #989684;
+        }
+        .right{
+            float: left;
+            height: 200px;
+            margin-left: -180px;
+            width: 180px;
+            background: #eb5777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content"></div>
+    </div>
+        <div class="left"></div>
+        <div class="right"></div>
+
+</body>
+<script type="text/javascript">
+    class A{
+        constructor(){
+            //这里的构造函数在new时会执行
+            console.log("Sads")
+        }
+    }
+
+    var letters = ['r', 'e', 'd', 'u', 'x'];
+
+    // `reduce` 接收两个参数:
+    //   - 一个用来 reduce 的函数 (也称为 "reducer")
+    //   - 一个计算结果的初始值
+    var word = letters.reduce(
+        function(accumulatedResult, arrayItem) {
+            return accumulatedResult + arrayItem;
+        },
+        '123'); // <-- 注意这个空字符串：它是初始值
+
+    console.log(word) // => "redux"
+
+
+    /*目录
+    * 1.什么是高内聚和低耦合
+    * 2.React组件的数据
+    * 3.组件的生命周期
+    * */
+    /*
+    * 1.高内聚低耦合
+    *   高内聚指的是把逻辑紧密相关的内容放在一个组件中。
+    *   低耦合：不同组件之间的依赖关系要尽量弱化
+    *
+    *  2、React组件的数据
+    *  React组件的数据有两种
+    *  （1）prop
+    *  prop是组件的对外接口
+    *  （2）State
+    *  state是组件的内部状态
+    *
+    *  为什么在组件中使用prop是两个{}？
+    *   外层花括号代表JSX语法，内层的花括号代表这是一个对象的常量
+    *   class NavLeft extends Component {
+    *       constructor(props){
+    *        super(props);
+    *        }
+    *           为什么这里需要在构造函数中调用super()??
+    *           原因：如果在构造函数中没有调用super(props),那么组件被实例构造以后，类实例的所有成员就
+    *           无法通过this.props访问传入的props的值
+    *        return{}
+    *   }
+    *   （3）propTypes检查
+    *           用来规范自己的对外接口（即prop可以传递哪些数值）
+    *           例如
+    *           Counter.propTypes = {
+    *               caption:PropTypes.string.isRequired,//代表caption必须是string类型
+    *               initValue:PropTypes.number    //代表initValue属性必须是number类型
+    *           }
+    *    （4）React的state
+    *           一般也会这么定义防止props传值为空
+    *           constructor(props){
+    *               super(props);
+    *               this.state = {
+    *                   count:props.initValue || 0
+    *               }
+    *        }
+    *
+    *        3.组件的生命周期
+    *        (1)装载过程
+    *          顺序：a->b->c->d
+    *           a.  constructor
+    *               有状态的React组件才需要构造函数
+    *               目的：
+    *                   （1）初始化State
+    *                   （2）绑定成员函数的this环境
+    *                   例如：this.onClick=this.onClick.bind(this)直接写在constructor中
+    *
+    *           b.  getInitialState
+    *           返回值为state React.createClass才有用  一般用不到
+    *
+    *           c.  getDefaultProps
+    *           返回值为props React.createClass才有用  一般用不到
+    *
+    *           d.  componentWillMount
+    *           会在调用render函数之前被调用,因此这里要做的事情都可以提前到constructor中去做
+    *
+    *           e.  render
+    *           render并不做实际的渲染动作，他只是返回一个JSX描述的结构，最终由React来操作渲染过程。
+    *           注意Render是一个纯函数他是根据prop和state的值进行返回，因此在里面不能使用setState({})的
+    *           函数操作
+    *           或者说：render本身不往DOM树上渲染或者装载内容，他只是返回一个JSX表示的对象，然后由react
+    *           库根据返回的JSX对象的内容决定如何渲染，当完成所有组件的装载后才会依次执行每一个组件的
+    *           componentDidMount
+    *
+    *
+    *           f.  componentDidMount
+    *           componentDidMount被调用的时候，render函数返回的东西已经发生了渲染，组件已经被装载到了
+    *           DOM树上
+    *           若要在其中调用jQuery请在这里调，因为这里的DOM已经装载完毕，所有的事件处理函数也已经设置好
+    *
+    *           g.  componentWillMount与componentDidMount的异同
+    *           componentWillMount可以在既可以在服务器端被调用也可以在浏览器端被调用
+    *           why？：服务器端并不会真正装载DOM树，他所调用react库所产生的不过一堆字符串 但componentDidMount
+    *           的执行是在装载完所有DOM树之后 因此服务器上无法执行
+    *
+    *        (2)更新过程
+    *           a.componentWillReceiveProps(nextProps)
+    *           组件初始化时不调用，组件接受新的props时调用（网上大多这么说），其实只要是父组件的render
+    *           函数被调用，在render函数里面被渲染的子组件就会经历更新过程，不管props是否变化。
+    *
+    *           b.shouldComponentUpdate
+    *           决定了组件什么时候不需要渲染，render对立 和render一样需要返回值（这里返回布尔值，告诉react库
+    *           这个组件在这次更新过程中是否要继续）
+    *           重要的原因：适当减少渲染的组件提高渲染的速度、
+    *           举例：
+    *           shouldComponentUpdate(nextProps,nextState){
+    *               return (nextProps.caption !== this.props.caption) ||
+    *                (nextState.count !== this.state.count);
+    *                判断state和props的值有没有发生变化
+    *                ps：count和caption都是state和props的值直接比较state和props也可
+    *           }
+    *
+    *           c.componentWillUpdate
+    *               类似装载过程的componentDidMount也同ComponentDidUpdate对应
+    *               与装载 不同的是服务器渲染也会调用这两个函数
+    *
+    *           e.render
+    *
+    *           d.componentDidUpdate
+    *                同componentWillUpdate相对应
+    *                与装载 不同的是服务器渲染也会调用这两个函数
+    *
+    *        (3)卸载过程
+    *       React组件的卸载过程只涉及一个函数componentWillUnmount，当React组件要从DOM树上删除掉
+    *       对应的componentWillUnmount会被调用做一些请理性的工作
+    *           和装载过程与更新过程不同的是，这个函数没有DId函数与其配对，卸载后即结束没有卸载后要做的事情
+    *           这里往往用来清除componentDidMount中创建的一些DOM元素以防止内存泄漏
+    * */
+
+</script>
+</html>

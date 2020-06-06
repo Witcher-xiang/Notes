@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 希尔排序
+    *
+    * 即插入排序的改进版
+    * 不同之处：，他会优先比较距离比较远的元素
+    * */
+    /*
+    * 基本实现
+    * 长度从数组长度的一半开始
+    * */
+    function shellSort(arr) {
+        const len = arr.length;
+        let gap = Math.floor(len/2);
+        while (gap>0){
+            /*他是从gap处开始介入*/
+            for (let i=gap;i < len;i++){
+                const  temp = arr[i];
+                let preIndex = i-gap;
+
+                //对前方做一个扫描
+                while (arr[preIndex]>temp){
+                    arr[preIndex+gap] = arr[preIndex];
+                    preIndex -= gap;
+                }
+                arr[preIndex+gap] = temp
+            }
+            gap = Math.floor(gap / 2);
+        }
+    }
+</script>
+</html>

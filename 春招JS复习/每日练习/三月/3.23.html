@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header>
+            您好您好
+    </header>
+<section>
+    我是内容，哈哈哈哈哈哈哈
+</section>
+<footer>
+    啦啦啦啦
+</footer>
+</body>
+<script>
+    function NumberOf1(n)
+    {
+        if (n === 0) return n
+        if (n<0){
+
+        }
+        let num = n.toString(2)
+        console.log(n.toString(2))
+        // write code here
+    }
+    NumberOf1(26)
+    function test() {
+        // write code here
+        let queeue = []
+        let temp = null;
+        while(head){
+            queeue.push(head)
+            head = head.next
+        }
+        queeue.map(item=>{
+            item.next = temp;
+            temp = item;
+            return item
+        })
+        let arr = queeue.reverse()
+        return arr[k]
+    }
+
+    function FindKthToTail(head, k)
+    {
+        // write code here
+        /*
+        设置一个快慢指针 快指针先前进k-1次，然后两个指针开始同时跑，当块指针到末尾时说明慢指针到了倒数k的位置
+        */
+        let quick = head,slow = head,count = 0
+        while(count<k){
+            quick =quick.next;
+            count++
+        }
+        while(quick.next){
+            quick = quick.next;
+            slow = slow.next
+        }
+        return slow;
+    }
+
+    function Merge(pHead1, pHead2)
+    {
+        // write code here
+        let p1 = pHead1; let p2 = pHead2, temp = null;
+        while(p1) {
+            while (p2){
+            if (p1.val <= p2.val) {
+                let next = p1.next;
+                p1.next = p2;
+                p1.next.next = next;
+                /*删除pHead2中的那一项*/
+                temp.next = p2.next;
+            }
+            temp = p2;
+            p2 = p2.next;
+        }
+        p1 = p1.next;
+        }
+    }
+
+    function Merge(pHead1, pHead2)
+    {
+        /*
+        这道题有三种情况
+        （1）pHead1整个大于pHead2
+        （2）pHead1整个小于pHead2
+        （3）pHead1与pHead2中某一项开始交错大小
+        */
+        let list = null;
+        if(pHead1 === null) return pHead1
+        else if(pHead2 === null) return pHead2
+
+        /*令小值为pHead1*/
+        if (pHead1.val > pHead2.val) {
+            list = pHead1;
+            pHead1 = pHead2;
+            pHead2 = list;
+        }
+        list = pHead1;
+
+        while(pHead1 && pHead2){
+            if(pHead1.next.val<=pHead2.val){
+                pHead1 = pHead1.next;
+            }else{
+                let next = pHead1.next;
+                pHead1.next = pHead2; //pHead1的下一项变为大的那一项
+                pHead2 = pHead2.next; // pHead2指针移位置
+                pHead1 = pHead1.next; //  pHead1指针移位置
+                pHead1.next = next;   // 现在的pHead1其实是刚刚加入的pHead2，因此要改变他的下一指针
+            }
+        }
+
+        if(!pHead2){
+            pHead1.next = pHead2;
+        }
+        return list||pHead1
+    }
+</script>
+</html>

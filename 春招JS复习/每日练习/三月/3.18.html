@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #a{
+            width: 400px;
+            height: 300px;
+            background: #989684;
+
+        }
+        #b{
+            overflow: hidden;
+            height:200px;
+            width:300px;
+            background: #93ffcb;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+   <div id="a">
+       4534534533657
+       <div id="b"></div>
+   </div>
+</body>
+<script>
+    let obj = {
+        a:"2",
+        b:"34",
+        c:"1"
+    }
+    for (let i of obj){
+        console.log(i)
+    }
+    /*实现一个数组扁平化*/
+    const test = [
+        [1, 2, 2],
+        [3, 4, 5, 5],
+        [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
+    ]
+    function flat(arr) {
+        const list = []
+        arr.forEach(item =>{
+            if ( Array.isArray(item) ){
+                list.push(...flat(item))
+            }
+            else arr.push(item)
+        })
+        return list
+    }
+</script>
+</html>

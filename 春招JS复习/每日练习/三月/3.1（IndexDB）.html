@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .toptop{
+        width: 100%;
+        height: 100px;
+        background: #bf6bcc;
+        opacity:0
+    }
+    .top{
+        width: 100%;
+        height: 100px;
+        background: #3399CC;
+
+
+    }
+    .bottom{
+
+        width: 100%;
+        height: 100px;
+        background: #38cc66;}
+</style>
+<body>
+<div class="toptop">上上面</div>
+    <div class="top">上面</div>
+    <div class="bottom">下面</div>
+</body>
+<script>
+    /*开始创建indexDB*/
+    const request01 = indexedDB.open("myFirstDB",1); //第一个是数据库名，第二个是参数版本号
+    request01.addEventListener("success",e => {
+
+    });
+    request01.addEventListener("error",e =>
+    {
+        console.log("数据库连接失败");
+        console.log(e)
+    });
+
+
+    /*对象仓库-类似mySql中表的概念*/
+    const request02 = indexedDB.open("myDatabase",2);
+    /*
+    *  要创建一个对象仓库必须在upgradeneeded事件中,而upgradeneeded事件只会在版本号更新的时候触发.
+    * 这是因为indexedDB API中不允许数据库中的数据仓库在同一版本中发生变化
+    * */
+    request02.addEventListener("upgradeneeded",evt => {
+        const db =evt.target.result;
+        const store = db.createObjectStore("Users",{keyPath:'userId',autoIncrement:false});
+
+        /*Users是对象仓库的名字，keyPath是*主键，autoIncrement主键是否可以自增*/
+
+    })
+
+
+
+    /*对象事物，就像是给表设置操作权限*/
+    const request03 = indexedDB.open("myDatabase",3);
+    request03.addEventListener("success",e=>{
+        const db = e.target.result;
+
+        const tx = db.transaction("Users","readwrite")
+
+        /* 利用transaction来创建事物 Users是要操作的对象仓库
+        * readwrite是创建的事物模式，readwrite即可进行读写操作
+        * */
+    })
+
+    /*添加数据*/
+    const request04 = indexedDB.open("myDatabase04",7);
+
+    request04.addEventListener("success",(e)=>{
+        const db =e.target.result;
+        const tx = db.transaction("people","readwrite");
+        console.log("req04数据库连接成功");
+        const store = tx.objectStore('people');
+
+        const reqGet = store.get(1);
+        console.log(reqGet)
+        reqGet.addEventListener('success', e => {
+            console.log(e);    // 李白
+        })
+
+    })
+
+    request04.addEventListener("upgradeneeded",evt => {
+        const db =evt.target.result;
+        const store = db.createObjectStore("people",{keyPath: 'userId', autoIncrement: false});
+
+
+    });
+
+
+    // request04.addEventListener("success",e => {
+    //     const db = e.target.result;
+    //     const store = db.createObjectStore("Users");
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //     reqAdd.addEventListener('success', e => {
+    //         console.log('保存成功')
+    //         // 获取数据
+    //         const reqGet = store.get(1);
+    //         console.log(reqGet)
+    //         reqGet.addEventListener('success', e => {
+    //             console.log(this.result.userName);    // 李白
+    //         })
+    //     })
+    // })
+
+    let obj ={
+        tmp:"hd",
+         a:function() {
+        console.log(this.tmp);
+             console.log(this)
+        }
+    };
+    function B(){
+        console.log("bbbb")
+        console.log(this)
+    }
+
+
+      let tempFun = obj.a;//a中的this指向会发生改变
+    tempFun()
+
+</script>
+</html>

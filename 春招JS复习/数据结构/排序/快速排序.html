@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *quick: 实现快速排序
+    *   @params
+    *       ary [ARRAY] 需要排序的数组
+    *   @return
+    *       [ARRAY] 排序后的新数组
+    *       by Bryce on 2019/07/26
+    * */
+    /*
+    左边的数组
+    右边的数组
+    让拿出来的每一项和中间项比较
+    小的放左边，大的放右边
+
+    再选出中间的
+
+
+    快速排序的时间复杂度是多少 ？
+极端的例子：如果数组中的数据原来已经是有序的了，比如 1，3，5，6，8。如果我们每次选择最后一个元素作为 pivot，那每次分区得到的两个区间都是不均等的。我们需要进行大约 n 次分区操作，才能完成快排的整个过程。每次分区我们平均要扫描大约 n / 2 个元素，这种情况下，快排的时间复杂度就从 O(nlogn) 退化成了 O(n2)。
+最佳情况：T(n) = O(nlogn)。
+最差情况：T(n) = O(n2)。
+平均情况：T(n) = O(nlogn)。
+
+    * */
+     function quick(ary) {
+         let length = ary.length;
+         // 4.结束递归 当只有一项的时候结束递归
+         if (ary.length<=1){
+             return ary;
+         }
+
+        //1.找到数组的中间项，在原有的数组中把它移除
+         let betweenNum = Math.floor(length/2);
+         let middleValue = ary.splice(betweenNum,1)[0];
+
+         let leftArray = [],rightArray =[];
+         for (let i=0;i<ary.length;i++){  //这里不能直接使用length因为我这里在之前的删除少了一项
+            if (ary[i]<middleValue){
+                leftArray.push(ary[i])
+            } else {rightArray.push(ary[i])}
+         }
+         return quick(leftArray).concat(middleValue,quick(rightArray))
+         /*
+         * 3.递归处理 左右两边数组持续处理，知道左右两边都排好序为止
+         * （最后让 左边+中间+右边拼接成最后结果）
+         * */
+     }
+
+     let ary = [12,8,15,16,1,24];
+
+     console.log( quick(ary));
+     /*
+     * 三路快排？No 只是普通排序的微小升级，多加了一个相等队列
+     * */
+     function quickSort(arr) {
+         if (arr.length<1) return arr
+
+          let middleIndex =Math.floor(arr.length/2),  //这里取index可以做一个中位数或者随机优化
+                middleValue = arr[middleIndex];
+
+            let left = [],right = [],center = [];
+            for (let i =0;i<arr.length;i++){
+                let a = arr[i]
+                if (a>middleValue) {
+                    right.push(a);
+                }
+                else if(a<middleValue){
+                     left.push(a)
+                }
+                else if (a === middleValue){
+                    center.push(a)
+                }
+
+                    }
+            return quickSort(left).concat(center,right)
+     }
+    console.log( quickSort(ary));
+
+
+    /*
+    * 三路快排，快速排序的改进方法
+    * 这里相对减少了一个排序的数量，因为有存储index
+    * 其次他的空间复杂度变成了O(1)
+    * */
+   // quickSortFastWay(ary01,0,ary01.length-1);
+    //
+    function quickSortFastWay(arr,left,right) {
+        if (left>=right) return false;
+        let obj = fn(arr,left,right);
+        debugger
+        quickSortFastWay(arr,left,obj.lt);
+        quickSortFastWay(arr,obj.gt,right);
+    }
+    function fn(arr,left,right) {
+        let p = arr[left],
+            lt = left,  //==p的首项
+            gt = right+1; //gt 是>p的第一项
+        for (let i = left+1;i<gt;){ //这里要从第二项开始所有要+1
+            if (arr[i] === p){
+                i++
+            }else if(p>arr[i]){
+                swap(arr,i,lt);
+                i++;
+                lt++
+            }else {
+                swap(arr,i,gt-1);
+                gt--
+            }
+        }
+        // swap(arr,left,lt); 这个可以没有因为我把上面改了
+      //  console.log("每次排序后的数组",arr)
+        lt--; // 这个也可以不去做一个回退 我是么明白这个回退是要干撒 加上他可以做一个优化
+        return {lt:lt,gt:gt}
+    }
+    //输入index和函数做一个交换
+    function swap(arr, indexA, indexB) {
+        [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
+    }
+    let ary01 = [12,8,15,16,1,24];
+
+    console.log(quickSortFastWay(ary01,0,ary01.length-1))
+    console.log(ary01)
+    /*
+    * 详情看这个
+    * https://juejin.im/post/5e94af8a6fb9a03c3d738d9b#heading-4
+    * https://blog.csdn.net/insistgogo/article/details/7785038
+    * */
+</script>
+</html>

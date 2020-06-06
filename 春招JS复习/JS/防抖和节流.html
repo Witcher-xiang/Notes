@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="input" />
+</body>
+<script>
+
+
+    /*
+    * 防抖（debounce）
+    * 魔兽技能读条，点一下会重新计时施法时间
+    *
+    * function print(value){
+        console.log(value)
+    }
+    let input=document.getElementById("input")
+    input.addEventListener("keyup",(e)=>{
+     let fun01=   debounce(print,1000)
+        fun01(e.target.value,2)
+    });
+    * */
+    function debounce(fun,dealy) {
+        return function (args) {
+            let that=this;
+            let args_=args;
+            clearTimeout(fun.id);
+            fun.id=setTimeout(()=>{
+                fun.call(that,args_)
+            },dealy)
+        }
+    }
+
+
+    function print(value){
+        console.log(value)
+    }
+    let fun01=throttle01(print,1000)
+    let input=document.getElementById("input")
+    input.addEventListener("keyup",(e)=>{
+        fun01(e.target.value)
+    });
+    /*这个时间戳不太好使*/
+    function throttle01(func, wait) {
+        let previous = 0;
+        return function() {
+            let now = Date.now();
+            let context = this;
+            let args = arguments;
+            if (now - previous > wait) {
+                console.log(previous)
+                func.apply(context, args);
+                previous = now;
+            }
+        }
+    }
+
+
+
+    /*这个定时器的节流可以*/
+    function throttle02(func, wait) {
+        let timeout;
+        return function() {
+            let context = this;
+            let args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(() => {
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+
+        }
+    }
+
+    /*
+    * 节流（throttle）
+    * 在一个单位时间内 事件被触发多次 则也只有一次生效 如表单提交请求
+    * 如果现在的时间=上一次的时间点+延迟时间 那么就马上执行fun函数
+    * */
+</script>
+</html>

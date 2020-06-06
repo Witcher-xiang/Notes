@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const arr = [1,2,3,4,5,6,7,8]
+    /*第一种感觉一般的方法*/
+    arr.sort(()=>Math.random()-0.5)
+    console.log(arr)
+    /*第二种Fisher—Yates算法*/
+    /*
+    * 思想：
+    * 从后向前面进行遍历
+    * 比如先从最后一位开始，在除去当前位置的其他元素中，
+    * 随机产生一个位置，然后与该位置的元素交换，然后依次进行
+    * */
+    const arr01 = [1,2,3,4,5,6,7,8];
+    function shuffle(arr) {
+        let m = arr.length;
+        while (m > 1){
+            let index = Math.floor(Math.random() * m--);
+            console.log("index",arr)
+                let temp;
+            temp = arr[m];
+            arr[m] = arr[index]
+            arr[index] = temp
+        }
+        return arr;
+    }
+    console.log(shuffle(arr01))
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    Function.prototype.myCall=function (context) {
+        if (!context) context=window;
+        let arr = [...arguments].splice(1)
+        let fn= this
+        context.fn = fn
+        arr.length? context.fn(...arr):context.fn()
+
+    };
+    Function.prototype.bind= function (context) {
+        if (!context) context=window
+        let fn = this;
+        let arr=[...arguments].splice(1)
+        return function () {
+            arr.concat([...arguments].splice(1));
+          return fn.apply(context,arr)
+        }
+    }
+    function curry(fn) {
+        let arr=[];
+        return function () {
+            let temp  =[...arguments]
+            arr = arr.concat(temp)
+            if (arr.length>=fn.length) return fn(...arr)
+            return arguments.callee
+        }
+
+    }
+
+    /*插入排序*/
+    function insert(arr) {
+        let newArr = []
+        newArr.push(arr[0])
+        for (let i =1;i<arr.length;i++){
+            let A = arr[i]
+            for (let j=newArr.length-1;j>=0;j--){
+                let B = newArr[j];
+                if (A>B){
+                    newArr.splice(j+1,0,A);
+                    break
+                }
+                if (j ===0){newArr.unshift(A)}
+            }
+        }
+    }
+    /*快排 一种递归思想*/
+    function quick(arr) {
+        if (arr<=1)
+            return arr
+        let btnIndex =Math.floor((arr.length)/2);
+        let btnNum = arr[btnIndex]
+        let leftArr = [];
+        let rightArr = [];
+        for (let i=0;i<arr.length;i++){
+            let A = arr[i];
+            A>btnNum?rightArr.push(A):leftArr.push(B)
+        }
+        return quick(leftArr).concat(btnNum,quick(rightArr))
+    }
+
+</script>
+</html>

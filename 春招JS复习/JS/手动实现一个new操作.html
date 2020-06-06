@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function Person(name) {
+        this.name = name
+        this.tip = "tip"
+    }
+    Person.prototype.try = "try"
+    function create(constructor,...arg) {
+        let object = new Object();
+        object.__proto__ = constructor.prototype;
+        const res = constructor.apply(object,arg); //相当于直接在object执行了这个
+        return object instanceof Object ? res : object;
+    }
+    let a= create(Person,"heihei")
+    console.log(a)
+    console.log(Person)
+
+
+    var Model = {
+        create: function() {
+            console.log(this)
+            this.records = {}
+            var object = Object.create(this)
+            return object
+        }
+    }
+
+  function f(time){
+        return new Promise(resolve => {
+            setTimeout(()=>{
+                resolve("ok")
+            },time)
+        })
+  }
+   async function fun() {
+        console.log("我在setTime前面")
+        await f(2000);
+       console.log("我在setTime后面")
+        return 1
+    }
+    console.log(":___-___:")
+    console.log(fun().then(res=>{
+            console.log(res)
+    }))
+
+
+</script>
+</html>

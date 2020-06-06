@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .container{
+        display: flex;
+        width: 100%;
+
+    }
+    .content{
+        flex: 1;
+        height: 200px;
+        background: #60abeb;
+    }
+    .left{
+        flex: 0 0 auto;
+        width: 200px;
+        height: 200px;
+        background: #5deb60;
+    }
+    .right{
+        flex: 0 0 auto;
+        width: 180px;
+        height: 200px;
+        background: #eb2bd4;
+    }
+</style>
+<body>
+ <div class="container">
+     <div class="left"></div>
+     <div class="content">今天又是努力的一天</div>
+     <div class="right"></div>
+ </div>
+</body>
+<script>
+    function Node(data) {
+        this.root = this;
+        this.data=data;
+        this.left=null;
+        this.right=null;
+    }
+    function Tree() {
+        this.root = null;
+        this.insert = insert;
+        this.find  = find
+    }
+    /*遵从左小右边大的特点可以提高查找效率*/
+    function insert(data) {
+        let current = this.root;
+        if (current == null){
+            this.root = new Node(data)
+        } else{
+            while (1){
+                if (current.data>data){
+                    if (current.left == null){
+                        current.left=new Node(data);
+                        break
+                    } else{
+                        current = current.left
+                    }
+                } else{
+                    if (current.right == null){
+                        current.right = new Node(data);
+                        break
+                    }
+                    else {
+                        current = current.right
+                    }
+                }
+            }
+
+        }
+    }
+    function find(data){
+        let current = this.root;
+        while (1) {
+            if (current == null) return null;
+            if (current.data === data) {
+                return current
+            }
+            else current.data > data ? current = current.left:current.right;
+
+        }
+    }
+    /*二叉树的深度遍历！*/
+    let preListRec = []
+    //前序遍历 递归版
+    function preOrderRec(node){
+        if (node){
+            preListRec.push(node.data)
+            preOrderRec(node.left)
+            preOrderRec(node.right)
+        }
+    }
+    //前序遍历 非递归版（DFS深度优先算法）
+    /*这里的深度用的是栈
+    * 思路：
+    * 写个栈 看这个节点存在不
+    * 存在：将此节点的数据存了 （用pop方法）这玩意可以出栈了
+    * 将此节点的先右边节点 入栈 然后左节点入栈（都用push从结尾入）
+    * */
+    let perListUnRec = [];
+    function preOrderUnRecursion(node){
+        if (node) {
+            let stack = [node]; //将二叉树压入栈
+            while (stack.length !==0){
+                node = stack.pop();
+
+                perListUnRec.push(node.data); //push是数组末尾增加方法
+                if (node.right) stack.push(node.right);
+                if (node.left)  stack.push(node.left);
+            }
+        }
+    }
+
+    //BFS（广度优先算法）
+    /*广度用的队列
+    *
+    * */
+    let breadthList = [];
+    function breadthTraversal(node){
+        if (node){
+            let que = [node];
+            while (que.length !== 0){
+                node = que.shift();
+                breadthList.push(node.data);
+                if (node.left) que.push(node.left);
+                if (node.right) que.push(node.right)
+            }
+        }
+    }
+
+
+    let tree = new Tree();
+    let arr=[9,10,6,12,8];
+    arr.forEach(item=>{tree.insert(item)});
+    preOrderRec(tree.root);
+    preOrderUnRecursion(tree.root);
+    breadthTraversal(tree.root);
+    console.log(tree);
+    console.log(preListRec);
+    console.log(perListUnRec);
+    console.log(breadthList);
+
+</script>
+</html>

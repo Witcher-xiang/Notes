@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 思路创建两个栈
+    * 进来的值先进栈1
+    * 再将栈1的值压到栈2，这样从栈2直接取值就实现了队列
+    * 注意：需要加两个判断：
+    * 1.入栈的时候需要注意栈2是否有值，若有则全部出栈2 到栈1去
+    * 2.再出栈的时候注意栈1是否有值，有的话全部入栈2 再进行
+    * */
+    function Stack(num){
+        this.arr=[]
+        this.pop=()=>{
+            this.arr.unshift(num)
+        }
+        this.push=()=>{
+            let temp = this.arr.shift()
+            return temp
+        }
+    }
+    let stack01 = new Stack();
+    let stack02 = new Stack();
+
+
+    function push(node)
+    {
+        if(!stack02.arr !== null){
+            while(stack02 !== null){
+                stack01.push(stack02.pop())
+            }
+        }
+        stack01.push(node)
+        while(stack01.arr!==null){
+            stack02.push(stack01.pop())
+        }
+        // write code here
+    }
+    function pop()
+    {
+        return stack02.pop()
+        // write code here
+    }
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #d1{
+            width: 100px;
+            height: 100px;
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+<div id="d1"></div>
+</body>
+<script type="text/javascript">
+    var d1=document.getElementById("d1");
+    d1.onclick=function(){
+        alert(getStyle(d1,"background"));
+    };
+
+    function getStyle(obj,name) {
+        return window.getComputedStyle(obj,null)[name];
+        //null是一种伪类，对于获取普通元素的样式null即可
+    }
+</script>
+</html>

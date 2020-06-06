@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box1 {
+            width: 1950px;
+            height: 1080px;
+            background: yellowgreen;
+            margin: 0 auto;
+            padding:  15px 0; /* 先上下后左右 */
+            position: relative;
+            top: 15px;
+            overflow: hidden; /* 会将溢出的元素直接裁剪掉 */
+        }
+        #box2{
+            position: absolute;
+
+            left: 690px;
+            top:1000px;
+        }
+        #box2 a{
+            background: gray;
+            float: left;
+            width: 60px;
+            height: 60px;
+            /*padding:0 15px; 内边距 先上下后左右*/
+            margin: 0 40px;
+
+            opacity: 1;
+        }
+        #box2 a:hover{
+            background:black;
+
+        }
+        #list01{
+           /* width: 7880px;  <!-- 需要设置一个宽度使得图片横向（不要忘记加内外边距） -->*/
+            list-style:none;
+            position: absolute;
+            left: 0; /*图片轮播移动的原理即是一排图片轮流移动*/
+
+        }
+        #list01 li{
+            float: left;
+            margin:0 15px;
+            list-style:none;
+
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload=function () {
+            var list01=document.getElementById("list01");
+            var imgNumber=document.getElementsByTagName("img");
+            list01.style.width=1950*imgNumber.length+"px";
+            //此方法可以使得图片插入的更加灵活
+
+            var box2=document.getElementById("box2");
+            var box1=document.getElementById("box1");
+            box2.left=(box1.offsetWidth-box2.offsetWidth)/2;
+            //使用这种方法去设置居中可以使得居中点数无限制增加还精准
+
+            var index=0;
+            var allA=document.getElementsByTagName("a");
+            allA[index].style.backgroundColor="black";
+
+            for(var i=0;i<allA.length;i++){
+             allA[i].num=i;
+             //我们可以自己去定义一个元素的属性如：allA[i].num=i;即是自己定义用来放链接的索引的
+             allA[i].onclick=function () {
+                 index=this.num;
+                 /*
+                 第一张：0
+                 第二张：-1950
+                 第三张：-1950*2
+                  */
+                 list01.style.left=-1950*index+"px";
+                 //不要忘记加px单位
+                 setA();
+             };
+
+                function setA() {
+                    for (var i=0;i<allA.length;i++)
+                    {
+                        allA[i].style.backgroundColor="";
+                        //这里写一个空串这样其颜色为空就可以显示背景颜色
+                        allA[index].style.backgroundColor="black";
+                    }
+                }
+            }
+
+
+            /*   这下面的为滚动的动画函数 */
+
+            var timer;
+            function getStyle(obj,name){
+                return getComputedStyle(obj, null)[name];
+            }  //获取元素属性的一种灵活函数，其中IE8还有区别
+
+            btn01.onclick=function () {
+                clearInterval(timer);
+                timer=setInterval(function () {
+                    var oldPosition=parseInt(getStyle(box1,"left"));//记得这里➕引号
+                    //parseInt()的作用目的是将字符串中的合法字符取出来
+                    //有px的数字是无法计算的
+                    var newPosition=oldPosition+10;
+                    if (newPosition<-1950)
+                    {newPosition=-1950;}
+                    box1.style.left=newPosition+"px";
+                    if (newPosition===-1950)
+                        clearInterval(timer);
+                },10)
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box1">
+    <!--box1的作用是用来主要放图片的-->
+    <ul id="list01">
+        <li><img src="350902-106.jpg"> </li>
+        <li><img src="350950-106.jpg"> </li>
+        <li><img src="354575-106.jpg"> </li>
+        <li><img src="354623-106.jpg"> </li>
+    </ul>
+    <div id="box2">
+        <a href="javascript:"></a>
+        <a href="javascript:"></a>
+        <a href="javascript:"></a>
+        <a href="javascript:"></a>
+    </div>
+</div>
+
+</body>
+</html>

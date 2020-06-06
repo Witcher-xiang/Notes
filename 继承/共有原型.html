@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    Father.prototype.lastname ="Deng";
+    function Father() {
+
+    }
+    function Son() {
+
+    }
+
+    Son.prototype=Father.prototype; //直接指向要继承的原型即可
+    Son.prototype.sex="male";//弊端在于现在son和father都同时指向prototype给son添加了sex相当于给father也添加了
+</script>
+</body>
+</html>

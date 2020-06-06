@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 542T 矩阵
+    * */
+    /**
+     * @param {number[][]} matrix
+     * @return {number[][]}
+     */
+    let arr = [[0,1,0,1,1],[1,1,0,0,1],[0,0,0,1,0],[1,0,1,1,1],[1,0,0,0,1]];
+    /*日哦 这个写成最远的了 艹*/
+    var updateMatrix = function(matrix) {
+        /*
+        * 1、定义二维数组含义matrix
+        * */
+        let arr = []
+        const searchTop = (matrix,i,j,count)=>{
+                if (!count) count =0
+            if (!matrix[i-1]) return 0;
+            if (matrix[i-1][j]!==0){
+                return  searchTop(matrix,i-1,j,count+1)
+            }
+            return count+1
+        },
+            searchLeft = (matrix,i,j,count)=>{
+            if (!count) count =0
+            if (matrix[i][j-1] ==null) {  return 0;}
+            if (matrix[i][j-1]!==0){
+                return  searchLeft(matrix,i,j-1,count+1)
+            }
+
+            return count+1
+        },
+            searchRight = (matrix,i,j,count)=>{
+            if (!count) count =0
+            if (matrix[i][j+1] == null) return 0;
+            if (matrix[i][j+1] && matrix[i][j+1]!==0){
+                return  searchRight(matrix,i,j+1,count+1)
+            }
+            return count+1
+        },
+           searchBottom = (matrix,i,j,count)=>{
+               if (!count) count =0
+            if (!matrix[i+1]) return 0;
+            if (matrix[i+1][j]!==0){
+                return  searchBottom(matrix,i+1,j,count+1)
+            }
+            return count+1
+        };
+        for (let i = 0;i<matrix.length;i++){
+            let A = matrix[i];
+            arr.push([]);
+            for (let j = 0; j < A.length;j++){
+                let B =A[j];
+
+                if (B ===0){
+
+                    arr[i][j] =0
+                }
+                else  {
+                    arr[i][j] =  Math.max(
+                    searchTop(matrix,i,j),
+                    searchLeft(matrix,i,j),
+                    searchRight(matrix,i,j),
+                    searchBottom(matrix,i,j),
+                )}
+
+            }
+        }
+        return arr
+    };
+    console.log(updateMatrix(arr))
+
+
+    /**
+     * @param {number[][]} matrix
+     * @return {number[][]}
+     */
+    /*
+    * 思想：做一个广度优先遍历将所有1加入到队列中，并且为之添加相应的访问位
+    * 将队列设的每一项设置为这样[row,col,0] row,col代表当前项的位置，0则代表是否访问过
+    *
+    * 或者有种更简单的方式，对每个1做一次广度优先遍历
+    * */
+    var updateMatrix = function(matrix) {
+        let ans = JSON.parse( JSON.stringify( matrix ) ),
+            queue = [];
+
+        for (let row = 0; row < matrix.length; row++) {
+            for (let col = 0; col < matrix[0].length; col++) {
+                if (matrix[row][col] === 0) continue;
+                queue.push( [row, col, 0] );//如果当前项为1则被放入队列
+                ans[row][col] = bfs();
+                queue = [];
+            }
+        };
+
+        // 广度优先搜索
+        function bfs() {
+            let step = 0;
+            while (queue.length > 0) {
+                let curr = queue.shift();
+                step = curr[2];
+
+                // 四个方向
+                let ways = [ [-1, 0], [0, 1], [1, 0], [0, -1] ];
+                for (let i = 0; i < 4; i++) {
+                    let r = curr[0] + ways[i][0], // row的坐标
+                        c = curr[1] + ways[i][1]; // column 列坐标
+                    // 如果越界就跳过
+                    if (r < 0 || r >= matrix.length || c < 0 || c >= matrix[0].length) {
+                        continue;
+                    }
+
+                    // 如果是 0，那么 step + 1; 返回
+                    if (matrix[r][c] === 0) {
+                        step += 1;
+                        queue = [];
+                        break;
+                    }
+
+                    // 记录到 queue 中，step + 1;
+                    queue.push( [r, c, step + 1] );
+                }
+            }
+
+            return step;
+        }
+        return ans;
+    };
+
+    /*我自己写个矩阵的广度遍历优先函数*/
+    var myUpdateMatrix = function(matrix) {
+        let ansArr  = JSON.parse(JSON.stringify(matrix)),queue = [];
+       for (let i = 0;i<matrix.length;i++){
+            for (let j=0;j<matrix[i].length;i++){
+                queue.push([i,j,0]);
+                ansArr[i][j] = myBfs();
+                queue = [];
+            }
+       }
+        function myBfs() {
+           let step = 0;
+            while (queue.length){
+                let temp = queue.shift();
+                // 判断四个方向
+                const directArr = [[1,0],[0,1],[-1,0],[0,-1]];
+                for (let i=0;i<directArr.length;i++){
+                    let column = temp[1] + directArr[i][1],
+                        row    = temp[0] + directArr[i][0];
+                    if (row<0 || column<0 || i>matrix.length || j > matrix[0].length)
+                        continue; //超出边界跳出本次循环
+
+                    if (matrix[row][column] === 0){
+                       step = step+1;
+                        queue = []; //直接就终止循环了
+                        break
+                    }
+                    queue.push([row,column,step+1])
+                }
+            }
+            return step
+        }
+       return ansArr
+    }
+</script>
+</html>

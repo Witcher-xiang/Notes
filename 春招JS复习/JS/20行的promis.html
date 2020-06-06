@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    class Promise02{
+        constructor(executor) {
+            this.satae = "pending";
+            this.value = undefined;
+            this.reason = undefined;
+            // 成功存放的数组
+            this.onResolvedCallbacks = [];
+            // 失败存放法数组
+            this.onRejectedCallbacks = [];
+
+           let resolve = (res)=>{
+               if (this.satae === "pending")
+                  {
+                      this.satae = "fulfilled";
+                      this.value = res;
+                      console.log(res)
+                      // 一旦resolve执行，调用成功数组的函数
+                      this.onResolvedCallbacks.forEach(fn=>fn());
+                  }
+            };
+            let reject=(err)=>{
+                if (this.satae === "pending"){
+                    this.satae = "rejected";
+                    this.reason = err;
+                    console.log(err);
+                    // 一旦reject执行，调用失败数组的函数
+                    this.onRejectedCallbacks.forEach(fn=>fn());
+                }
+            };
+            //害怕出错！
+            try {
+                executor(resolve,reject)
+            }catch (e) {
+                reject(e)
+            }
+        }
+
+
+        /*其中的异步实现方法，因为异步.then会先被调用因此传入的函数被存入数组，
+        * 当resolve方法执行时 再去遍历这个数组
+        * */
+        then(onFulfilled,onRejected){
+            let promise02 = new Promise((resolve, reject)=> {
+                if (this.satae === "fulfilled" && onFulfilled) {
+                    let result = onFulfilled(this.satae.value)
+                    // resolvePromise函数，处理自己return的promise和默认的promise2的关系
+                    resolvePromise(promise02, result, resolve, reject);
+                }
+                if (this.satae === "rejected" && onRejected) {
+                    let result = onRejected(this.satae.reason)
+                    resolvePromise(promise02, result, resolve, reject);
+                }
+                if (this.satae === "pending") {
+                    this.onResolvedCallbacks.push(() => {
+                     let result= onFulfilled(this.value)
+                        resolvePromise(promise02, result, resolve, reject);
+                        //这里不用resolvePromie直接返回也行 面试写一个写tm明年去了
+                    });
+                    this.onRejectedCallbacks.push(() => {
+                     let result=  onFulfilled(this.value)
+                        resolve("失败的值")
+                        resolvePromise(promise02, result, resolve, reject);
+                    });
+                }
+            })
+            return promise02
+        }
+    }
+
+    function resolvePromise(promise02, result, resolve, reject){
+        if (result === promise02){
+            // reject报错 循环应用
+            return reject(new TypeError('Chaining cycle detected for promise'));
+        }
+        // 防止多次调用
+        let called;
+        if (result != null && (typeof result === 'object' || typeof result === 'function')) {
+
+        }
+    }
+    let pr = new Promise02((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log(resolve("我成功了"))
+        },2000)
+    })
+    pr.then(res=>{
+        console.log("第一层.then调用",res);
+        setTimeout(()=>{
+            return "666"
+        },500)
+    }).then(res=>{console.log("第二层调用",res)})
+
+    // let test = new Promise02(resolve => {
+    //     setTimeout(()=>{
+    //         resolve("好")
+    //     },1000)
+    //
+    // })
+    // test.then(res=>{console.log(res); return "我返回了"})
+    // .then(res=>{console.log("第二个then",res)})
+
+    class Promise03{
+        constructor(excutor) {
+        let self = this;
+            self.onResolvedCallback = []
+        let resolve=(value)=>{
+            setTimeout(() => {
+                self.data = value
+                self.onResolvedCallback.forEach(callback => callback(value))
+            })
+            }
+            excutor(resolve.bind(self))
+        }
+        then(onResolved){
+            let self = this;
+            return new Promise03(resolve =>{
+                /*
+                * 这个被塞进队列的fun 才是回调的关键 因为，他被塞进队列说明只有当
+                * promise执行resolve才执行这时我们才能拿到值
+                * 才能给新返回的Promise传值
+                * 同时还要判断一下用户那有没有自定义promise，有定义就帮他 一把
+                * 执行一下.then 让其返回的promise写入promise02的队列
+                * */
+                //这里push进去的函数只有用户调用时才执行
+                self.onResolvedCallback.push(function () {
+                    let result = onResolved(self.data)
+                    if (result instanceof Promise) {
+                        // resolve的权力被交给了user promise
+                        // resolve 是用户传入的函数 因此我们要帮用户执行一下
+                        result.then(resolve)
+                    } else {
+                        resolve(result)
+                    }
+                })
+            } )
+        }
+    }
+    let test = new Promise03(resolve => {
+        setTimeout(()=>{
+            resolve("好")
+        },1000)
+
+    })
+    test.then(res=>{console.log(res); return "我返回了"})
+    .then(res=>{console.log("第二个then",res)})
+</script>
+</html>

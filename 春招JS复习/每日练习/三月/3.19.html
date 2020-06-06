@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function flatten(arr) {
+        const tempArr = [];
+        arr.forEach(item=>{
+            if (Array.isArray(item)){
+                tempArr.push(flatten(item))
+            } else {
+                tempArr.push(item)
+            }
+        })
+        return tempArr
+    }
+    function readline() {
+        return "dsf 324"
+    }
+        let str=readline()
+        let str01 = " ";
+        let count = 0;
+        for (let i=0;i<str.length;i++){
+            count++
+            continue
+        }
+
+        let str02 ="5 1 2 1 3 1 2"
+        console.log(str02.slice(1))
+
+
+    lines = str02.split(" ")
+    let n = lines[0];
+    let self = lines[1];
+    let grassList = lines.slice(2)
+    for (let i =0;i<grassList.length;i++){
+            if(grassList[i] ==self) {
+                self = self *2
+
+            }
+    }
+    console.log("self为",self)
+    // grassList.forEach(item=>{
+    //
+    //     if(item ===self) {
+    //         console.log(item)
+    //         self = self+item
+    //     }
+    // })
+
+
+</script>
+</html>

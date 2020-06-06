@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    什么是Blob：一个 Blob对象表示一个不可变的, 原始数据的类似文件对象。
+
+    * Blob有两个参数
+    * 参数1：数据序列，可以是任意格式的值,这里必须以数组的形式传递进去
+    * 参数2：一个对象其中有两个属性{ type: MIME的类型, endings: 决定第一个参数的数据格式，
+    可以取值为 "transparent" 或者 "native"（transparent的话不变，是默认值，native 的话
+    按操作系统转换） 。 }
+    * */
+    let str = {hello:"world"};
+    let blob01 = new Blob(
+        [JSON.stringify(str,null,2)],
+        {type:"application/json"}
+    );
+    console.log(blob01)
+
+    /*如何导出word？blob+FileSaver的saveAs
+    * 最好使用BaiDu.template 这样html会好写一点
+    * */
+    let str01 = "<div class='a'>你好你好</div>";
+    let style = ".a{font-size:80px;color:'red'}"
+    let html = this.getModelHtml(str01,style)
+    let blob = new Blob([html],{type:"application/msword;charset=utf-8"})
+    function getModelHtml(mhtml,style = ""){
+        return `
+        Content-Type: text/html; charset="utf-8"
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <style>
+        ${style}
+      </style>
+      </head>
+      <body>
+        ${mhtml}
+      </body>
+      </html>
+        `
+    }
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let ary = [12,8,24,16,1];
+    /*
+    * 插入排序
+    * 抓扑克左右手
+    * 先取个12 放到数组里
+    * 再抓取一个值 和数组里的值从前往后比较然后放到前后
+    * 前提：如果比较到第一个了则放置到前面即可
+    * */
+    /*
+    * insert 插入排序
+    * @params
+    *       ary [ARRAY]
+    * @return
+    *       [ARRAY]
+    *       by Bryce on 2020/02/21
+    * 空间复杂度：O(1) 给定数组进行元素交换
+    * 平均时间复杂度：O（n^2）
+    * */
+    function insert(ary) {
+        let handle = [];
+        handle.push(ary[0]);
+        for (let i=1;i<ary.length;i++){
+            let A = ary[i]
+            for (let j=handle.length-1;j>=0;j--){
+                let B=handle[j];
+                if (B<A){
+                    handle.splice(j+1,0,A);
+                    break
+                }
+                if (j===0)
+                {
+                    handle.unshift(A);
+                }
+            }
+        }
+        return arr;
+    }
+    console.log(insert(ary))
+
+    function shellSort(arr) {
+        const len = arr.length;
+        let gap = Math.floor(len / 2);
+
+        while (gap > 0) {
+            // 注意下面这段 for 循环和插入排序极为相似
+            for (let i = gap; i < len; i++) {
+                const temp = arr[i];
+                let preIndex = i - gap;
+
+                //你可以简单理解为if，但其实他还会向前比较进行交换
+                while (arr[preIndex] > temp) {
+                    arr[preIndex + gap] = arr[preIndex];
+                    preIndex -= gap;
+                }
+                arr[preIndex + gap] = temp;
+            }
+            gap = Math.floor(gap / 2);
+        }
+
+        return arr;
+    }
+
+    // test
+    const arr = [91, 60, 96, 7, 35, 65, 10, 65, 9, 30, 20, 31, 77, 81, 24];
+    console.log(shellSort(arr));
+
+</script>
+</html>

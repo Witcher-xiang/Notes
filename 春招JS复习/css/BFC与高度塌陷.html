@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,html{
+            margin: 0;
+            padding: 0;
+        }
+        .box01{
+            background: #db763d;
+            float: left;
+
+            height: 100px;
+
+            /*
+            发生高度塌陷，原因脱离文档流
+            */
+        }
+        .box02{
+        background: #3399CC;
+            border: black 1px solid;
+            padding: 10px;
+            /*float: left;*/
+            /*display: inline-block;*/
+
+            overflow: hidden;
+        }
+
+        .box03{
+            margin-top: 10%;
+            background: #3bdb44;
+        }
+        .bfc01{
+            width: 100px;
+            height: 100px;
+            float: left;
+            background: lightcoral;
+        }
+        .bfc02{
+            width: 200px;
+            height: 200px;
+            background: blue;
+            overflow: hidden; /*当这里设置overflow时元素就不会被遮挡*/
+        }
+
+        .bfc03{
+            width: 100px;
+            height: 100px;
+            background: #3bdb44;
+            overflow: hidden;
+            margin-top: 14%;
+           /*这里会出现 开启bfc来解决这个问题 子元素的外边距会传递给父元素*/
+        }
+        .bfc04{
+            width: 200px;
+            height: 200px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="box02">
+    <div class="box01">sadsad</div>
+</div>
+<p style="width: 10px;height: 10px;overflow: hidden">
+    知道这里为什么即使浮动都会有一大片的空白嘛！因为box02和box03是兄弟元素 不是父级元素，
+    margin-top 也可以理解为一个块级元素
+</p>
+
+<div class="box03">
+dfs
+</div>
+
+<div class="bfc01"></div>
+<div class="bfc02"></div>
+
+
+<div class="bfc04">
+
+    <div class="bfc03">bfc03</div>
+</div>
+</body>
+<script>
+    /*高度塌陷出现的情况
+    * 父元素不设置高度自适应，子元素进行浮动 便会出现高度塌陷的情况
+    * */
+
+    /*
+    * BFC-块级格式化环境
+    *   开启BFC该元素会变成一个独立的布局区域，与其他区域不同 用来解决高度塌陷问题
+    *    开启BFC元素后的特点：
+    *       1.开启BFC的元素不会被浮动元素覆盖
+    *       2.开启BFC的元素子元素和父元素外边距不会重叠
+    *       3.！！开启BFC的元素可以包含浮动的子元素
+    *
+    *       可以通过一些特殊的方式来开启BFC
+    *       1.设置元素的浮动(不推荐)
+    *       2. 行内快元素（不推荐）
+    *       3. 将元素的overflow设置为一个非visible的值(常用设置overflow:hidden)
+    * */
+
+</script>
+</html>

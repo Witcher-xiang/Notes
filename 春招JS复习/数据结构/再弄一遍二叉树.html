@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function Node(data,left,right) {
+        this.data=data;
+        this.left=left;
+        this.right=right;
+    }
+    /*左小右大遍历更快*/
+    function BST() {
+        this.root=null;
+        this.insert=insert; //函数提升相当于直接把insert写入了BST
+        this.find = find;
+    }
+    /*删除我没咋看懂
+    * 删除节点中心思想：如果删除节点是叶子节点，则将父节点指向null；如果删除节点有一个子节点，
+    * 则将父节点指向删除节点的子节点；如果删除节点有两个子节点，这个本文不写，因为这个有点不合适（脑补）！
+    * */
+    function remove(data){
+        this.root = removeNode(this.root,data);
+    }
+    function removeNode(node,data){
+        if(node === null){
+            return null;
+        }
+        if(data === node.data){
+            if(node.left === null && node.right === null){
+                return null;
+            }
+            if(node.left === null){
+                return node.right;
+            }
+            if(node.right === null){
+                return node.left;
+            }
+        }else if(data < node.data){
+            node.left = removeNode(node.left,data);
+            return node;
+        }else{
+            node.right = removeNode(node.right,data);
+            return node;
+        }
+    }
+
+    function insert(data) {
+        let node = new Node(data,null,null);
+        if (this.root==null){
+            this.root = node;
+        }
+        else {
+            let current = this.root;
+            while (true) {
+                if (current.data>data){
+                    if (current.left==null){
+                        current.left=node;
+                        break;
+                    }
+                        current=current.left
+                } else {
+                    if (current.right == null){
+                        current.right=node;
+                        break;
+                    }
+                        current=current.right;
+                }
+
+            }
+
+        }
+
+    }
+
+    function find(data) {
+        let current = this.root;
+        while (1){
+            if (current === null) {return null}
+            if (current.data === data){
+                return current;
+            }
+            current.data > data ? current=current.left:current.right;
+
+        }
+    }
+    /*遍历
+    * 这个是前序遍历的递归方法
+    * 中序后续是类似的 调换一下位置即可
+    * */
+    function preOrderRec(tree){
+        if (tree){
+            preListRec.push(tree.data);
+            preOrderRec(tree.left);
+            preOrderRec(tree.right);
+        }
+    }
+
+    /*js中二叉树的广度遍历*/
+    //栈：先进后出，后入先出
+    //队：先入先出
+    let breadthList = []; //定义保存广度遍历结果的数组
+    let breadthTraversal = function(node) {
+        if (node) { //判断二叉树是否为空
+            let que = [node]; //将二叉树放入队列
+            while (que.length !== 0) { //判断队列是否为空
+                node = que.shift(); //从队列中取出一个结点
+                breadthList.push(node.value); //将取出结点的值保存到数组
+                if (node.left) que.push(node.left); //如果存在左子树，将左子树放入队列
+                if (node.right) que.push(node.right); //如果存在右子树，将右子树放入队列
+            }
+        }
+    };
+
+
+    breadthTraversal(tree);
+    console.log(breadthList);
+    //[ '-', '+', '/', 'a', '*', 'd', 'e', 'b', 'c' ]
+
+
+    let preListRec = [];
+    let bst = new BST();
+    let arr=[9,10,6,12,8];
+    arr.forEach(item=>{bst.insert(item)});
+    console.log([bst.root])//创建好了一个二叉树看一看
+    console.log(bst.find(2));
+    /*前序遍历*/
+    preOrderRec(bst.root);
+    console.log(preListRec)
+
+
+    /*实现react的diff算法*/
+    function diff(dom,vnode) {
+        // diff text node
+        if ( typeof vnode === 'string' ) {
+
+            // 如果当前的DOM就是文本节点，则直接更新内容
+            if ( dom && dom.nodeType === 3 ) {    // nodeType: https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType
+                if ( dom.textContent !== vnode ) {
+                    dom.textContent = vnode;
+                }
+                // 如果DOM不是文本节点，则新建一个文本节点DOM，并移除掉原来的
+            } else {
+                out = document.createTextNode( vnode );
+                if ( dom && dom.parentNode ) {
+                    dom.parentNode.replaceChild( out, dom );
+                }
+            }
+            return out;
+        }
+    }
+
+</script>
+</html>

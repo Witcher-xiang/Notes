@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>垂直居中的五大方法</title>
+    <style type="text/css">
+
+      body{
+            position: relative;
+           padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        #boxId{
+            box-sizing: border-box;
+            width: 200px;
+            height: 50px;
+            line-height: 48px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid lightblue;
+            background: lightcyan;
+            display: inline-block;
+        }
+
+        /*
+        定位方式01
+        需要知道元素的宽高
+        */
+       /*.box{
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           margin-top: -100px;
+           margin-left: -50px;
+       }*/
+
+        /*
+        定位方式02
+        这种情况不需要考虑元素本身宽高，但元素必须要有宽高，没有的话会全部撑满父元素
+
+        .box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+         */
+        /*定位方式03
+            即使没有宽高也能让元素撑开
+            .box{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        */
+      /*flex的水平垂直居中 */
+      /*html,body{*/
+          /*display: flex;*/
+          /*justify-content: center; !*X轴*!*/
+          /*align-items: center;      !*Y轴*!*/
+          /*height: 100%;            !*这里得有高度才可*!*/
+      /*}*/
+
+      /*通过table-cell进行垂直居中*/
+        body{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            /*父元素固定宽高这个才能实现*/
+            width: 100vw;
+            height: 100vh;
+        }
+        .box{
+            display: inline-block;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="boxId" class="box">您好，我是王同学</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * leetCode 300
+    * */
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    /*
+    * O(n^2)的解法
+    * */
+
+
+    var lengthOfLIS_On2 = function(nums) {
+        if (nums.length ===0 )  return 0
+        let arr= [];
+        for (let i=0;i<nums.length;i++){
+            let A = nums[i];
+            arr.push([]);
+            for (let j=i;j<nums.length;j++){
+                let B = nums[j];
+                if (j ===i){
+                    let tempArr = arr
+                    arr[i].push(A)
+                }
+                if (arr[i][arr[i].length-1]<B)
+                   {
+                       arr[i].push(B)
+                   }
+            }
+        }
+        let lengthArr = []
+        arr.forEach(item=>{
+            lengthArr.push(item.length)
+        })
+       return Math.max(...lengthArr)
+    };
+    let temp = [10,9,2,5,3,7,101,18]
+//    console.log( lengthOfLIS_On2(temp))
+
+    var lengthOfLIS = function(nums) {
+        /*
+        * 一、定义数组(一维)的含义：为当前递增子序列的列尾元素的长度
+        * */
+        let arr = new Array(nums.length).fill(1);
+        /*
+        * 二、求出关系式
+        *  从后往前看,nums[i]为当前扫到的那个元素
+        *  if(nums[i]<nums[j]) arr[i] =Math.max(arr[j])
+        * [10,9,2,5,3,7,101,18]
+        * */
+        /*三、初始化
+   * 长度为1的字符串他的递增子序列就是1
+   * */
+        for (let i =0;i<nums.length;i++){
+            for (let j=0;j<i;j++){
+                if (nums[i]>nums[j]){
+                    arr[i] = Math.max(arr[i],arr[j]+1)
+                }
+            }
+        }
+
+        return Math.max(...arr)
+    };
+    console.log(lengthOfLIS([10,9,2,5,3,7,101,18]))
+    console.log(Math.floor(1.9))
+    let integer =11,numberArray =[]
+    while (integer >0) {
+        var number1 = integer % 2;
+        numberArray.unshift(number1);
+        integer = Math.floor(integer / 2);
+    }
+    console.log(numberArray)
+
+
+</script>
+</html>

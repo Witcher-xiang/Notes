@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class和Module</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * Class类
+    * 他实际上只是一个语法糖，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已
+    * 使用普通的funciton定义即可
+    * http://wiki.jikexueyuan.com/project/es6/class.html
+    * class不存在变量提升
+    * */
+    class Point{
+        constructor(x,y){
+            console.log("父类被调用")
+        }
+
+        toString(){
+            // ...
+        }
+
+        toValue(){
+            // ...
+        }
+    }
+    /*这里的class类就相当于这个构造函数的原型*/
+   console.log(Point.prototype);
+
+    Point.prototype.constructor === Point // true
+
+    /*constructor方法
+    * constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。
+    * 一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加.
+    * */
+    class Foo {
+        /*可以将construct理解为一个入口这个类的入口
+        * 当声明或者使用时必将调用
+        * */
+        constructor(x,y) {
+            this.x = x;
+            this.y = y;
+        }
+        getValue(){
+            return "value"
+        }
+    }
+    console.log("Foo",Foo.prototype.getValue()) //可以通过原型的方式调用函数
+    console.log(new Foo() instanceof Foo) //如果不让构造函数返回false
+  let foo= new Foo(1,2)
+    console.log(foo.x)
+
+    /*类的prototype属性和__proto__属性
+    * （1）子类的__proto__属性，表示构造函数的继承，总是指向父类。
+    *
+    *   （2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
+    * */
+    class A{
+
+    }
+    class B extends A {
+    }
+    console.log("__proto__",B.__proto__ === A )// true 子类的指向父类
+    console.log("prototype",B.prototype.__proto__ === A.prototype )// true 指向父类的prototype属性
+
+    /*export命令，import命令*/
+        /*export的导出方式
+        * (1)export var firstName = 'Michael';
+        * (2)
+        * var firstName = 'Michael';
+        * var lastName = 'Jackson';
+        * var year = 1958;
+        * export {firstName, lastName, year};
+        * (3)整体引入
+        * import * as circle from 'circle';
+        * 或者使用module
+        * module circle from 'circle';
+        * */
+
+</script>
+</html>

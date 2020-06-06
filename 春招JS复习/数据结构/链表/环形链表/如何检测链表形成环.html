@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*储备知识*/
+    var obj = {};
+    var a = Symbol('a');
+    var b = Symbol('b');
+
+    obj[a] = 'Hello';
+    obj[b] = 'World';
+    obj.c  = 'Mine';
+
+    for( let key in obj ){
+        console.log(key)         // c
+    }
+    var d = Symbol('d');
+    let arr = [2,34,2,1,312,34]
+    let ary = new Set(arr)
+    for (let key of ary.entries()){
+        console.log(key)
+    }
+    /*
+    * 如何检测链表形成环
+    *  思路一：循环一遍，用Set数据结构保存节点，利用节点的内存地址进行判重，如果同样的节点走过两次
+    *  则说明链表重复
+    *
+    *  思路二：利用快慢指针，快指针一次走两步慢指针一次走一步，如果两者相遇，则表明以及形成了环
+    *
+    *  你要注意的是：这里set的实现
+    *  他将每一项
+    * */
+    /* 思路一实现 */
+    let hasCycle = (head) => {
+        let set = new Set();
+        let  p = head;
+        while (p){
+            if (set.has(p)) return true;
+            set.add(p);
+            p = p.next
+        }
+    }
+</script>
+</html>

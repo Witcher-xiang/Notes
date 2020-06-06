@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            background: red;
+
+        }
+        .block{
+            height: 20px;
+            background: palegreen;
+        }
+
+        .box01{
+            float: left; /*脱离文档流向上移动*/
+            width: 30%;
+            height: 100px;
+            background: #3399CC;
+        }
+        .box02{
+            float: left;
+            width: 30%;
+            height: 200px;
+            background: #db763d;
+
+        }
+        .box03{
+
+            width: 500px;
+            height: 500px;
+            background: #3bdb44;
+            clear: left;
+        }
+        .block{
+            height: 20px;
+            background: palegreen;
+        }
+        .floatClear{
+            margin-top: 10%;
+            background: gainsboro;
+        }
+        .floatClear01{
+            width: 100px;
+            height: 100px;
+            background: orchid;
+            float: left;
+
+        }
+        .floatClear02{
+            width: 100px;
+            height: 100px;
+            background: orange;
+            clear: left;
+            /*
+            清楚浮动元素对当前元素的影响
+                left就是清楚左浮动的影响，一定要收到影响后才清楚
+                right就是清除右边的，both则是两边都清除
+                原理：设置清楚浮动，浏览器会自动为元素添加一个上外边距，以使其位置不受其他元素影响
+            */
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="block"></div>
+    <div class="box01">box01</div>
+    <span class="box02">box02</span>
+    <div class="box03">这里高度稀缺，而宽度无限</div>
+</div>
+
+
+<div class="floatClear">
+    <div class="floatClear01">floatClear01</div>
+    <div class="floatClear02">floatClear02</div>
+</div>
+
+
+
+</body>
+<script type="text/javascript">
+    /*
+    * 1.脱离文档流浮动（所有脱离文档流的都是这些特性）
+    *   (1)块元素变为inline-block（虽然浏览器上不会这么写）
+    *   （2）行内元素也变为inline-block宽高生效
+    * 2.浮动元素不会移出父元素边界
+    * 3.浮动元素不会遮盖其他浮动元素
+    * 4.浮动元素上面若是一个块级元素则 浮动元素无法向上移动
+    * 5.上一行浮动元素预留下的间距由最大浮动元素的宽度决定（）
+    * 6.浮动元素不会盖住文字
+    * */
+</script>
+</html>

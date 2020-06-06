@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <span style="margin: 100px">11111</span>
+    <span>22222</span>
+    <div>3333333</div>
+</body>
+<script>
+  let a={}
+  let b=a;
+    // 'NaN'
+    console.log( a===b)
+
+    /*
+    * JSON Web Token（JWT）是一个非常轻巧的规范。
+    * 这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。
+    *
+    *  JWT的组成
+    *  一个JWT实际上就是一个字符串，它由三部分组成，头部、载荷与签名。
+    *  签名：头部取上，再载荷取一部分 链接在进行算法加密
+    *  然后发送到服务端
+    *  服务端生成一个一样的签名两个对比，差是否修改过
+    *  因此JWT只能传输一些不太私密的东西
+    *
+    *  JWT是一种与session完全不同的用户状态通信机制
+    *  session是将信息储存到服务器的内存上，但JWT可以将相关信息储存在客户端上
+    *  虽然检测会消耗一部分的性能
+    * */
+
+
+
+
+</script>
+</html>

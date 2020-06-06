@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    剑指offer
+    *给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。
+    * 注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针
+    *
+    * 自己的误区：
+    * 这里有一个误区：我总是认为，这个是个根节点，直接让这个节点左中右，
+    * 这样我就直接返回左节点，其实不然 他并不是根节点，并不会直接左边
+    *
+    * 思路：
+    * 既然能找到上一父节点，那我们就直接找到他的根节点，然后中序遍历，找到
+      他的下一个节点
+    * */
+    /*function TreeLinkNode(x){
+    this.val = x;
+    this.left = null;
+    this.right = null;
+    this.next = null;
+    }*/
+
+    /*写个不暴力求解的
+    * 直接查找有三种情况
+    * （1）右子树不存在的：
+    * 要向上的根节点寻找，找到某个节点存在右子树，则就是这个了
+    * （2）左子树还有：
+    * 直接探寻左子树最左的根节点
+    * （3）接右子树不存在的：
+    * 如果一直往上寻找没有找到一个右子树存在的则返回null
+    *
+    * 总结：这道题我花了很旧 几乎一个下午
+    * 记得注意条件，p要注意他得存在才可以
+    *
+    * 个人感觉二叉树已经练习的比较熟练了 接下来就是DP了
+    * */
+    function GetNext(pNode)
+    {
+        /*第1种情况，有右子树 直接取得他或者看直接取他的左子树*/
+        if( pNode.right){
+            let temp = pNode.right
+            while(temp){
+                if(!temp.left) return temp
+                temp = temp.left
+            }
+        }
+        /*第2种情况无右子树*/
+
+        let temp = pNode
+        let p = pNode.next
+        /*且父节点的该节点是左子树*/
+        if(p && pNode == p.left) return p;
+
+        if(p && pNode == p.right) {
+            while(p){
+                if(p.left == temp) return p
+                temp = p;
+                p = p.next;
+            }
+            return null
+        }
+
+    }
+
+    ///这个方法属于暴力求解 不行不行
+    let tree = {val:1,left:{val:3},right:{val:2}};
+
+    console.log( GetNext(tree))
+    function GetNext01(pNode)
+    {
+        const root = getRoot(pNode)
+        let arr = unrecurBet(root);
+        for(let i=0;i<arr.length;i++){
+            if (arr[i].val === pNode.val)
+                return arr[i+1]
+        }
+
+    }
+    /*取得根节点*/
+    function getRoot(pNode) {
+        if (!pNode.next) return pNode
+        getRoot(pNode.next)
+     }
+     /*
+     * 做一个中序遍历
+     * 递归版本
+     * */
+    function recurBet(root) {
+        let arr =[];
+        let fn = (root)=>{
+            if (root){
+                fn(root.left);
+                arr.push(root);
+                fn(root.right);
+            }
+        };
+        fn(root);
+        return arr
+    }
+
+    /*
+    * 写一个非递归版本
+    * */
+    function unrecurBet(root) {
+        if(root == null) return [];
+        let stack =[],arr = [];
+        let p = root;
+        while (p || stack.length){
+            while (p){
+                stack.push(p);
+                 p = p.left;
+            }
+            let temp = stack.pop();
+            arr.push(temp);
+            p = temp.right
+        }
+        return arr
+    }
+
+    /*
+    * 干脆在写个先序遍历的非递归
+    * */
+    function unrecurFon(root){
+        let arr= [],stack =[]
+        stack.push(root)
+        let p = root
+        while (stack.length){
+            let node = stack.pop();
+            arr.push(node.val);
+            if (node.right) stack.push(node.right)
+            if (node.left)  stack.push(node.left)
+        }
+    }
+
+
+</script>
+</html>

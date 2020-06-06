@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link media="(min-width:700px)" rel="stylesheet" href="Style01.css"> <!--当小于400时px执行Style01.css的中的属性-->
+    <link media="(max-width:700px)" rel="stylesheet" href="Style02.css">
+
+</head>
+<body>
+<div class="box1" id="box">您好啊</div>
+ <!--同时我们可以搜索media qurrey mdn 去找media qurrey 的方法 -->
+<script>
+    let box=document.getElementById("box");
+    console.log(box.style)
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 你需要直到如何打印出每颗树 根到叶子节点的路径
+    * */
+    function getLeafPath(root) {
+        let result = [];
+        if (root == null) return []
+        getPath(root,result)
+    }
+    function getPath(root,result) {
+        let path=[]
+        return function () {
+            if (root.left == null && root.right == null){
+                result.append(path)
+                path = []
+            }
+            if (root.left !== null){
+                getPath(root.left,)
+            }
+
+            if (root.right !== null){
+                getPath(root.left)
+            }
+        }
+
+    }
+
+    /* 二叉树和为某一路径
+     *输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始
+     * 往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)
+     * 思路：
+     *
+      * */
+</script>
+</html>

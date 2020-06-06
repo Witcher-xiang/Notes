@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ol:first-child{
+            color: blue;
+        }
+        .test01:first-child{
+            color: red;
+        }
+        span:first-child{
+            color: yellowgreen;
+        }
+        p:first-child{
+            color: pink;
+        }
+        p > span:first-child {
+               font-weight:bold;
+               }
+        p > li:first-child {
+            font-weight:bold;
+        }
+        #box01::after{
+            content: "none";
+            width: 100px;
+            height: 100px;
+            background: #db763d;
+        }
+        #box01:before{
+            content: "";
+            border-bottom: 2px solid #5ac;
+            position: absolute;
+            top: 20px;
+            width: 0;
+            left: 50%;
+            transition: all linear .5s;
+            padding-bottom: 120px;
+
+        }
+        .box02:hover:after{
+            content: "这是新增加的伪类选择器";
+            width: 100px;
+            height: 100px;
+            background: #3399CC;
+        }
+        div>p:first-letter{
+            font-size: 80px;
+        }
+        p:first-line{
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <p> 0</p> <p>0.1</p>
+<div>
+    <p>1234</p>
+    <p>2</p>
+    <p>3</p>
+</div>
+<div>
+    <p>4</p>
+    <p>5</p>
+    <p>6</p>
+</div>
+<div>
+    <p>7</p>
+    <p>8</p>
+    <p>9</p>
+</div>
+    <p>
+        <span>10</span>
+        <span>11</span>
+        <span>12</span>
+    </p>
+    <p>
+        <ol>
+        <li>
+            13这个就不行必须是子元素不能孙元素
+        </li>
+    </ol>
+    </p>
+    <!--<ol>-->
+        <!--<span>123</span>-->
+        <!--<span>456</span>-->
+        <!--<li>test01</li>-->
+        <!--<li>test02</li>-->
+    <!--</ol>-->
+    <!--<ol>-->
+        <!--<span>456</span>-->
+        <!--<li>test03</li>-->
+        <!--<li>test04</li>-->
+    <!--</ol>-->
+<!--<div class="test01">-->
+    <!--<p class="test01">test05</p>-->
+    <!--<p class="test01">test06</p>-->
+    <!--<span>test07</span>-->
+<!--</div>-->
+<div>
+    <p id="box01">这里是伪元素选择区</p>
+    <span class="box02">这里是伪类选择器</span>
+
+</div>
+<span>
+    <p>我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器我在这里实验first
+        -line伪类选择器我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器
+    我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器
+        我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器我在这里实验first-line伪类选择器
+        我在这里实验first-line伪类选择器
+    </p>
+</span>
+</body>
+<script type="text/javascript">
+    /*伪类选择器*/
+    /*
+    * 带：的都是伪类 ：：是伪元素选择器
+    * 如p:first-child{}
+    * 这里指的是 任意父元素下 第一个<p>（子元素）的样式，
+    * w3c官方解答：选择器匹配作为任何元素的第一个子元素的 p 元素：
+    *
+    * 如p > i:first-child {
+    *   font-weight:bold;
+    *   }
+    *   选择器匹配所有 <p> 元素中的第一个 <i> 元素
+    *
+    * 选择器匹配所有作为元素的第一个子元素的 <p> 元素中的所有 <i> 元素：
+    *   p:first-child i {
+    *   color:blue;
+    *    }
+    * */
+
+    /*伪元素选择器*/
+    /*
+    * 在css中的 一般是:: 如:after ::before
+    * 他会在元素前后插入一个元素 但这是个假元素，并且必须要有content属性才行 用的十分的少
+    * 伪元素选择器默认插入的是Inline（行内元素）
+    * */
+    function A() {
+
+    }
+    console.log(new A())
+    console.log(A.prototype)
+</script>
+</html>

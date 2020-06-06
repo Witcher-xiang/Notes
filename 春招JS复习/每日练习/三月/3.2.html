@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script >
+function Animal(num) {
+    this.age = "21";
+    this.num = num;
+    console.log("我动物动了")
+    this.fun = function eat() {
+        console.log("动物吃了")
+    }
+}
+Animal.prototype.test = "实验"
+
+
+function Person1() {
+    console.log("我人动了");
+    this.name="人"
+    Animal.call(this,"num")
+}
+/*防抖*/
+function bounce(fun,delay) {
+    let timer = null;
+    return function(...args){
+        let that = this
+        timer && clearTimeout(timer)
+      timer = setTimeout(function () {
+          fun.call(that,args)
+      },delay)
+    }
+
+}
+/*节流*/
+function throttle(fun,delay) {
+    let last = null
+    return function() {
+        let now = Date.now()
+        if (now - last > delay) {
+            last = now
+            fun()
+
+        }
+    }
+}
+/*手写call方法*/
+let Person = {
+    name: 'Tom',
+    say(value,value2) {
+        console.log(this)
+        console.log(`我叫${this.name}`)
+        console.log(value)
+        console.log(value2)
+    }
+}
+let animal = {
+    name:"heihei",
+    speak() {
+        console.log("heihei"+this.name)
+    }
+}
+
+// 先看代码执行效果
+Person.say() //我叫Tom
+Person1 = {
+    name: 'Tom1'
+};
+
+// 我们尝试用原生方法call来实现this指向Person1
+/*注意这里的this是方法 context是要指向的对象*/
+    Function.prototype.myCall=function (context) {
+
+        context = context || window;
+        context.fun = this;
+        let args = [...arguments].splice(1);
+
+        let result = context.fun(...args);
+        delete context.fn
+        return result
+    };
+Person.say.myCall(Person1)
+
+
+    Function.prototype.myApplay = function (context) {
+        context = context || window;
+        context.fun = this;
+        let arg = [...arguments][1];
+        let result =arg? context.fun(arg): context.fun(); //区别在于是否要加拓展运算符
+        delete  context.fun;
+        return result
+    }
+Person.say.myApplay(Person1,[2,3.76,7])
+
+    /*手写bind方法
+    * 1、函数调用，改变this
+    * 2、返回一个绑定this的函数
+    * 3、接收多个参数
+    * 4、支持柯里化形式传参 fn(1)(2)
+    * */
+
+function curry(fn) {
+    function _c(restNum, argsList) {
+        return restNum === 0 ? fn.apply(null, argsList) :
+            function(x) {
+                return _c(restNum - 1, argsList.concat(x));
+            };
+    }
+    return _c(fn.length, []);
+}
+/*函数柯里化
+* 实现add(1)(2)(3)
+* 一个收集参数的方法，收集够了去执行函数
+* */
+function curry(fn) {
+    console.log(fn.length); //fn.length 函数参数的长度
+    let arg = [];
+    return function () {
+        console.log([...arguments])
+        arg = arg.concat([...arguments]); //arg是目前收集的参数的长度
+        if (arg.length >= fn.length){
+            return fn(...arg)
+        }
+        return arguments.callee //自己调用
+    }
+}
+function add(a, b,c) {
+    return a + b + c;
+}
+let testAdd = curry(add);
+let testAdd01 = testAdd(1);
+
+    console.log(testAdd01(2,3))
+    function curry01(fn) {
+        let arr = [];  //定义数组存储数组
+        let length = fn.length;  // 得知函数参数的长度
+        return function () { //利用不停止返回的函数使得可以不断创建函数
+            arr = arr.concat([...arguments]); //上次的数组和本次参数进行组合
+            if (arr.length>=length){    //判断组合参数收集数组和
+                return fn(...arr)
+            }
+           return arguments.callee
+        }
+    }
+    let testAddd01 = curry01(add)
+    let testAddd02 = testAddd01(1)
+    let testAddd03 = testAddd02(3)
+    let testAddd04 = testAddd03(6)
+    console.log(testAddd04)
+
+    /*手写bind
+    *
+    * */
+    Function.prototype.bind = function (context) {
+        let self = this;
+        let arr = [...arguments].slice(1);
+        return function () {
+            let newArr = arr.concat([...arguments]);
+
+            return self.call(context,newArr)
+        }
+    }
+
+
+</script>
+</html>

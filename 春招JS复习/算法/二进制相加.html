@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    * 异或运算
+    * 参与运算的两个值，如果两个相应bit位相同，则结果为0，否则为1。
+
+　　即：
+
+　　0^0 = 0，
+
+　　1^0 = 1，
+
+　　0^1 = 1，
+
+　　1^1 = 0
+    * */
+    /*写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。*/
+    function caluc(num01,num02) {
+
+        /*step1：获得个位数： 按位与是查看两个数哪些二进制位都为1，这些都是进位位，结果需左移一位，表示进位后的结果
+        *这里是不考虑进位的加法
+        *
+        *step2:异或是查看两个数哪些二进制位只有一个为1，这些是非进位位，可以直接加、减，结果表示非进位位进行加操作后的结果
+        *这里是只考虑进位的加法，若此为0 则进位结束
+        *
+        * step3:n1&n2是查看有没有进位位了，如果有，需要重复step1、step2；如果没有，保留n1、n2上二进制为1的部分，
+        * 用或将之合为一个数，即为最后结果
+        * 相关博客https://blog.csdn.net/YPJMFC/article/details/78246971
+        * */
+        if (num02===0)
+            return num01;
+        let sum; let carry;
+        sum = num01^num02;  //不进位的相加
+        carry = num01&num02<<1; //当 carry=0时说明进位计算结束
+        return caluc(sum,carry)
+    }
+
+</script>
+</html>

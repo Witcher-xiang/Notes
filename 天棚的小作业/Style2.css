@@ -1,0 +1,137 @@
+/*开始第二阶段的艰难任务
+*当鼠标移入时让图片放大
+*在页面内嵌入图片而且滚动
+*表单验证
+*/
+.partTwo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#leftPartTwo{
+    width: 850px;
+    height: 350px;
+    margin: 25px;
+    position: relative;
+}
+
+#rightPartTwo{
+    width: 400px;
+    height: 350px;
+    margin: 25px;
+}
+#inPartTwoTop{
+    width: 400px;
+    height: auto;
+    margin: 25px 25px 25px 0;
+    display: inline-block;
+}
+
+#inPartTwoBottom{
+    width: 400px;
+    height: auto;
+    margin: 25px 25px 25px 0;
+    position: absolute;
+    left:425px;
+    top: 70px
+}
+
+.pictureArea{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+.imgStyle{
+    cursor: pointer;
+    transition: all 1.1s;
+    width: 30%;
+    margin: 32px;
+}
+
+.imgStyle:hover{
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+}
+
+.Education{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.EduContent{
+
+    border: 1px grey solid;
+    margin: 15px;
+    height: 220px;
+    width: 565px;
+    box-shadow: darkgray 0 0 12px 2px;
+    transition: all 0.4s; //渐变属性
+}
+.EduContent:hover{
+    box-shadow: gray 0 0 12px 4px;
+}
+
+.opacityArea{
+    width: 100%;
+    height: 400px;
+
+
+    background-color: black;
+    opacity: 0.7;
+}
+body{
+    /*height: auto;width: auto;*/
+
+    /*background-size: 100% 100%;*/
+    background: url(gallery11.jpg) no-repeat 0 0;
+    background-size: cover;
+    background-attachment: fixed;/*固定定位将其固定起来*/
+}
+/*box-shadow：color  h-shadow  v-shadow blur spread  inset；*/
+
+/*color：阴影颜色 ------------ 可选*/
+
+/*h-shadow ：水平偏移量 ----必选*/
+
+/*v-shadow：垂直偏移量-----必选*/
+
+/*blur：模糊距离 -------------可选*/
+
+/*spread：阴影尺寸---------- 可选*/
+
+/*inset：内阴影 --------------可选*/
+
+.suHead{
+    color: white;
+    font-size: 32px;
+    position: relative;
+    top: 60px;
+
+}
+.bottomArea{
+     width: 100%;
+     height: 300px;
+     background: #121212;
+ }
+.bottomArea01{
+    width: 100%;
+    height: 500px;
+    background: #121212;
+    position: absolute;
+    top: -600px;
+}
+.formIdenity{
+    width: 100%;
+    height: 600px;
+    background: white;
+}
+#ti{
+    width: 60px;
+    height: 30px;
+    background: #ff9900;
+    border-radius: 10px;
+    color: white;
+    mso-border-shadow: no;
+}

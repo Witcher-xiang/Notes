@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 有效括号
+    * 利用栈来存储进来的括号
+    * */
+    let str = "string";
+    console.log(str.charAt(1));
+    let string = "dfs(3321)";
+    function brackt(str) {
+        let stack = [];
+        for (let i=0;i<str.length;i++){
+            if (str[i]==="[" || str[i]==="(" || str[i]==="{"){
+                stack.push(str[i])
+            }
+            if (!stack.length) return false;
+            if (str[i] === ")" && stack.pop() !=="(") return false;
+            if (str[i] === "]" && stack.pop() !=="[") return false;
+            if (str[i] === "}" && stack.pop() !=="{") return false;
+        }
+    }
+    brackt(string)
+    let reg = new RegExp(/(2[0-4]\d)/)
+</script>
+</html>

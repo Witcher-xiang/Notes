@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: #aaa;
+        }
+     #left{
+         width: 0;
+         height: 0;
+         border-top: 50px solid transparent;
+         border-right: 50px solid red;
+         border-bottom: 50px solid transparent;
+         border-left: 50px solid transparent;
+     }
+     #right{
+         width: 0;
+         height: 0;
+         border-top: 50px solid transparent;
+         border-right: 50px solid transparent;
+         border-bottom: 50px solid transparent;
+         border-left: 50px solid blue;
+     }
+        .showContainer{
+            width: 356px;
+            height: 200px;
+            border: 10px solid maroon;
+            background-color: #AAA;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .container {
+            width: 9999px;
+            position: absolute;
+            left: 0px;
+        }
+        .container > img {
+            display: block;
+            float: left;
+            height: 200px;
+        }
+        .left-triangle{
+            position: absolute;
+            top: 30px;
+            left: -50px;
+            cursor: pointer;
+        }
+        .right-triangle{
+            position: absolute;
+            top: 30px;
+            right: -50px;
+            cursor: pointer;
+        }
+        .left-triangle, .right-triangle {
+            display: none;
+        }
+        .showContainer:hover .left-triangle {
+            display: block;
+        }
+        .showContainer:hover .right-triangle {
+            display: block;
+        }
+        .dots{
+            width: inherit;
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+        }
+        .dots .dot{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: orange;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="showContainer">
+    <div class="container" style="left: 0">
+        <img src="./pic/1.jpg" alt="图片1">
+        <img src="./pic/2.jpg" alt="图片2">
+        <img src="./pic/3.jpg" alt="图片3">
+    </div>
+
+    <div class="dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    <div class="left-triangle">
+       <div id="left"></div>
+    </div>
+    <div class="right-triangle">
+        <div id="right"></div>
+    </div>
+</div>
+
+</body>
+<script>
+    /*
+    * 2020.3.27
+    * 这个面试很可能问
+    * 思路：左右两边遮盖，按下左右按钮图片左右移动
+    * 我只把循环做完了，点击就很好做了 有时间自己尝试一下吧
+    * */
+    function movFunc(){
+        let container = document.getElementsByClassName("container")[0];
+        let oldLeftPost = parseInt(container.style.left);
+        let length = container.children.length
+        let oneImgWidth = container.children[0].offsetWidth;
+        let newLeftPost = oldLeftPost - oneImgWidth;
+        if (oneImgWidth*length<=Math.abs(newLeftPost))
+            container.style.left = 0 +"px";
+        else
+            container.style.left = oldLeftPost -oneImgWidth +"px"
+    }
+
+
+
+
+    autoRollImg()
+    function autoRollImg() {
+        let timer = null
+        /*鼠标移入移出清除定时器*/
+        let showContainer = document.getElementsByClassName("showContainer")[0];
+
+        function rollAuto(){
+            timer = setInterval("movFunc()",800)
+        }
+        rollAuto()
+        showContainer.onmouseover = function(){
+
+            clearInterval(timer)
+        };
+        showContainer.onmouseout = function(){
+
+             rollAuto()
+        }
+    }
+
+
+
+</script>
+</html>

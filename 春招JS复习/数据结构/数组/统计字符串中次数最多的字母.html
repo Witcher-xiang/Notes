@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 个人感觉查找最大单词也是一样的
+    * */
+    function findMaxDuplicateChar(str) {
+        if (str.length ===1){
+            return str
+        }
+        let obj = {}
+        for (let value of str){
+            if (obj[value]){
+                obj[value] = obj[value]+1
+            }else {
+                obj[value] = 1;
+            }
+        }
+        console.log(obj)
+        let maxChar ="",maxValue =0;
+        for (let key in obj){
+            if (obj[key]>maxValue){
+                maxValue = obj[key]
+                maxChar = key
+            }
+        }
+    return  maxChar+":"+maxValue
+    }
+    let str ="findMaxDuplicateChar"
+    console.log(findMaxDuplicateChar(str))
+</script>
+</html>

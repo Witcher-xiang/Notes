@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .d1{
+            width: 400px;
+            height: 300px;
+            background:yellow;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn01">改变样式</button>
+<br>
+    <button id="btn02">获取样式数值</button>
+    <div class="d1" id="box1"></div>
+</body>
+<script>
+    // var button = document.getElementById("btn01");
+    // button.style.height = "60px";
+    // console.log(button);
+    // // console.log(button.currentStyle.width);
+    // console.log(button.offsetHeight);
+    // for(let i in button){
+    //     console.log(i+":"+button.getAttribute(i));
+    // }
+    var btn01=document.getElementById("btn01");
+    var box1=document.getElementById("box1");
+    btn01.onclick=function () {
+        box1.currentStyle.width="20px";  //改变id1即是去改变div的样式块
+    };
+
+    var btn02=document.getElementById("btn02");
+    btn02.onclick=function () {
+        // var getStyle=getComputedStyle(box1,null);
+        // alert(getStyle.width);  //去获取id1中的width值
+       GetStyle(box1,width);
+
+    };
+
+    function GetStyle(obj,name) {       //为了兼容而使用的共同方法 提高兼容性
+        if(window.getComputedStyle)
+            return  getComputedStyle(obj,null)[name];
+        else {
+            return obj.currentStyle[name];
+        }
+    }
+    //获取当前元素的显示样式
+    //语法：元素.currentStyle.样式名
+    //可以用来读取当前正在显示的样式 但只支持IE浏览器 而且只能用来读取不能用来操作，
+    // 若要修改则必须通过style
+
+    /*
+    在其他浏览器中我们可以使用getComputedStyle()来获取当前的样式
+    这个方法是window的方法可以直接使用
+    他需要两个参数
+              第一个：要获取样式的元素
+              第二个：传递一个伪元素，一般都传NULL
+
+              他返回的是一个对象因此返回时我们需要加.样式值
+              除此之外他返回的是一个真实的值，而不是一个默认值
+              他不支持IE8及以下的浏览器
+     */
+</script>
+</html>

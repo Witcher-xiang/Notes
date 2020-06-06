@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *请实现一个函数，将一个字符串中的每个空格替换成“%20”。
+    * 例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+    * */
+    // function replaceSpace(str)
+    // {
+    //     var newStr="";
+    //     for (let i=0;i<str.length;i++){
+    //         console.log(str[i]);
+    //         if (str[i]===" "){
+    //             newStr=newStr+"%20";
+    //             console.log("出现了空格")
+    //         }else {
+    //             newStr=newStr+str[i]+""
+    //         }
+    //     }
+    //     return newStr
+    //     // str.map((value,index)=>{
+    //     //     console.log(value)
+    //     // })字符串用不了map
+    //     // write code here
+    // }
+
+    function replaceSpace(str)
+    {
+        var newStr="";
+        for (let i=0;i<str.length;i++){
+            console.log(str[i]);
+            if (str[i]===" "){
+                newStr=newStr+"%20";
+                console.log("出现了空格")
+            }else {
+                newStr=newStr+str[i]+""
+            }
+        }
+        return newStr
+        // write code here
+    }
+    let str="hello world"
+
+    console.log( replaceSpace(str))
+</script>
+</html>

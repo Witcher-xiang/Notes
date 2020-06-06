@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 树：看到树就要想到递归
+    * */
+
+    /*重建二叉树*/
+    /*
+    * 思路：
+    * （1）先取出中间的那个节点bet，前序遍历第一个
+    * （2）用bet分出左右子树，利用index方法找到中间那一项，左边即左子树右边即右子树
+    * （3）-也是我最不容易想到的问题：如何返回这个数
+    * 直接return我这棵树的节点即可！！！！！！！！！
+    * 很重要！！！！！！
+    * （4）直接递归在函数里调用即可
+    *
+    *
+    * 需要学习到的point：重建二叉树直接返回一个{}一个节点就可以了
+    * */
+    let pre =[1,2,4,7,3,5,6,8];
+    let vin = [4,7,2,1,5,3,8,6];
+
+    function reConstructBinaryTree(pre, vin)
+    {
+        let btnNode = pre[0];
+        let btnIndex = vin.index(btnNode)
+        let left = vin.slice(0,btnIndex)
+        let right = vin.slice(btnIndex+1)
+        return {
+            val:btnNode,
+            left:reConstructBinaryTree(pre.slice(1,index+1),left),
+            right:reConstructBinaryTree(pre.slice(index+1),right)
+        }
+    }
+
+    /*
+    * 树的子结构：输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+    * 总体思路：既然是子树那么就在我的左树或者右树中，那么只要其中某一树返回true那不就ok了
+    *           在树的节点中遍历当遇到某个节点是A的第一个值时让我们依次进行匹配他的节点
+    *           若当子树都完全匹配完了则通过返回true
+    *
+    * 建议：在外多写一个函数用来两树与后面的是否匹配
+    *
+    * 思路：
+    * （1）另外开一个函数去判断两个树是否相等
+    *       a、情况1：pr1为空了但pr2不空 说明不匹配
+    *       b、情况2：pr2空了 说明全部匹配完成了直接返回true吧
+    *       c、情况3：两者值相等，继续递归遍历
+    * （2）
+    * */
+    function HasSubtree(pRoot1, pRoot2)
+    {
+        if (pRoot2 == null || pRoot1 == null) {
+            return false;
+        }
+        if(pRoot1.val === pRoot2.val) {
+            //意思是如果这里返回了false 那么我们就会继续对比你下面的树
+            return binaryTree(pRoot1, pRoot2)
+                || HasSubtree(pRoot1.left, pRoot2)
+                || HasSubtree(pRoot1.right, pRoot2)
+        }
+        // write code here
+    }
+
+    function binaryTree(pr1,pr2) {
+        /*
+        * 这里会出现以下情况
+        * （1）当 pr1 为空  pr2 不为空的时候 则返回为false
+        * （2）但是当pr1不为空的时候，pr2为空则说明完成返回true
+        * （3）如果两个值相等
+        * */
+        if (pr2 == null && pr1) return true;
+        if (pr1 === null && pr2!==null) return false;
+        if (pr1.val !== pr2.val) return false;
+            if ( pr1.val === pr2.val) {
+                return   binaryTree(pr1.left,pr2.left) || binaryTree(pr1.right,pr2.right)
+            }
+    }
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2.26</title>
+    <style>
+        .container{
+           width: 100%;
+            display: flex;
+        }
+        .container .content{
+            flex: 1;
+            height: 200px;
+            background: #60abeb;
+        }
+         .left{
+            height: 200px;
+            width: 200px;
+            flex:  0 0 200px;
+            background: #7d3f98;
+
+        }
+         .right{
+            width: 200px;
+            height: 200px;
+           flex:0 0 200px;
+            background: #93ffcb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <div class="content">内容区域</div>
+
+        <div class="right"></div>
+    </div>
+
+</body>
+ <script>
+     function Ancestor() {
+         this.name = "ancestor"
+     }
+     function Person() {
+         this.name = "zjy";
+         this.age  = "23";
+         this.fun01 = function () {
+
+         }
+     }
+     Person.prototype =new  Ancestor();
+     Person.prototype.a="aaa";
+     let bei = new Person();
+     bei.ing="ing";
+     console.log(bei);
+     for (keys in bei){
+         console.log(bei[keys]);
+         console.log(bei.hasOwnProperty(keys))
+     }
+     let str="string"
+     let arr = [2,3,4,65]
+     console.log(Object.prototype.toString.call(arr))
+ </script>
+</html>

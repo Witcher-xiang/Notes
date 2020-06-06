@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input onkeydown="onClick()" id="input">
+</body>
+<script>
+    let test = throttle(1000,save);
+    function onClick(e) {
+        console.log("click")
+        test()
+    }
+
+
+
+    function save(e) {
+        let input=document.getElementById("input");
+        console.log(input.value)
+    }
+    /*
+    * 用发布订阅的思想
+    * 将函数存储到数组中
+    * */
+
+    /*
+    * 这里代码实现异步的思想：
+    * （1）创建一个数组存在内部，因为.then方法会立刻执行，我就将要执行的函数传入到这个数组内
+    * （2）在调用.then时，将函数存入数组内
+    * （3）然后你就要依靠内部的方法resolve
+    * （4）当用户去调用这个resolve方法时我再去遍历数组内的函数，并且让他执行
+    * */
+
+    /*
+    * 解决链式调用的问题在于我要给他返回一个新的promise
+    *1.默认在第一个.then中返回一个promise
+    * 2.返回的那个值规定为x
+    * （1）要看x是不是promise
+    * （2）若是promise，则取他的结果，作为新的promise的成功结果
+    * （3）若是普通值，直接作为promise2的成功的结果
+    * */
+
+
+    new Promise((resolve, reject) => {});
+    class Promise01{
+        constructor(executor){
+            this.state = "pending";
+            this.value = undefined;
+            this.reason = undefined;
+            // 成功存放的数组
+            this.onResolveCallbacks = [];
+            // 失败存放的数组
+            this.onRejectedCallbacks = [];
+
+            let resolve = (value)=>{
+                if (this.state === "pending"){
+                    this.state = "fulfilled";
+                    this.value = value;
+                    //一旦resolve执行，调用成功数组的函数
+                    this.onResolveCallbacks.forEach(fn=>fn())
+                }
+
+            };
+            let reject = (reason) =>{
+                if (this.state === "pending"){
+                    this.state = "rejected";
+                    this.reason = reason;
+                    //一但reject执行 ， 调用失败数组的函数
+                    this.onRejectedCallbacks.forEach(fn=>fn())
+                }
+            };
+            try {
+                executor(resolve,reject)// 实现将两个函数传入
+            }
+            catch (e) {
+                reject(e)
+            }
+
+        }
+        then(onFulfilled,onRejected){ //这里就相当于用户传入的回调函数
+
+            let promise02 = new Promise01((resolve,reject)=>{
+                if (this.state === "fulfilled") {
+                    let x= onFulfilled(this.value)
+                    // resolvePromise函数，处理自己return的promise和默认的promise02的关系
+                    resolvePromise(promise02, x, resolve, reject);
+                }
+                if (this.state === "rejected")  {
+                    let x = onRejected(this.reason);
+                    resolvePromise(promise02, x, resolve, reject);
+                }
+            });
+            /*第一次 调用.then他会立刻执行 因此*/
+            if (this.state === "pending"){
+                this.onResolveCallbacks.push(()=>{
+                    onFulfilled(this.value)
+                });
+                this.onRejectedCallbacks.push(()=>{
+                    onRejected(this.value)
+                })
+            }
+            if (this.state === 'fulfilled') {
+                this.onResolveCallbacks.push(()=>{
+                    onFulfilled(this.value);
+                })
+            }
+            if (this.state === 'rejected') {
+                this.onRejectedCallbacks.push(()=>{
+                    onRejected(this.reason);
+                })
+            }
+            return promise02
+        }
+    }
+
+
+
+
+    console.log("分割——————————————————————————————————————分割")
+
+    /*
+       防抖：当触发时重新执行，清除之前的执行
+       思路：
+       （1）依据函数闭包来保存这个正在执行的setTimeout的函数
+       （2）当事件再次触发时清除当前这个计时器 在新建一个计时器
+    */
+    function shake(time,fun){
+        let timer = null;
+        return function (...args) {
+            let that = this;
+            timer && clearTimeout(timer)
+            timer = setTimeout(()=>{
+                fun.apply(that,args)
+            },time)
+
+        }
+    }
+
+    /*
+    思路（时间戳）：
+    （1）闭包记录上一次的时间
+    （2）
+    节流：这段时间内只触发一次
+    */
+   function throttle(delay,fn){
+       let last = Date.now();
+       return function (...arg) {
+           let now = Date.now();
+           if (now-last>delay){
+               fn(arg)
+               last = now
+           }
+       }
+   }
+
+   /*
+   * 继承
+   * （1）原型链的继承
+   * 缺点：
+   *    a、子类的实例无法向父类传递参数
+   *    b、子类定义方法必须在new后
+   * （2）组合继承=父.call(子) + 原型链继承
+   * （3）寄生组合 = 父.call（子） + Object.create
+   * 注意:在create那里写prototype！！！
+   * */
+   function Father(value) {
+       let a="a";
+       this.father="father"
+       this.value = value
+       console.log("父类执行了")
+   }
+   function Son(){
+       Father.call(this,"son的value")
+       this.son = "son"
+   }
+   Son.prototype = Object.create(Father.prototype)
+    Son.prototype.constructor = Son
+   let s = new Son("sss")
+    console.log(s)
+    console.log("-————————————————————————————————————")
+    /*
+    * 手写call、bind、apply
+    * */
+    Tom={
+        name :"Tom",
+        say(val,val1){
+            console.log("打印传入参数1"+val)
+            console.log("打印传入参数2"+val1)
+            console.log(this.name)
+        }
+    }
+
+    Alice={
+        name :"Alice",
+        say(val){
+            console.log("打印传入参数1"+val)
+            console.log(this.name)
+        }
+    }
+
+    /*e是传进来的对象
+    * this是原来的方法
+    * call和apply
+    * 思路：
+    * （1）在prototype的原型上去写
+    * （2）this是方法，传进来的参数是对象
+    * （3）在对象上加方法，加撒字段都行，反正就执行一下
+    * （4）考虑传进来的参数（建议使用arguments获取）
+    * （5）不传参数默认进window并执行三目运算符弄一下
+    * （6）call和apply唯一不同的就是他的数组传入数组时扩展运算符开一下
+    * */
+    Function.prototype.MyCall = function (context,...arg) {
+       if (!context) context = window;
+        /*
+        * 这里this是方法
+        * */
+        console.log(this);
+        console.log(arguments)
+        context.fn = this;
+      const result= context.fn(...arg)
+        return result
+    }
+
+    Function.prototype.MyApply = function (context) {
+        if (!context) context = window;
+        /*
+        * 这里apply是方法
+        * 不同的是apply要从arguments中拿值
+        * */
+        console.log(this);
+        console.log(arguments)
+        context.fn = this;
+        let arg = [...arguments].splice(1);
+        console.log(...arg)
+        const result=arg? context.fn(...arg):context.fn()
+        return result
+    }
+
+    Tom.say.MyApply(Alice,[111,222]);
+    Alice.say();
+
+    /* 函数柯里化 */
+    /*
+    * 原理：把多个参数依次化为接受一个单一的参数
+    * 思路：
+    *       参数收集，依次收集 最终传递给原来的函数！
+    *       (1)使用闭包，在外面创建一个数据，用来收集每一个参数
+    *       (2)然后将本次函数中的arguments取出来和上面的数据做拼接
+    *       (3)判断当当数组长度=参数长度时执行并返回
+    *       （4）每次在最后返回arguments.callee调用自身
+    * */
+    function curry(fn) {
+        let arg = []; //用于收集参数
+        return function () {
+            console.log(arguments);
+            arg = arg.concat([...arguments]);
+            if (arg.length >= fn.length){
+                /*fn.length指的是参数的个数*/
+                return fn(...arg)
+            }
+            return arguments.callee //相当于调自己函数本身
+        }
+    }
+
+    function add(a,b,c) {
+        return a+b+c
+    }
+    console.log( curry(add)(1,2)(3))
+
+    /*
+    * bind
+    *  返回一个函数传入多个参数
+    *  思路：
+    *  （1）this还是那个方法，context还是传进来的
+    * */
+    Function.prototype.myBind=function(context){
+        let that= this
+        let arg = [...arguments].splice(1);
+        return function () {
+            return that.apply(context,[...arg,...arguments])
+            //翔疑惑的地方这里直接调用不就apply了
+            // 其实因为闭包这个只是返回了一个函数，再加个括号才相当于调用了apply
+        }
+    }
+
+    /*
+    *   冒泡排序
+    *   思路：
+    *   双重循环
+    *   第一重：循环需要去掉自身，因为前后比较时是少一项的
+    *   第二重：直接将前一项和后一项比较，前一项大于后一项则交换
+    *   需要注意的是，因为每次最大项都会浮到最前面因此二重循环需要-i-1
+    * */
+    let arr01 = [21,6,3,4,15,78,7]
+    function bubble(arr) {
+        for (let i=0;i<arr.length-1;i++){
+            for (let j=0;j<arr.length-i-1;j++){
+                arr[j]>arr[j+1]?[arr[j],arr[j+1]]=[arr[j+1],arr[j]] : ''
+            }
+        }
+        return arr;
+    }
+
+
+    /*
+    * 插入排序
+    * 思路：
+    * 新建一个数组不断从原来数组取值放入新数组，放入新数组的时候去比较新数组找到合适位置插入
+    * */
+    function insert(ary) {
+        let arr = []
+        arr.push(ary[0]);
+        for (let i=1;i<ary.length;i++){
+            for (let j=arr.length-1;j>=0;j--){
+                if(ary[i]>arr[j]){
+                     arr.splice(j+1,0,ary[i])
+                    break
+                }
+                if (j===0){
+                    arr.unshift(arr[i])
+                }
+            }
+        }
+        return arr
+    }
+
+    console.log(insert(arr01))
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .all{
+            width:100%;
+            height:500px;
+            background:red;
+            position: relative;
+        }
+        .mask{
+            width:100%;
+            height:0;
+            background:rgba(0,0,0,.5);
+            position:absolute;
+            transition: height 0.5s linear 1s;
+        }
+        .all:hover .mask{
+            height:500px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="all">
+    <div class="mask"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var Arr=[];
+    function test() {
+
+        for (var i=0;i<10;i++){
+            ( function(j) {
+            Arr[i]=function () {
+                document.write(j+ " ");
+            }
+             }(i)
+        )
+        } //在这里写一个立即执行函数这样会创建10个闭包 10个闭包对应每一个数 相当于将每个i单独封闭起来
+        return Arr;
+    }
+
+    var myArr=test();
+    for(var j=0;j<10;j++) {
+        Arr[j]();
+    }
+</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ 二叉搜索树也称为二叉查找树
+左子树任意节点，小于根节点
+右子树任意节点，大于根节点
+</body>
+<script>
+    let arr = []
+    /*验证*/
+    function judge(root) {
+        let arr = [],
+            stack = [];
+        let p = root;
+        let prev = null;
+        while (stack.length || p){
+            while (p){
+                stack.push(p)
+                p = p.left
+            }
+            let temp = stack.pop()
+            arr.push(temp.val)
+            p = temp.right
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * SB动态规划
+    * 问题描述：一只青蛙一次可以跳上1级台阶，也可以跳上2级。
+    * 求该青蛙跳上一个n级的台阶总共有多少种跳法。
+    * */
+    /*
+    *
+    * */
+    function jump(n) {
+        let arr =[]; //1、定义这个存表的关系式
+        //2、他的状态转换方程f(n) = f(n-1) + f(n-2)
+        //3、搞定他的初始值
+        arr[0] =0;
+        arr[1] =1;
+        arr[2] = 2;
+        for (let i = 3;i<n;i++){
+            arr[i] = arr[i-1]+arr[i-2]
+        }
+
+        return arr[n-1]
+    }
+ //   console.log(jump(50))
+
+   function fn02(m) {
+        if (m ===1|| m===2) return 0;
+        let arr = []
+       arr[0] =0;
+       arr[1] =1;
+       arr[2] = 2;
+       for (let i = 3;i<10000;i++){
+           arr[i] = arr[i-1]+arr[i-2]
+           if (m>=arr[i-1] && m<arr[i]){
+               let min = Math.min(m-arr[i-1],arr[i]-m)
+               return min;
+           }
+       }
+   }
+   console.log(fn02(15))
+
+
+    function Encrype(str){
+        let newStr = ""
+        for (let value of str){
+            a=a+String.fromCharCode(value.charCodeAt(0) + 1 - 32);
+        }
+        return newStr
+    }
+    function unEncrype(str){
+
+    }
+    var s = 'c';
+    s = String.fromCharCode(s.charCodeAt(0) + 1 - 32);
+    alert(s);
+    let d =parseInt("d")
+    console.log(typeof d)
+    console.log(Encrype("sdf"))
+</script>
+</html>

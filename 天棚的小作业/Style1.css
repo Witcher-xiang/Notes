@@ -1,0 +1,222 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.topBox{/*包涵整个导航栏的大DIV*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.topBoxTwoFlank{/*这是最上导航栏两侧链接的样式*/
+    background: yellow;
+    width:12%;
+    height: 60px;
+    border-bottom:2px solid deepskyblue;
+    border-left:2px solid deepskyblue;
+    border-right:2px solid deepskyblue;
+    font-size: 25px;
+    color: #3399CC;
+    text-align: center; /*作为表格单元来显示*/
+    display: table-cell;
+    vertical-align: middle;/*设置行内元素的垂直居中*/
+    line-height: 60px;
+
+}
+
+.topBoxCenterArea{/*这是导航栏中间区域最大的样式*/
+    background: yellow;
+    width: 76%;
+    height: 60px;
+    border-bottom:2px solid deepskyblue;
+    display: flex;
+    justify-content: center;
+}
+
+.topBoxLinkArea{/*这是导航栏中间区域的链接区域*/
+    background:#0066CC ;
+    width:400px;
+    height: 60px;
+    border: 2px solid white;
+    font-size: 35px;
+    text-align: center;
+    color: white;
+}
+
+.mainPictureTitle{ /*这就图片中的那行白字*/
+    position: relative;
+    top: -400px;
+    color: white;
+    text-shadow:0 1px 2px black;
+    font-size: 50px;
+    left: 100px;
+}
+
+.mainPictureTitle2{  /*这就是图片中的那行黑字*/
+    position: relative;
+    top: -380px;
+    color: black;
+    left: 100px;
+    -webkit-text-stroke: 1px gainsboro;
+}
+.littleListLogo{  /*facebook的那一行图标*/
+    list-style: none;
+
+    position: relative;
+    top: -350px;
+    left: 100px;
+}
+#littleLoge01{
+    width: 30px;
+    height: 30px;
+    background:#475a95;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge02{
+    width: 30px;
+    height: 30px;
+    background:#60abeb;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge03{
+    width: 30px;
+    height: 30px;
+    background:#db763d;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge04{
+    width: 30px;
+    height: 30px;
+    background:#a11021;
+    float: left;
+    margin-left: 20px;
+}
+
+.secondSubHeadBox{/*包涵整个导航栏的大DIV*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.subhead{
+    color: #7d3f98;
+    font-size: 50px;
+    margin: 0 auto;
+    position: relative;
+    left:270px;
+}
+
+#switchOver{
+    width: 580px;
+    height: 430px;
+    overflow: hidden;
+    position: relative;  /*这里是相当重要的一个地方，绝对定位和相对定位一起配合使用*/
+}
+
+.personalInformation{
+    width: 550px;
+    height: 430px;
+
+}
+.informationContent{
+    font-size: 22px;
+}
+#HelpButton{
+    font-size: 18px;
+    width: 100px;
+    height: 40px;
+    background:#146eb4;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+}
+#DownloadButton{
+    font-size: 18px;
+    width: 150px;
+    height: 40px;
+    background:#ff9900;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+}
+#DownloadButton:hover{
+    background: #146eb4;
+}
+#HelpButton:hover{
+    background: #ff9900;
+}
+#personalInformation02{  /*第二个div切换页面的样式*/
+    width: 550px;
+    height: 430px;
+    font-size: 22px;
+}
+#list{
+    width: 1160px;    /*因为如果这里不设置一个宽度，则浮动元素*/
+    list-style:none;
+    position: absolute;
+     /*图片轮播移动的原理即是一排图片轮流移动*/
+    left: 0px; /*在这里就可以直接修改坐标来修改图片的位置，开始先让他默认为0*/
+
+}
+#list li{
+    float: left;
+    margin:0 15px;
+    list-style:none;
+
+}
+#navDiv{
+    position: absolute;
+    left: 1100px;
+}
+#navDiv a{
+    float: left;
+    background: gainsboro;
+    width: 20px;
+    height: 20px;
+    text-decoration: none;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+#navDiv a:hover{
+    background: grey;
+}
+
+#littleLoge1{
+    width: 30px;
+    height: 30px;
+    background:#475a95;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge2{
+    width: 30px;
+    height: 30px;
+    background:#60abeb;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge3{
+    width: 30px;
+    height: 30px;
+    background:#db763d;
+    float: left;
+    margin-left: 20px;
+}
+#littleLoge4{
+    width: 30px;
+    height: 30px;
+    background:#a11021;
+    float: left;
+    margin-left: 20px;
+}

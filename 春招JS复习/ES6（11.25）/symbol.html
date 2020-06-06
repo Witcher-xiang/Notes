@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    * 防止出现重名而导致重写的情况
+    *
+    * Symbol类型在对象中无法被for in所遍历到
+    * */
+    let mySymbol = Symbol();
+    let mySecondSymbol = Symbol("您好我是第二个");
+        //Symbol()里面的是对这个属性的一种描述，并不代表实际的值
+    let a={
+        [mySecondSymbol]:"一些代码"// 这里必须使用[]
+    };
+    let test = "mySymbol";
+    a.mySymbol="hello";
+    console.log(a);
+    console.log(a.mySecondSymbol);
+
+
+    console.log("————————人生分割线————————————————————————")
+    /*利用Symbol实现私有化*/
+    let PASSWORD=Symbol();
+    class Login{
+        constructor(username, password) {
+
+            this.username = username;
+            this[PASSWORD] = password //这里用.写的话就不会私有化
+            // 这里用PASSWORD代表使用一个 变量 如果忘记看博客 https://www.cnblogs.com/dirgo/p/11796503.html
+        }
+        checkPassword(pwd) {
+            return this[PASSWORD] === pwd
+        }
+    }
+    const login = new Login('admin', '123456')
+
+    console.log(login.checkPassword('123456'))
+    console.log(login.PASSWORD)
+    console.log(typeof PASSWORD)
+</script>
+</html>

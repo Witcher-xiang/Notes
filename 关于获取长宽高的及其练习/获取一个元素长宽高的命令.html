@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .d1{
+            width: 100px;
+            height: 100px;
+            background: #000;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+<button id="btn01">Change The Style</button>
+<div class="d1" id="box1"></div>
+</body>
+<script type="text/javascript">
+    var box1=document.getElementById("box1");
+    var btn01=document.getElementById("btn01");
+    btn01.onclick=function () {
+        // alert(box1.clientWidth);
+        // clientWidth clientHeight可以获取元素的可见高度和宽度（包括内边距和内容区）
+        //返回的是一个数值可以进行计算 但是只能进行读取而不能进行修改
+        alert(box1.offsetWidth)
+        //offsetWidth不仅可以返回内容区和内边框还可以返回外边框（获取整个元素的大小）
+        alert(box1.offsetParent);
+        //box1.offsetParent可以用来获取当前祖先元素的定位
+        //他会返回开启定位的祖先元素 若无祖先元素开启定位则会返回body
+        alert(box1.offsetTop);
+        //box1.offsetTop获取偏移量，获取开启定位元素的偏移量
+        //scrollLeft  返回元素左边缘与视图之间的距离，即水平滚动条滚动的距离
+        //scrollWidth 返回元素的整体宽度。
+        //scrollTop  返回元素上边缘与视图之间的距离，即垂直滚动条滚动的距离
+        //scrollHeight 返回元素的整体高度，即整个滚动区域的高度（看不见的也算）
+        //PS：clientHeight 在滚动条中的指的是看到的区域的高度
+
+        /*
+        但在有垂直滚动条的元素中clientHeight中的高度指的是原高度减去滚动条的高度之后剩余的高度
+          scrollHeight-scrollTop=clientHeight 时说明垂直滚动条到了底部
+          scrollWidth-scrollLeft=clientWidth  时说明水平滚动条到了尽头
+         */
+    }
+</script>
+</html>

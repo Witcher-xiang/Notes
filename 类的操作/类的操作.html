@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .d1{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .d2{
+            width: 200px;
+            height: 200px;
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<button id="btn01">点击换属性</button>
+<div id="box1" class="d1"></div>
+
+</body>
+<script type="text/javascript">
+    var btn01=document.getElementById("btn01");
+    var box1=document.getElementById("box1");
+    btn01.onclick=function () {
+        addClass(box1,"d2");//记得加双引号
+        alert(hasClass(box1,"d1"));
+        // box1.className="d2";
+    /*通过style属性来修改元素的样式，每修改一个样式，浏览器就需要重新渲染一次页面
+    因此我们可以通过class属性来间接修改属性
+    好处：这样浏览器只需要渲染浏览器一次性能优秀
+    ！！！尽量不要使用style
+    box1.className +=" d2";
+    //我们也可以通过这个方法在原来已有的d1的基础上加上一个d2，但主要 需要加一个 空格
+     */
+
+    //我们也可以创建一个函数 来添加class属性
+        //obj指的是对象cn指的是classname
+        function addClass(obj , cn) {
+            if(!hasClass(box1,"d2")) {
+                obj.className += " " + cn;
+            }
+            //但此函数如果多次点击便会多次添加class因此我们需要一个函数来进行判断
+        }
+        function hasClass(obj,cn) {
+           // reg=/\bd1\b/;//\b代表单词边界 在此行中指的是d1必须是独立的否则也会返回false
+            //在使用正则表达式时，我们不能直接传参数（使用字面量时不灵活）
+            var reg=new RegExp("\\b"+cn+"\\b");//因此我们需要用到这个构造函数
+            //此时上面返回的reg就是一个/cn/ 因此我们需要给他拼串
+
+             return reg.test(obj.className);
+            // return obj.className=cn;第一种方法有较大问题只是等于某一特定字符 如果拼串了则无法识别
+        }
+
+        function removeClass(obj,cn) {//感觉并没有搞懂这个的意思
+            var reg=new RegExp("\\b"+cn+"\\b");
+            obj.className =obj.className.replace(reg,"");//替换一个空串 顺便加一点判断
+        }
+        function toggleClass(obj,cn) {//用来切换 若有这个类则删除，若没有这个类则添加
+            if (hasClass(obj,cn))
+            {
+                removeClass(obj,cn);
+            }
+            else {
+                addClass(obj,cn);
+            }
+        }
+}
+</script>
+</html>

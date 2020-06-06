@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .left{
+        background: #73DE80;    /* 绿色 */
+        opacity: 0.5;
+        border: 3px solid #F31264;
+        width: 200px;
+        height: 200px;
+        float: left;
+    }
+    .right{                        /* 粉色 */
+        background: #EF5BE2;
+        opacity: 0.5;
+        border: 3px solid #F31264;
+        width:400px;
+        min-height: 100px;
+        overflow: hidden;
+    }
+    .box{
+        background:#888;
+        height: 100%;
+        margin-left: 50px;
+        overflow: hidden;
+    }
+    .little{
+        background: #fff;
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+        float: left;
+        will-change: transform ;
+    }
+</style>
+<body>
+<div class='box'>
+    <div class='left'> </div>
+    <div class='right'>
+        <div class='little'></div>
+        <div class='little'></div>
+        <div class='little'></div>
+    </div>
+</div>
+<div style="width: 100px;height: 100px;background:#000; float: left;">
+
+</div>
+<div style="width: 100px;height: 100px;background:#925f98;overflow: hidden">
+
+</div>
+</body>
+<script>
+
+/*
+* 制造纸箱
+时间限制：C/C++语言 1000MS；其他语言 3000MS
+内存限制：C/C++语言 65536KB；其他语言 589824KB
+题目描述：
+一个长方体纸箱由六个面构成。
+
+现在给出六块纸板的长和宽，请你判断能否用这六块纸板构成一个长方体纸箱。
+
+输入
+第一行包含一个整数T，表示测试数据组数。
+
+1 <= T <= 10
+
+对于每组测试数据包含六行，每行包含两个整数h, w，表示一块纸板的长和宽。
+
+1 <= h, w <= 104
+
+输出
+对于每组测试数据输出一行。如果能构成纸箱则输出POSSIBLE，否则输出IMPOSSIBLE。
+
+
+样例输入
+2
+* h   w
+
+2584 683
+2584 683
+2584 1345
+1345 2584
+683 1345
+683 1345
+
+*
+1234 4567
+1234 4567
+4567 4321
+4322 4567
+4321 1234
+4321 1234
+*
+样例输出
+POSSIBLE
+IMPOSSIBLE
+
+* */
+let arr = [1345, 2584,
+            2584, 683,
+             1345,2584,
+             683 ,1345,
+            683 ,1345,
+             2584, 683];
+/*
+* 这题思路
+* *（1）能否有2个一模一样的板子x3
+*  （3）每个数值是否互补
+* */
+function fn(arr) {
+    let tempArr = [];
+    function Obj(h,w) {
+        this.h = h;
+        this.w = w;
+        this.count = 0;
+    }
+    let h=arr.shift(),w=arr.shift();
+    tempArr.push(new Obj(h,w));
+
+    for (let i=2;i<=arr.length;i=i+2){
+        let h = arr[i-2],w = arr[i-1]
+        for (let j =0;j<tempArr.length;j++){
+            let item = tempArr[j]
+            if ((item.h === h && item.w === w) || (item.h === w && item.w === h))
+                {
+                    tempArr[j].count++
+                    break
+                }
+            else
+                tempArr.length-1 === j?tempArr.push(new Obj(h,w)):""
+        }
+    }
+    if (tempArr.length!==3) return false;
+    console.log(tempArr)
+    return  true
+
+}
+console.log(fn(arr))
+
+
+</script>
+</html>

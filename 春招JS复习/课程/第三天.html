@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    valueOf 与 toString的区别？?
+
+    * 两个== 1.对象==字符串   对象.toString()变为字符串
+    * 两个== 2。 null==undefined 相等  但是和其它值比较就不在相等了
+    *         3.NaN==NaN 不相等
+    *         4.剩下都转化维数字
+    *
+    *         对象=>数字=》（这里用的是toString）字符串=》Number
+    * */
+
+    /*
+    * 数据拦截
+    * Object.define
+    *
+    * 为什么不使用return a++ ，因为a会被不断的调用
+    *
+    * */
+
+    /*
+    * Vue实现双向绑定
+    *
+    * 第一种拦截器缺陷：
+    * 1、对原始数据克隆
+    * 2、需要给对象中每一个属性设置监听
+    *
+    * 第二种拦截器
+    * ES6的Proxy
+    * */
+
+    /*
+    * MVC和MVVM的区别
+    * MVVM双向数据绑定 数据变化 视图会变化 视图改数据也会改
+    *
+    * MVC
+    * */
+
+    /*
+    * 跨域问题的解决方案和实现方法
+    *
+    *
+    * 浏览器本身特点： 因为不在同源下面
+    * 1、JSONP跨域解决（利用<script>标签）
+    *  动态创造<script>标签 GET请求！
+    *
+    * GET -不安全 -有缓存 -大小限制
+    *
+    * 2、基于iframe的跨域解决方案
+    *
+    * 3、CROS跨域资源共享
+    * axios
+    *
+    * axios的拦截器 token的一些东西
+    * axios的响应拦截器
+    *
+    * res.header("Access-Control-Allow-Origin","") 这里服务器设定允许源头或者*
+    * 协调资源凭证
+    *
+    * 4、基于http proxy的反向代理
+    * 开发时候 使用devServer 进行代理 用proxy配置项
+    *
+    * 当上线的时候，服务器端使用nginx进行反向代理
+    *
+    * docker 又是啥玩意？？？？
+    * */
+
+    /*
+    * React 的组件通信（必问）
+    * Vue发布订阅和属性传值
+    *  react也能实现发布订阅（但要自己写）
+    *
+    *  React.createContext 上下文的形式传递 （实际可能用）
+    *
+    *  redux和localStorage
+    *  redux一刷新就没了（要从服务器拉）
+    *  localStorage还要设置存储时间，来设置存储时间
+    *
+    *  cookie是什么？ 与localStorage cookie数据限制大小
+    *  登录状态用户信息要存在redux上，每次刷新进行校验 进行公共状态的管理
+    *
+    *  session（服务器储存） 和 cookie（客户端储存，客户端也会把cookie发给服务器） 的区别
+    *  区别：
+    *  服务器设置session  服务器返回给客户端的信息  在响应头中 带着set-cookie='connect.sid'
+    *  客户端会把信息种植到本地的cookie中httponly
+    *  客户端再次向服务器发送请求的时候  会默认在请求头中cookies 把connect.sid传递发给服务器
+    * */
+
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="background: #2a987d;width: 100px;height: 100px" id="s1">s1
+    <div style="background: #981481;width: 50px;height: 50px" id="s2">s2</div>
+</div>
+</body>
+<script>
+    /**
+     * 校验原字符串 s 是否匹配 规则 p
+     * @param s string字符串 原字符串
+     * @param p string字符串 匹配规则
+     * @return bool布尔型
+     * .任意单个字符
+     * * 匹配0个或者多个
+     * () 字符集
+     */
+    let str01 ="abcbc";
+    let str02 = "a(bc)*c";
+    function Match( s ,  p ) {
+        let check = (val)=>{
+            if (val == ".") return "[a,z]{1}"
+            if (val == "*") return "{0,}";
+            if (val == "(") return "("
+            if (val == ")") return ")"
+            else return val
+        };
+        for (let i of str02){
+            str=str+check(i)
+        }
+        let reg =new RegExp(p)
+        return reg.test(s)
+        // write code here
+    }
+    let check = (val)=>{
+        if (val == ".") return "[a,z]{1}"
+        if (val == "*") return "{0,}";
+        if (val == "(") return "("
+        if (val == ")") return ")"
+        else return val
+    };
+    let str=""
+    for (let i of str02){
+        str=str+check(i)
+    }
+    console.log(str)
+    let reg =new RegExp(str)
+    console.log(reg)
+    console.log(Match("sabcbc","a(bc)*c"))
+</script>
+</html>

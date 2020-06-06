@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    * 非递归方式
+    * */
+    var swapPairs = function(head) {
+        if(head == null || head.next == null)
+            return head
+        let dummyHead = p = new ListNode;
+        dummyHead.next = head; //相当于给p添加next
+        while(p.next && p.next.next){
+            let node02 = p.next.next,
+                node01 = p.next;
+
+            node01.next = node02.next; //去取node02后面的那个节点
+            node02.next = node01;      //交换位置
+            p.next = node02
+            p = node01;
+        }
+        return dummyHead.next
+    };
+    /*
+    * 递归的调用过程
+    *
+    * 开局进来先取得第一个节点
+    * 再为Node01.next设置下一个节点的提前将Node02的下一个节点传递出去
+    * */
+    let swapPairsCycle = function (head) {
+        if (head== null|| head.next == null) return head;
+        let node01 = head,
+            node02 = head.next;
+        node01.next = swapPairsCycle(node02.next);
+        node02.next = node01;
+        return node02 //承接第四行 直接返回node02
+    }
+</script>
+</body>
+</html>

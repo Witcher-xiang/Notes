@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //目的在函数内部形成闭包防止命名冲突
+        var name='abc';
+        var name1='abcd';
+        var init=(function () {
+
+        var name='dzq';
+        function callName(){
+            document.write(name);
+        }
+
+            function callName2(){
+                document.write(name1);
+            }
+
+        return function () {
+            callName();
+            callName2();
+        }
+        }());
+        init();
+        //这就形成了一个闭包 里面的name同外面的name没有任何关系
+    </script> 
+</body>
+</html>

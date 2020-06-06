@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*算平均数*/
+    let arr=[12,69,180,12];
+    let result=arr.reduce((temp,item,index)=>{
+        if (index===arr.length-1){
+            return (temp+item)/index
+        }
+        else {
+            return temp+item
+        }
+    });
+    console.log(result)
+</script>
+</html>

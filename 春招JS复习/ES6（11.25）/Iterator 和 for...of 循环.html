@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+    /*全类型的数据遍历器
+    http://wiki.jikexueyuan.com/project/es6/iterator.html
+    总之，遍历器是一个对象，具有 next 方法。调用 next 方法，就可以遍历事先给定的数据结构。
+    * */
+    let arr = ['a', 'b', 'c'];
+    let iter = arr[Symbol.iterator]();
+    console.log(iter.next())
+    console.log(iter.next())
+    console.log(iter.next())
+
+    /*
+    * ES6 规定，默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性，
+    * 或者一个数据结构只要具有 Symbol.iterator 属性
+    * ，就可以认为是“可遍历的”（iterable）。
+    * 在 ES6 中，有三类数据结构原生具备 Iterator 接口：数组、某些类似数组的对象、Set 和 Map 结构。
+    * */
+    const array1 = {a:"1",b:"2",c:"3"};
+    console.log(Object.keys(array1));//这个方法相当是，将键名组成了一个函数
+    /*for in 返回的是对象的key值,在普通对象中可以直接使用*/
+    /*   for of 遍历的是属性值， 但是必须部署Iterator接口后才可以使用   */
+
+
+
+    for (let element in array1) {
+        console.log(element);
+    }
+    /*
+    *  array1.prototype[Symbol.iterator]=Array.prototype[Symbol.iterator];
+    for (let key of array1){
+        console.log(key)
+    }
+    jquery可以这么用 普通对象用不了 我也很奇怪
+    * */
+
+    /*用这种方式可以解决let of 报错问题*/
+    for (let key of Object.keys(array1)) {
+        console.log(array1[key]);
+        /*注意这里不能写成.key 不然要报错*/
+    }
+
+    /*原生实现Iterator*/
+    function makeIterator(array) {
+        let nextIndex = 0; //创建一个指针对象 指向当前数据的起始位置
+        return {
+            next:function () {
+                return nextIndex < array.length
+                    ?
+                    {
+                        value : array[nextIndex++],
+                        done:false
+                    }
+                    :
+                    {
+                        value:undefined,
+                        done:true
+                    }
+            }
+        }
+    }
+    console.log("__________")
+   // const  it = makeIterator(["n0","n1","n2"])
+    const array2 = {a:"2",b:"4",c:"8"};
+    console.log("是")
+    array2[Symbol.iterator] = function () {
+        return makeIterator([1,2,3])
+    }
+    for (let i of array2){
+        console.log(i)
+    }
+    //console.log(it.next())
+    //console.log(it.next())
+</script>
+</html>

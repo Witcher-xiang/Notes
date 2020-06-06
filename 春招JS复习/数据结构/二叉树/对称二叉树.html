@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+
+    /*
+    * 再来实现一遍，看有没有学会
+    * */
+    function isSymmetrical(pRoot)
+    {
+        if (!pRoot) return true
+
+        let judge = (left,right)=>{
+            if (left == null && right ==null) return true
+            if (!left && right) return  false;
+            if (left && !right) return  false;
+            if (left.val != right.val){
+                return false
+            }
+           return judge(left.right,right.left) &&
+                    judge(left.left,right.right)
+
+        }
+      return   judge(pRoot.left,pRoot.right)
+        // write code here
+    }
+    /*
+    * 这是对称二叉树自写，平衡二叉树和对称二叉树不是一个东西
+    * 平衡二叉树：
+    * （1）他是一棵二叉查找树
+    * （2）他左右子树绝对值之差不小于1
+    * */
+    function IsSymmetry_Solution(pRoot){
+        if (pRoot == null) return true;
+        const left = pRoot.left,right = pRoot.right;
+        if (!right && !left) return true
+        if (right && !left) return false
+        if (!right && left) return false
+
+        if (left.val !== right.val)
+            return false
+        if (left.val === right.val) {
+            return IsBalanced_Solution(left) &&
+                IsBalanced_Solution(right)
+        }
+    }
+    /*
+    * 对称二叉树
+    * 给定一个二叉树，判断它是否对称
+    * */
+
+    /*递归实现*/
+    function judge(root) {
+        if (root == null) return true;
+        return judge01(root.left,root.right)
+    }
+    function judge01(left,right) {
+        if (!left && !right) return true;
+        if (left && !right) return false; //一个为空，一个不为空
+        if (left.val !== right.val) return false
+        if (left.val === right.val) return judge01(left.left,left.right) && judge01(right.left,right.right)
+
+
+    }
+
+    /*非递归实现
+    * 用一个队列保存访问过的节点，每次提取出两个节点。进行比较
+    *
+    * 类似广度优先遍历，而并非广度优先遍历
+    * */
+    function judge02(root){
+        let arr = [],queue = [root.left,root.right];
+        let node01 ,node02;
+
+        while (stack.length){
+            node01 = queue.shift();
+            node02 = queue.shift();
+            //两节点都为空的时候
+            if (!node01 && !node02) continue;
+            if (!node01||!node02||node01.val !== node02.val) return false;
+            queue.push(node01.left);
+            queue.push(node01.right);
+            queue.push(node02.left);
+            queue.push(node02.right);
+        }
+
+
+    }
+</script>
+</html>

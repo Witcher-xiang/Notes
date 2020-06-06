@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .outBox{
+
+        width: 500px;
+        height: 500px;
+        border: 1px black solid;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .outBox .inBox{
+
+        width: 100px;
+        height: 100px;
+        background: #60abeb;
+
+    }
+</style>
+<body>
+    <div class="outBox">
+        <div class="inBox">sdf</div>
+    </div>
+
+</body>
+<script>
+    // let boxBig = document.getElementsByClassName("outBox")[0];
+    // let boxSmall = document.getElementsByClassName("inBox")[0];
+    // console.log(boxSmall)
+    // let boxBigHeight = boxBig.offsetHeight;
+    // let boxBigWidth  = boxBig.offsetWidth;
+    // let boxSmallHeight = boxSmall.clientHeight;
+    // let boxSmallWidth  = boxSmall.clientWidth;
+    // console.log(boxBigHeight,boxBigWidth,boxSmallHeight,boxSmallWidth)
+    // boxSmall.style.left = (boxBigHeight - boxSmallHeight)/2 + "px"
+    // boxSmall.style.top  = (boxBigWidth  - boxSmallWidth)/2 + "px"
+
+    console.log(Object.prototype.toString)
+    var type = function(data) {
+        var toString = Object.prototype.toString;
+        var dataType = toString
+            .call(data)
+            .replace(/\[object\s(.+)\]/, "$1")
+            .toLowerCase()
+        return dataType
+    };
+console.log(type([23,1]))
+    let str01="[object array]"
+    console.log(str01.slice(8))
+    const arr = [0, 1, 2, 3, 4];
+    console.log(
+        arr.reduce((previousValue, currentValue, currentIndex) => {
+            return previousValue + currentValue
+        })
+    )
+
+    const arr1 = [1, 2, 1, 2, 3, 5, 4, 5, 3, 4, 4, 4, 4];
+    let arr02 = [];
+    for (let i=0;arr1.length>i;i++){
+        if (arr1.indexOf(arr1[i]) === i) {
+            arr02.push(arr1[i])
+        }
+    }
+</script>
+</html>

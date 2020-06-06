@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*二叉树的深度*/
+    /* function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} */
+    /*
+    *
+    * 解法思路：
+    * 1、递归：因为我求的是最大深度因此要么在左子树要么在右子树，我只要找出是左子树大呢
+    * 还是右子树大呢
+    * 需要注意的是数的递归永远最多只考虑两层下面的都不用管他会自己解决
+    * */
+    let arr=[];
+    let allArr = []
+    function TreeDepth(pRoot)
+    {
+        if (pRoot!==null){
+            if (pRoot.left)
+            arr.push(pRoot.val)
+         let left=  TreeDepth(pRoot.left) +1
+         let right =   TreeDepth(pRoot.right)+1
+             return left>right?left:right;
+        }
+        // write code here
+    }
+    console.log(Math.max(...[1,3,4,5,6,99]))
+    /*
+    * 一种大的思想：层次遍历利用队列
+    * 非递归思路:利用队列记录每一个节点
+    * (1)开始先将根节点放到队列中，此时队列的长度是1，此时也说明了当前层次的宽度width
+    * (2)进行while循环 条件：当前节点次数（cur）<width（每一轮循环 cur会++）
+    * （3）继续外面套个大循环while（队列不为空）
+    * （4）虽然新的节点不停的在加入到队列，但因为我们一开始有width这个属性 所以本层遍历完毕时
+    *   里面的while即会停止
+    * */
+    function TreeDepth01(pRoot) {
+            if (pRoot == null) return 0;
+            let queue = [];
+            let deep = 0;
+            let current,width,cur;
+            queue.push(pRoot)
+            while (queue.length!==0){
+                cur =0 ;
+                width = queue.length;//当前队列的所有节点 即为该层的所有节点
+                while (cur<width){
+                    current = queue.pop();
+                    if (current.left!==null)
+                        queue.unshift(current.left)
+                    if (current.right!==null)
+                        queue.unshift(current.right)
+                    cur++   //访问完当前节点后cur++
+                }
+                deep++
+            }
+            return deep
+    }
+
+
+</script>
+</html>

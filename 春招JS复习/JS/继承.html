@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    function DOG(name){
+
+        this.name = name;
+        //this.prototype.species="犬科";///这里不能用this,必须指定DOG
+        DOG.prototype.species="犬科";  //用这种方法继承原型即可
+
+    }
+    let doga = new DOG("a");
+    console.log(doga.species);
+
+    doga.__proto__.species="猫科"; //实例的话要用__proto__
+    console.log(doga.species);
+    console.log(DOG.prototype.species)
+
+
+
+    /*原型的继承,方法1*/
+    function Animal (name) {
+        this.name = name;
+        this.type="Animal"
+    }
+
+    /*如果写了这个则 Animal的construct就没有了*/
+    Animal.prototype = {
+        canRun: function () {
+            console.log('it can run!');
+        },
+        cantRun: function () {
+            console.log('it cant run!');
+        }
+    };
+    let an =new Animal("animalName")
+    console.log("animal",an)
+    function Cat () {
+        this.speak = '喵！';
+    }
+    Cat.prototype={speak:"lmt喵喵叫！"};
+
+
+    class b extends Animal{
+            //如果继承了Animal则construct就是父类的construct 属性也直接变成父类的 构造函数的还要调用原型链
+    }
+
+    Cat.prototype = new Animal('Animal喵喵叫');
+    Cat.prototype.constructor = Cat;//尽量加上，不然没办法指会原来的原型对象
+    let cat = new Cat();
+    console.log(cat.speak,cat.type,cat.speak01)
+    console.log("打印小cat",cat)
+    console.log("打印es6 的类class b",new b)
+
+
+    /*
+    * 面试问题二
+    * 这种继承方式需要将子类的构造函数指回本身，因为从父类继承时同时也继承了父类的构造函数。
+简单的使用Cat.prototype = Animal.prototype将会导致两个对象共享相同的原型，一个改变另一个也会改变。
+不要使用Cat.prototype = Animal，因为不会执行Animal的原型，而是指向函数Animal。
+因此原型链将会回溯到Function.prototype,而不是Animal.prototype,因此canRun将不会在Cat的原型链上。
+    * */
+
+    /*原型的继承,方法2*/
+</script>
+</html>

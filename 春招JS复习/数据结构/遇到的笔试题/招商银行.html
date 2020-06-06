@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*  回文字符串*/
+
+    let judge = (str)=>{
+        if (str.length === 0) return false;
+        let head =0,tail =str.length-1,count =0,state = true;
+        while(count<str.length){
+            if(!singleJudge(str[head],str[tail]))
+            {
+                console.log("动了",str[head],str[tail])
+                state =false;
+                break;
+            }
+            head++;
+            tail--;
+            count++;
+        }
+        return state
+    }
+    let singleJudge = (str01,str02)=>{
+        if(str01 == "1" && str02 == "1")
+            return true
+        if(str01 == "2" && str02 == "5")
+            return true
+        if(str01 == "5" && str02 == "2")
+            return true
+        if(str01 == "3" && str02 == "8")
+            return true
+        if(str01 == "8" && str02 == "3")
+            return true
+        if(str01 == "7" && str02 == "4")
+            return true
+        if(str01 == "4" && str02 == "7")
+            return true
+        if(str01 == "6" && str02 == "9")
+            return true
+        if(str01 == "9" && str02 == "6")
+            return true
+        else
+            return false
+    }
+        let value =judge("6996")?"YES":"NO";
+
+
+    /*
+    * 给你一个字符串，你可以在里面添加加号和减号，使得最终的运算结果等于k
+    * 现在想知道有多少种满足要求的添加符号的方案
+    * */
+    /*先用回溯写一个*/
+    function fn(str,k) {
+        let arr = str.split(""),count =0,length = str.length;
+        let fnIn =(str,k,start =0,plus = 0,minus =0,minusPlus=0,plusMinus=0)=>{
+            if (plus === k) {count++;  console.log("要的",count,plus,k,start);  return;}
+            if (minus === k) {count++;  return;}
+            if (minusPlus === k) {count++;  return;}
+            if (plusMinus === k) {count++;  return;}
+
+
+
+            /*
+            * 定义二维数组的含义
+            * */
+            for (let i=start;i<arr.length;i++){
+                fnIn(str,k,i+1,plus+ parseInt(str[i]),minus- parseInt(str[i]),minus+ parseInt(str[i]), parseInt(plus-str[i]))
+            }
+        };
+        fnIn(arr,k);
+        return count
+    }
+
+    console.log("我们看看有几种方法", fn("12345",3))
+
+   //  function A() {
+   //      this.a = ()=>{
+   //          console.log(this)
+   //      }
+   //      this.b = ()=>{
+   //          console.log(this)
+   //      }
+   //  }
+   //  let B ={
+   //      c:function () {
+   //          console.log("构造函数的this",this)
+   //      },
+   //      b:()=>{
+   //          console.log(this)
+   //      }
+   //
+   //  }
+   // let a = new A()
+   //  a.a.bind({})()
+   //  a.b.call(window)
+   //  B.b()
+   //  B.c()
+
+    function f(m,n) {
+        return m.toString(n)
+    }
+    console.log(f(21,16))
+    let x= 7
+    //console.log(x.toString(2))
+</script>
+</html>

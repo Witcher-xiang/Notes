@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const myPromiseAll = function (promiseList) {
+        let result = [],index = 0;
+        return new Promise((resolve,reject) => {
+           let next = ()=>{
+                   promiseList[index]
+                   .then(res=>{
+                       result.push(res)
+                       index++
+                       if (index === promiseList.length)
+                           resolve( result)
+                       else
+                           next()
+                   })
+                   .catch(err=>reject(err))
+           }
+            next()
+        })
+
+    }
+</script>
+</html>

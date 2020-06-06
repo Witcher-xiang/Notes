@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    Grand.prototype.lastname="dsf";
+    function Grand() {
+        this.name="xhm";
+    }
+    var grand =new Grand();
+
+    Father.prototype=grand;
+    function Father() {
+        this.year="sdf";
+    }
+    var father=new Father();
+
+
+    Son.prototype=father;
+    function Son() {
+
+    }
+    var son= new Son();
+
+</script>
+</body>
+</html>

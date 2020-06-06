@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹窗练习</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+        }
+        .bigBox{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            background: #db763d;
+            overflow: hidden;
+        }
+        .smallBoxClick{
+            left: 25%;
+            top: 25%;
+            z-index: 99;
+            width: 600px;
+            height: 600px;
+            position: absolute;
+            background: blanchedalmond;
+
+            /*background-color: rgba(0,0,0,0.4); !*实现透明背景*!*/
+        }
+        .smallBox{
+            width: 50%;
+            height: 50%;
+            margin: 10% auto;
+            background: blanchedalmond;
+
+        }
+    </style>
+</head>
+<body style="height: 100%">
+
+    <div id="bigBox" class="bigBox">
+        <div id="smallBox" class="smallBox">
+            这个是smallbox
+            <span style="background: #0066CC" onclick="clickNone()">点这个关闭网页</span>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    let bigBox = document.getElementById("bigBox");
+    let smallBox = document.getElementById("smallBox")
+
+    bigBox.onclick=function (e) {
+
+       // console.log(e.target.className="smallBoxClick")
+    };
+    smallBox.onclick=function (e) {
+        e.target.className="smallBoxClick"
+    };
+    function clickNone() {
+        smallBox.style.display="none"
+    }
+</script>
+</html>
