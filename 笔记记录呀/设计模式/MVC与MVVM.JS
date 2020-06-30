@@ -15,3 +15,4 @@ Model view contoller 一个比较老的视图架构
 这就是MVC的一个大体结构，主要使用了观察者模式，通过controller去控制和通知各个层
 
 */
+
