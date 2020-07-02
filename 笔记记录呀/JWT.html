@@ -10,10 +10,8 @@
     <div>3333333</div>
 </body>
 <script>
-  let a={}
-  let b=a;
     // 'NaN'
-    console.log( a===b)
+    //console.log( a===b)
 
     /*
     * JSON Web Token（JWT）是一个非常轻巧的规范。
@@ -30,7 +28,18 @@
     *  session是将信息储存到服务器的内存上，但JWT可以将相关信息储存在客户端上
     *  虽然检测会消耗一部分的性能
     * */
+    //this.num ="000"
+function foo(num){
+  this.num = num; // 这里直接创建了NaN
+}
 
+let f = new foo("1231")
+
+foo("123");
+
+console.log(num)
+
+console.log("f:",f.num)
 
 
 

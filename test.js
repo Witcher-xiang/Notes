@@ -1,51 +1,42 @@
-setTimeout(()=>{
-  console.log(6666)
-},0)
-let A = new Promise(
-  (resolve,reject) => resolve("2112")
-);
-A.then(res=>{
-  console.log("1111111")
-})
-.then(res => {
-  console.log("2222222")
-})
+function getMode(value){
+  const arr = value.split(" ");
+  let numObj = {}, max=0 , index =0;
 
-A.then(res=>console.log("213123"))
-
-// 
-
-class myPromise{
-  constructor(fn){
-    this.arr = [];
-    fn(this.resolve,this.reject)
-    this.value = "";
+  arr.map(item=> {
+    if(numObj[item])  numObj[item] +=1;
+    else numObj[item]=1;
+  })
+  for(let key in numObj){
+    if(numObj[key] >= max){
+      max = numObj[key]
+      index =key;
+    }
   }
 
-  resolve(res){
-    this.arr.forEach(item=>{
-      this.value =item(res)
-    })
-  }
-
-  reject(err){
-
-  }
-
-
-
+  console.log(`mode=${index}`)
 }
 
-function myInstanceOf(A,B){
-  if(!A || !B) return false;
+// const value = "6 1 0 5 0 0";
+
+// getMode(value)
+
+function getOrderMeanAndMedian(line){
+  const arr = line.split(" ");
+  const ceil = Math.ceil(arr.length/2);
+  const floor = Math.floor(arr.length/2);
+  let  median,mean,sum;
+
+  if(floor === ceil) median = arr[ceil/2];
+  else median = (arr[floor] + arr[ceil]).toFixed(2);
   
-  while(true){
-    if(A.__proto__ === B.prototype) 
-    return true;
+  arr.forEach(item => sum+= (item))
+  
+  console.log("sum:",sum)
+  mean = (sum/(arr.length)).toFixed(2)
 
-    if(A.__proto__ === null)
-    return false
-
-    A = A.__proto__;
-  }
+  console.log(`mean=${mean},median=${median}`)
 }
+
+const value = "1 2 3 9"
+getOrderMeanAndMedian(value)
+
