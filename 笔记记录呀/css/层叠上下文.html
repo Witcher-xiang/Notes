@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1 {  
+          position: relative;  
+          width: 100px;  
+          height: 100px;  
+          z-index: 2;
+        } 
+        .box2 {  
+          position: relative;  
+          width: 100px;  
+          height: 100px;  
+          z-index: 1;
+          bottom: 90px;
+        }   
+        p {  
+          position: absolute;  
+          font-size: 20px;  
+          width: 100px;  
+          height: 100px;  
+        }  
+        .a {  
+          background-color: blue;  
+          z-index: 1;  
+        }  
+        .b {  
+          background-color: green;  
+          z-index: 2;  
+          top: 20px;  
+          left: 20px;  
+        }  
+        .c {  
+          background-color: red;  
+          z-index: 399;  
+          top: -20px;  
+          left: 40px;  
+        }
+      </style>
+      </head>
+
+      <body>  
+        <div class="box1">  
+          <p class="a">a</p>  
+          <p class="b">b</p>  
+        </div> 
+      
+        <div class="box2">  
+          <p class="c">c</p>  
+        </div>  
+      </body> 
+</html>
