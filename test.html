@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        li {
+            height: 22px;
+            line-height: 22px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #E47911;
+        }
+
+            a[foo$="docx"] {
+                background: url(/Content/icon/word.png) no-repeat;
+                padding-left: 1px;
+            }
+
+            a[foo$="xlsx"] {
+                background: url(/Content/icon/excel.png) no-repeat;
+                padding-left: 10px;
+            }
+
+            a[foo$="pptx"] {
+                background: url(/Content/icon/powerpoint.png) no-repeat;
+                padding-left: 100px;
+
+            }
+
+            a[foo$="fdgfdgf"] {
+                background: url(/Content/icon/outlook.png) no-repeat;
+                padding-left: 208px;
+            }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a  foo="fdgfdgf" href="Word文件.docx">Word文件</a></li>
+        <li><a href="Excel文件.xlsx">Excel文件</a></li>
+        <li><a href="PPT文件.pptx">PPT文件</a></li>
+        <li><a href="Outlook文件.pst">Outlook文件</a></li>
+    </ul>
+</body>
+</html>
