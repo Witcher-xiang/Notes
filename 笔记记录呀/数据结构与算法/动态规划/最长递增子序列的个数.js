@@ -53,11 +53,23 @@ console.log(findLengthOfLCIS([2,2,2,2,2]))
  * @return {number}
  */
 var findNumberOfLIS = function(nums) {
-  let dp = []; // dp[i] 代表数组第i项 最长递增子序列的长度
-  dp[0] = 1; // 代表当数组的长度为1时 他的最长递增子序列只有一个他自己
+  let dp = new Array(nums.length).fill(1); // dp[i] 代表数组第i项 最长递增子序列的长度
+ 
+  let container = new Array(nums.length).fill(0) // 用来存储每个i项对应子序列长度重复的数量
   /*
   if(nuns[i] > nums[i-1])
   dp[i]
     状态转换方程：dp[i] = Math.max(dp[i-1], )
   */
+  for(let i =0; i<nums.length; i++){
+    let main = nums[i]
+    for(let j = 0; j< i; j++){
+      let curr = nums[j];
+      if(curr > main){ // 这里说明能形成子序列
+
+        if(dp[j] +1 > dp[i])// 第一次的情况 dp[j] +1 > dp[i] 是说 如果后面有新的上升子序列那么就可保证之前又再次被组合
+        
+      }
+    }
+  }
 };
