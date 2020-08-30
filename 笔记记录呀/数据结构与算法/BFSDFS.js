@@ -55,7 +55,11 @@ const dfs = (tree) => {
 
 // console.log(dfs(tree))
 
-/*  */
+/* 用占结构来进行DFS */
 const dfsStack = (tree) => {
-
+  const stack = [];
+  stack.push(tree);
+  while(stack.length){
+    let temp = stack.pop();
+  }
 }

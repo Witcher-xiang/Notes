@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 
 </body>
@@ -32,59 +34,59 @@
 平均情况：T(n) = O(nlogn)。
 
     * */
-     function quick(ary) {
-         let length = ary.length;
-         // 4.结束递归 当只有一项的时候结束递归
-         if (ary.length<=1){
-             return ary;
-         }
+    function quick(ary) {
+        let length = ary.length;
+        // 4.结束递归 当只有一项的时候结束递归
+        if (ary.length <= 1) {
+            return ary;
+        }
 
         //1.找到数组的中间项，在原有的数组中把它移除
-         let betweenNum = Math.floor(length/2);
-         let middleValue = ary.splice(betweenNum,1)[0];
+        let betweenNum = Math.floor(length / 2);
+        let middleValue = ary.splice(betweenNum, 1)[0];
 
-         let leftArray = [],rightArray =[];
-         for (let i=0;i<ary.length;i++){  //这里不能直接使用length因为我这里在之前的删除少了一项
-            if (ary[i]<middleValue){
+        let leftArray = [], rightArray = [];
+        for (let i = 0; i < ary.length; i++) {  //这里不能直接使用length因为我这里在之前的删除少了一项
+            if (ary[i] < middleValue) {
                 leftArray.push(ary[i])
-            } else {rightArray.push(ary[i])}
-         }
-         return quick(leftArray).concat(middleValue,quick(rightArray))
-         /*
-         * 3.递归处理 左右两边数组持续处理，知道左右两边都排好序为止
-         * （最后让 左边+中间+右边拼接成最后结果）
-         * */
-     }
+            } else { rightArray.push(ary[i]) }
+        }
+        return quick(leftArray).concat(middleValue, quick(rightArray))
+        /*
+        * 3.递归处理 左右两边数组持续处理，知道左右两边都排好序为止
+        * （最后让 左边+中间+右边拼接成最后结果）
+        * */
+    }
 
-     let ary = [12,8,15,16,1,24];
+    let ary = [12, 8, 15, 16, 1, 24];
 
-     console.log( quick(ary));
-     /*
-     * 三路快排？No 只是普通排序的微小升级，多加了一个相等队列
-     * */
-     function quickSort(arr) {
-         if (arr.length<1) return arr
+    console.log(quick(ary));
+    /*
+    * 三路快排？No 只是普通排序的微小升级，多加了一个相等队列
+    * */
+    function quickSort(arr) {
+        if (arr.length < 1) return arr
 
-          let middleIndex =Math.floor(arr.length/2),  //这里取index可以做一个中位数或者随机优化
-                middleValue = arr[middleIndex];
+        let middleIndex = Math.floor(arr.length / 2),  //这里取index可以做一个中位数或者随机优化
+            middleValue = arr[middleIndex];
 
-            let left = [],right = [],center = [];
-            for (let i =0;i<arr.length;i++){
-                let a = arr[i]
-                if (a>middleValue) {
-                    right.push(a);
-                }
-                else if(a<middleValue){
-                     left.push(a)
-                }
-                else if (a === middleValue){
-                    center.push(a)
-                }
+        let left = [], right = [], center = [];
+        for (let i = 0; i < arr.length; i++) {
+            let a = arr[i]
+            if (a > middleValue) {
+                right.push(a);
+            }
+            else if (a < middleValue) {
+                left.push(a)
+            }
+            else if (a === middleValue) {
+                center.push(a)
+            }
 
-                    }
-            return quickSort(left).concat(center,right)
-     }
-    console.log( quickSort(ary));
+        }
+        return quickSort(left).concat(center, right)
+    }
+    console.log(quickSort(ary));
 
 
     /*
@@ -92,43 +94,42 @@
     * 这里相对减少了一个排序的数量，因为有存储index
     * 其次他的空间复杂度变成了O(1)
     * */
-   // quickSortFastWay(ary01,0,ary01.length-1);
+    // quickSortFastWay(ary01,0,ary01.length-1);
     //
-    function quickSortFastWay(arr,left,right) {
-        if (left>=right) return false;
-        let obj = fn(arr,left,right);
-        debugger
-        quickSortFastWay(arr,left,obj.lt);
-        quickSortFastWay(arr,obj.gt,right);
+    function quickSortFastWay(arr, left, right) {
+        if (left >= right) return false;
+        let obj = fn(arr, left, right);
+        quickSortFastWay(arr, left, obj.lt);
+        quickSortFastWay(arr, obj.gt, right);
     }
-    function fn(arr,left,right) {
+    function fn(arr, left, right) {
         let p = arr[left],
             lt = left,  //==p的首项
-            gt = right+1; //gt 是>p的第一项
-        for (let i = left+1;i<gt;){ //这里要从第二项开始所有要+1
-            if (arr[i] === p){
+            gt = right + 1; //gt 是>p的第一项
+        for (let i = left + 1; i < gt;) { //这里要从第二项开始所有要+1
+            if (arr[i] === p) {
                 i++
-            }else if(p>arr[i]){
-                swap(arr,i,lt);
+            } else if (p > arr[i]) {
+                swap(arr, i, lt);
                 i++;
                 lt++
-            }else {
-                swap(arr,i,gt-1);
+            } else {
+                swap(arr, i, gt - 1);
                 gt--
             }
         }
         // swap(arr,left,lt); 这个可以没有因为我把上面改了
-      //  console.log("每次排序后的数组",arr)
+        //  console.log("每次排序后的数组",arr)
         lt--; // 这个也可以不去做一个回退 我是么明白这个回退是要干撒 加上他可以做一个优化
-        return {lt:lt,gt:gt}
-    }
+        return { lt: lt, gt: gt }
+    };
     //输入index和函数做一个交换
     function swap(arr, indexA, indexB) {
         [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
     }
-    let ary01 = [12,8,15,16,1,24];
+    let ary01 = [12, 8, 15, 16, 1, 24];
 
-    console.log(quickSortFastWay(ary01,0,ary01.length-1))
+    console.log(quickSortFastWay(ary01, 0, ary01.length - 1))
     console.log(ary01)
     /*
     * 详情看这个
@@ -136,4 +137,5 @@
     * https://blog.csdn.net/insistgogo/article/details/7785038
     * */
 </script>
+
 </html>

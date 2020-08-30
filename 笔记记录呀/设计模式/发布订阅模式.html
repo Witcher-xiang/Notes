@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 
 </body>
@@ -19,23 +21,23 @@
     *
     * */
     let pubSub = {
-        list:{},
-        subscribe:function (key,fn) {
-            if (!this.list[key]){
+        list: {},
+        subscribe: function (key, fn) {
+            if (!this.list[key]) {
                 this.list[key] = [];
             }
             //在list这个对象，存入key且value是一个数组 数组中存入对应执行函数
             this.list[key].push(fn)
         },
-        publish:function () { //发布
+        publish: function () { //发布
             let arg = arguments;
             let key = [].shift.call(arg);
-            console.log("key",key)
+            console.log("key", key)
             let fns = this.list[key];//取出所有的订阅内容（函数）
-            if (!fns || fns.length<=0) return false;
+            if (!fns || fns.length <= 0) return false;
 
-            for (var i = 0,len = fns.length;i<len;i++){
-                fns[i].apply(this,arg) //全部执行一遍
+            for (var i = 0, len = fns.length; i < len; i++) {
+                fns[i].apply(this, arg) //全部执行一遍
             }
         },
         unSubscribe(key) {  // 取消订阅
@@ -52,5 +54,25 @@
         console.log('sex的测试' + sex);
     });
     pubSub.publish('sex', 'male');  // your sex is male
+
+    /*
+    
+    */
+    const publishAnd = {
+        arr = [],
+        sub() {
+
+        },
+
+        publish() {
+
+        },
+        
+        unSub() {
+
+        },
+    }
+    console.log(publishAnd.arr)
 </script>
+
 </html>
