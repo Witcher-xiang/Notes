@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
     <ul id="list">
         <li>item 01</li>
@@ -24,29 +26,29 @@
         let ary = [];
         let first = arr.shift();
         ary.push(first);
-        for (let i=0;i<arr.length;i++){
-          let A = arr[i];
+        for (let i = 0; i < arr.length; i++) {
+            let A = arr[i];
 
-          for (let j=ary.length-1;j>=0;j--){ //记得倒序要减1
-            let B = ary[j]
-              if (B<A){
-                  ary.splice(j+1,0,A)
-                  break;
-              }
-              if (j===0) ary.unshift(A)
-          }
+            for (let j = ary.length - 1; j >= 0; j--) { //记得倒序要减1
+                let B = ary[j]
+                if (B < A) {
+                    ary.splice(j + 1, 0, A)
+                    break;
+                }
+                if (j === 0) ary.unshift(A)
+            }
         }
         return ary
     }
-    let arr = [9,46,76,12,83,3];
+    let arr = [9, 46, 76, 12, 83, 3];
     /* 冒泡排序
     * 后一项同前一项比较
     * 本次注意：数组的length-1才是遍历整个数组的条件
     * */
     function bubble(arr) {
-        for (let i in arr){
-            for (let j=0;j<arr.length-i-1;j++){
-                arr[j]>arr[j+1] ? [arr[j],arr[j+1]] = [arr[j+1],arr[j]] : ""
+        for (let i in arr) {
+            for (let j = 0; j < arr.length - i - 1; j++) {
+                arr[j] > arr[j + 1] ? [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]] : ""
             }
         }
         return arr
@@ -58,34 +60,34 @@
     * 本次遇到的问题：注意记得将中间项目取出来最后再 合并在一起
     * */
     function quick(arr) {
-        let index= Math.floor(arr.length/2);
-        let betNum = arr.splice(index,1)[0];
-        let left = [],right = [];
-        if (arr.length <=1){
+        let index = Math.floor(arr.length / 2);
+        let betNum = arr.splice(index, 1)[0];
+        let left = [], right = [];
+        if (arr.length <= 1) {
             return arr
         }
 
-        for (let i in arr){
+        for (let i in arr) {
             let A = arr[i];
-            if (A>betNum) right.push(A);
-            if (A<betNum) left.push(A)
+            if (A > betNum) right.push(A);
+            if (A < betNum) left.push(A)
         }
-        return quick(right).concat([betNum,...quick(left)])
+        return quick(right).concat([betNum, ...quick(left)])
     }
 
     /*
     * 二分法查找
     * 注意边界条件
     * */
-    function TreeFind(num,arr) {
+    function TreeFind(num, arr) {
         let left = 0;
-        let right = arr.length-1;
-        while (left <= right){
-            let betIndex = Math.floor(arr.length/2);
-            let betNum   = arr[betIndex];
-            if (num === betNum)  return betIndex;
-            if (num > betNum) left = betIndex-1;
-            if (num < betNum) right = betIndex-1;
+        let right = arr.length - 1;
+        while (left <= right) {
+            let betIndex = Math.floor(arr.length / 2);
+            let betNum = arr[betIndex];
+            if (num === betNum) return betIndex;
+            if (num > betNum) left = betIndex - 1;
+            if (num < betNum) right = betIndex - 1;
         }
         return -1
     }
@@ -97,9 +99,9 @@
         let arr = [];
         let argLength = fn.length; //参数长度
         return function () {
-            arr = [arr,...arguments ]
+            arr = [arr, ...arguments]
             if (argLength === arr.length)
-                return fn.apply(this,...arr)
+                return fn.apply(this, ...arr)
         };
         return arguments.callee //相当于调用自己
     }
@@ -113,33 +115,33 @@
         let args = [...arguments].splice(1);
         args ? [...args] : [];
         return function () {
-          return  fn.call(context,args)
+            return fn.call(context, args)
         }
     }
 
-    function mockNew(object,...args) {
+    function mockNew(object, ...args) {
         let obj = Object.create(object.prototype);
-        let res = object.apply(obj,args);  //绑定this
-        return  res instanceof Object ? res:object
+        let res = object.apply(obj, args);  //绑定this
+        return res instanceof Object ? res : object
     }
 
     /* 防抖 */
-    function debounce(fn,delay) {
+    function debounce(fn, delay) {
         let timer;
         return function (...arg) {
             if (timer) clearTimeout(timer)
-            timer = setTimeout(()=>{
-                    fn.call(this,arg)
-                },delay)
+            timer = setTimeout(() => {
+                fn.call(this, arg)
+            }, delay)
         }
     }
     /* 节流 */
-    function throttle(fn,delay) {
+    function throttle(fn, delay) {
         let last = 0;
         return function (...arg) {
             let now = Date.now();
-            if (now - last >delay){
-                fn.call(this,arg)
+            if (now - last > delay) {
+                fn.call(this, arg)
                 last = now
             }
         }
@@ -160,5 +162,18 @@
     * 2、组合继承    => Son.prototype = new Father() 在Son的构造函数中调用Father.call(this)
     * 3、寄生组合继承 => Son.prototype = Object.create(Father.prototype)
     * */
+
+    /*
+     原型链继承
+    */
+    function A() {
+        this.a = "aaa",
+    };
+
+    function B(){
+        
+    }
+
 </script>
+
 </html>

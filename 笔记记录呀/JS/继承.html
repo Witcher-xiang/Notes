@@ -68,5 +68,54 @@
     * */
 
     /*原型的继承,方法2*/
+
+    console.log("————————————————————————分割线：9.22复习——————————————————————————————————————————")
+
+    function Father(value){
+        this.name = "father";
+        this.otherValue = value;
+        this.other = "哈哈哈哈哈哈";
+        
+    }
+
+    function Son(value){
+        this.name = "son",
+        this.value = value;
+    }
+
+    // 1、原型链继承：直接通过new 去实现继承
+    // 缺点：无法把父类的属性和方法写到子类中
+    Son.prototype = new Father("Father");
+    Son.prototype.constructor = Son;
+
+
+    /*
+    2.组合继承：和原型继承一样，不同的是在子类中执行一次父类的方法，利用.call去运行在当前作用域
+
+    缺点：父类方法被执行两次
+    */
+    function Son01(value){
+        Father.call(this,value); // 正常传参数即可
+        this.name = "son01";
+        this.value = value;
+    }
+    Son01.prototype = new Father("自己传递进去的")
+    Son01.prototype.constructor =  Son01;
+
+    let newSon = new Son01("111");
+
+    /*
+    3.寄生组合继承：和组合继承一样，但是我们不使用，使用Object.create这样就不用去new了
+    */
+    function Son02(value){
+        Father.call(this,value); // 正常传参数即可
+        this.name = "son02";
+        this.value = value;
+    }
+    Son02.prototype = Object.create(Father);
+    Son02.prototype.constructor = Son02;
+
+    let son02 = new Son02("222222")
+    console.dir(son02)
 </script>
 </html>

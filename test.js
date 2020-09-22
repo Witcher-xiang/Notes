@@ -135,21 +135,55 @@
 */
 
 
-let str = '1 1 3';
-let arr = str.split(' ');
-let result = [];
-let operateType = arr[0],
-    index = arr[1],
-    addNum = arr[2];
+// let str = '1 1 3';
+// let arr = str.split(' ');
+// let result = [];
+// let operateType = arr[0],
+//     index = arr[1],
+//     addNum = arr[2];
 
-    if(operateType == 1 && index && addNum){
-      result.splice(index-1, 0, addNum)
+//     if(operateType == 1 && index && addNum){
+//       result.splice(index-1, 0, addNum)
+//     }
+//     if(operateType == 2 && index){
+//       result.splice(index, 1)
+//     }
+//     if(operateType == 3){
+//       result.forEach(item => print(item));
+//     }
+
+//     console.log("result",result)
+
+
+var N, M, K;
+// 每组第一行是2个整数，N和M，至于为啥用while，因为是多组。
+while ((N=readInt()) != null && (M=readInt()) != null && (K=readInt()) != null) {
+  // 循环读取“接下来的M行”
+  for (let i=0; i<M; i++) {
+    let a = readInt();
+    let b = readInt();
+    let c = readInt();
+    // 每行是3个整数，a，b，c。
+    print(a + ' ' + b + ' ' + c);
+  }
+  // M行读取完了，就又要开始下一组了，去while那里。
+}
+
+
+let line, count = 0, total = 0, totalNum =0, limit = 0, numArr = [];
+while(line = read_line){
+  let arr = line.split(' ');
+  if(count > 0){
+    if(limit <= count){
+      count = 1;
+      total= 0;
+      numArr = [];
     }
-    if(operateType == 2 && index){
-      result.splice(index, 1)
-    }
-    if(operateType == 3){
-      result.forEach(item => print(item));
+    if(count === 1){
+      total = arr[2];
+      limit = arr[0];
     }
 
-    console.log("result",result)
+    count++;
+  }
+}
