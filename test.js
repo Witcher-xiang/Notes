@@ -155,35 +155,55 @@
 //     console.log("result",result)
 
 
-var N, M, K;
-// 每组第一行是2个整数，N和M，至于为啥用while，因为是多组。
-while ((N=readInt()) != null && (M=readInt()) != null && (K=readInt()) != null) {
-  // 循环读取“接下来的M行”
-  for (let i=0; i<M; i++) {
-    let a = readInt();
-    let b = readInt();
-    let c = readInt();
-    // 每行是3个整数，a，b，c。
-    print(a + ' ' + b + ' ' + c);
-  }
-  // M行读取完了，就又要开始下一组了，去while那里。
+// var N, M, K;
+// // 每组第一行是2个整数，N和M，至于为啥用while，因为是多组。
+// while ((N=readInt()) != null && (M=readInt()) != null && (K=readInt()) != null) {
+//   // 循环读取“接下来的M行”
+//   for (let i=0; i<M; i++) {
+//     let a = readInt();
+//     let b = readInt();
+//     let c = readInt();
+//     // 每行是3个整数，a，b，c。
+//     print(a + ' ' + b + ' ' + c);
+//   }
+//   // M行读取完了，就又要开始下一组了，去while那里。
+// }
+
+
+// let line, count = 0, total = 0, totalNum =0, limit = 0, numArr = [];
+// while(line = read_line){
+//   let arr = line.split(' ');
+//   if(count > 0){
+//     if(limit <= count){
+//       count = 1;
+//       total= 0;
+//       numArr = [];
+//     }
+//     if(count === 1){
+//       total = arr[2];
+//       limit = arr[0];
+//     }
+
+//     count++;
+//   }
+// }
+
+let a = "213234";
+
+let obj = {
+  a:1
 }
 
+function fn(arg01, arg02){
+  console.log("a:",this.a, arg01, arg02)
+}
+ 
+fn.bind(obj)("123","213");
 
-let line, count = 0, total = 0, totalNum =0, limit = 0, numArr = [];
-while(line = read_line){
-  let arr = line.split(' ');
-  if(count > 0){
-    if(limit <= count){
-      count = 1;
-      total= 0;
-      numArr = [];
-    }
-    if(count === 1){
-      total = arr[2];
-      limit = arr[0];
-    }
-
-    count++;
+Function.prototype.myBind = function(context,...arg01){
+  const fn = this;
+  
+  return function(...arg02){
+    return fn.apply(context,[...arg01, ...arg02])
   }
 }
