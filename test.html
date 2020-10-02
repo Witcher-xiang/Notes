@@ -42,24 +42,45 @@
     
 </body>
 <script>
-    function SuperType () {
-    this.name = 'SuperType'; // 父类属性
-  }
-  SuperType.prototype.sayName = function () { // 父类原型方法
-    return this.name;
-  };
-  
-  // 子类
-  function SubType () {
-    this.subName = "SubType"; // 子类属性
-  };
-  
-  SubType.prototype =new SuperType(); // 重写原型对象，代之以一个新类型的实例
-  // 这里实例化一个 SuperType 时， 实际上执行了两步
-  SubType.prototype.test = "啊啊啊啊啊" 
-  console.dir(SubType)
-  console.dir(SuperType)
-  console.log()
+    function Son(val){
+  this.name = "Son",
+  this.value = val;
+
+}
+
+function Father(val){
+  this.name = "father";
+  this.value01 = val;
+  Son.call(this,val);
+}
+
+/*寄生组合继承*/
+Son.prototype = Object.create(Father.prototype);
+Son.prototype.constructor = Father;
+/*   最最简单的class继承   */
+// class classFather {
+//     constructor(val){
+//         this.fat= val
+//     }
+// }
+// class classSon extends classFather{
+//     constructor(val){
+//         super("213")
+//         this.son = val;
+//     }
+// }
+// let test = new classSon("实例传值")
+// console.dir(test)
+
+
+/* 最简单的原型链继承*/
+// Son.prototype = new Father("这里是继承时传入啊！！")
+// Son.prototype.constructor = Father;
+// let son  = new Son("这是son自己的传入")
+// console.dir(son)
+// console.dir(Father)
+
+
 </script>
 
 </html>

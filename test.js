@@ -80,7 +80,7 @@
 //     headStatus = false;
 //     tempStr = tempStr + item;
 //   }
-  
+
 //   return tempStr;
 // }
 
@@ -96,7 +96,7 @@
 //   // 去0
 //   result = loseZero(reserve);
 
- 
+
 //   // return (result - 0).toString(5)
 // //}
 
@@ -197,19 +197,29 @@
 // function fn(arg01, arg02){
 //   console.log("a:",this.a, arg01, arg02)
 // }
- 
+
 // fn.bind(obj)("123","213");
 
 // Function.prototype.myBind = function(context,...arg01){
 //   const fn = this;
-  
+
 //   return function(...arg02){
 //     return fn.apply(context,[...arg01, ...arg02])
 //   }
 // }
-/* 模拟继承 */
-function Animal(){
-  this.name = "aninmal";
+/*
+  模拟实现一个new
+*/
+
+function mockNew(obj, ...arg){
+  const newObj = new Object();
+  const result =  obj.call(newObj,...arg);
+
+  newObj.__proto__ = Object.create(obj.pototype);
+
+  if( typeof result === "object") return result;
+  return newObj;
 }
 
 
+console.log(typeof function a(){})
