@@ -41,4 +41,25 @@
     </div>
     
 </body>
+<script>
+    function SuperType () {
+    this.name = 'SuperType'; // 父类属性
+  }
+  SuperType.prototype.sayName = function () { // 父类原型方法
+    return this.name;
+  };
+  
+  // 子类
+  function SubType () {
+    this.subName = "SubType"; // 子类属性
+  };
+  
+  SubType.prototype =new SuperType(); // 重写原型对象，代之以一个新类型的实例
+  // 这里实例化一个 SuperType 时， 实际上执行了两步
+  SubType.prototype.test = "啊啊啊啊啊" 
+  console.dir(SubType)
+  console.dir(SuperType)
+  console.log()
+</script>
+
 </html>

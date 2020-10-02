@@ -188,22 +188,28 @@
 //   }
 // }
 
-let a = "213234";
+// let a = "213234";
 
-let obj = {
-  a:1
-}
+// let obj = {
+//   a:1
+// }
 
-function fn(arg01, arg02){
-  console.log("a:",this.a, arg01, arg02)
-}
+// function fn(arg01, arg02){
+//   console.log("a:",this.a, arg01, arg02)
+// }
  
-fn.bind(obj)("123","213");
+// fn.bind(obj)("123","213");
 
-Function.prototype.myBind = function(context,...arg01){
-  const fn = this;
+// Function.prototype.myBind = function(context,...arg01){
+//   const fn = this;
   
-  return function(...arg02){
-    return fn.apply(context,[...arg01, ...arg02])
-  }
+//   return function(...arg02){
+//     return fn.apply(context,[...arg01, ...arg02])
+//   }
+// }
+/* 模拟继承 */
+function Animal(){
+  this.name = "aninmal";
 }
+
+
