@@ -211,15 +211,28 @@
   模拟实现一个new
 */
 
-function mockNew(obj, ...arg){
-  const newObj = new Object();
-  const result =  obj.call(newObj,...arg);
+// function mockNew(obj, ...arg){
+//   const newObj = new Object();
+//   const result =  obj.call(newObj,...arg);
 
-  newObj.__proto__ = Object.create(obj.pototype);
+//   newObj.__proto__ = Object.create(obj.pototype);
 
-  if( typeof result === "object") return result;
-  return newObj;
+//   if( typeof result === "object") return result;
+//   return newObj;
+// }
+
+
+// console.log(typeof function a(){})
+
+let obj = {
+  name:"NB啊王宇翔",
+  val: "WYX🐂比啊",
+  obj :{
+    te:"te ",
+  }
 }
 
-
-console.log(typeof function a(){})
+let  test = obj;
+test.p = "ppp";
+test.obj.obj = "4343"
+console.log(obj)

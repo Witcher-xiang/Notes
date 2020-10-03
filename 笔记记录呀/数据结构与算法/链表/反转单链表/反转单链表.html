@@ -27,6 +27,11 @@
         this.val = val;
         this.next = null;
     }
+    /*  非递归版本  
+    
+    没办法强行记忆吧： 反转单链表需要三个变量 cur, prv 以及可以临时定义的next, 你可以理解为变量交换三板斧
+    
+    */
     function reverseListNode(head) {
         if (!head) return null;
         let cur = head; let pre = null
@@ -37,6 +42,7 @@
             cur = next
         }
     }
+
     /*递归版本*/
     function reverseListNodeRe(pre,cur) {
         if (!cur) return pre

@@ -52,11 +52,32 @@
     let smallBox = document.getElementById("smallBox")
 
     bigBox.onclick=function (e) {
-
+        function add() {
+    var count = 0;
+    function demo() {
+        count ++;
+        console.log(count);
+    }
+    return demo;
+}
+var counter = add();
+let i =9999;
+while(i--) counter();
        // console.log(e.target.className="smallBoxClick")
     };
     smallBox.onclick=function (e) {
-        e.target.className="smallBoxClick"
+        e.target.className="smallBoxClick";
+        function add() {
+    var count = 0;
+    function demo() {
+        count ++;
+        console.log(count);
+    }
+    return demo;
+}
+var counter = add();
+let i =9999;
+while(i--) counter();
     };
     function clickNone() {
         smallBox.style.display="none"

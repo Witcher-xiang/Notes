@@ -46,5 +46,17 @@
             p = p.next
         }
     }
+    /* 思路二实现 */
+    let hasCycle02 = (head) => {
+        let slow = head;
+        let fast = head.next;
+        while(slwo!== fast){
+            if(fast === null || fast.next === null) return false // 这里不写slow是为了节约时间复杂度
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        return true
+    }
 </script>
 </html>
