@@ -268,3 +268,5 @@ let mergeList = (node01, node02) => {
 
   return list;
 }
+
+console.log( 0 != 0)
