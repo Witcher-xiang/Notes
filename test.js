@@ -237,36 +237,85 @@
 // test.obj.obj = "4343"
 // console.log(obj)
 
-let deleteNode = (head, val)  => {
-  let node = new ListNode(0);
-  node.next = head;
-  let prev = node.next;
-  while(prev.next){
-    if(prev.next.val === val){
-      prev.next = prev.next;
+/*二叉树的各种遍历*/
+
+/*前序*/
+
+  /* 递归版本： */
+  var preorderTraversal = function(root) {
+    const arr = [];
+    const fn = (node) => {
+        if(!node) return null;
+        arr.push(node.val);
+        if(node.left)   fn(node.left);
+        if(node.right)  fn(node.right);
+        };
+    
+        fn(root)
+        return arr;
+    };
+
+    /* 迭代版本： 感觉要用到栈结构(这里的迭代是三种遍历最简单的一种)*/ 
+    var preorderTraversal = function(root) {
+      if(!root) return [];
+
+        let stack = [];
+        let arr = [];
+
+        stack.push(root);
+        while(stack.length > 0){
+          let node = stack.pop();
+          arr.push(node.val);
+          if(node.right) stack.push(node.right); //注意：右孩子先进入
+          if(node.left)  stack.push(node.left);
+        }
+
+        return arr;
+      };
+
+/* 中序 */
+      /*  递归版本： */
+      var inorderTraversal = function(root) {
+        const arr = [];
+        const fn =(node) => {
+          if(!node) return null;
+          if(node.left) fn(node.left);
+          arr.push(node.val);
+          if(node.right) fn(node.right);
+        };
+        fn(root);
+
+        return arr;
+      };
+
+      /*  非递归版本  */
+function inorder(root) {//中序非递归   BST第K小的数   第K大见下面
+   if (!root) return null;
+    var stack = [];
+    var p = root;
+    //var pre=-Infinity;
+    while (stack.length > 0 || p) {
+        if (p) { //当前非空，当前入栈，左移
+            stack.push(p);
+            p = p.left;
+        } else { //栈弹出，并右移
+            p = stack.pop();
+            console.log(p.value);//在此和前一个数比较 判断是否为二叉搜索树 
+            p = p.right;
+        }
     }
-
-    prev = prev.next
-  }
-
-  return node.next;
 }
 
-// 合并两个有序列表
-let mergeList = (node01, node02) => {
-  if(node01 === null) return node02;
-  if(node02 === null) return node01;
+      var inorderTraversal = function(root) {
+        let arr =[], stack = [];
+        stack.push(root);
 
-  let list = null;
-  if(node01.val > node02.val){
-    list = node02;
-    list.next = mergeList(node01, node02.next);
-  }else{
-    list = node01;
-    list.next = mergeList(node01.next, node02);
-  }
+        while(stack.length){
+          const temp = stack.pop();
 
-  return list;
-}
+          if(temp.left) stack.push(temp.left);
+          if(temp.right) stack.push(temp.right);
+        }
+      };
 
-console.log( 0 != 0)
+/* 后序 */
