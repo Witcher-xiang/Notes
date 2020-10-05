@@ -224,15 +224,47 @@
 
 // console.log(typeof function a(){})
 
-let obj = {
-  name:"NB啊王宇翔",
-  val: "WYX🐂比啊",
-  obj :{
-    te:"te ",
+// let obj = {
+//   name:"NB啊王宇翔",
+//   val: "WYX🐂比啊",
+//   obj :{
+//     te:"te ",
+//   }
+// }
+
+// let  test = obj;
+// test.p = "ppp";
+// test.obj.obj = "4343"
+// console.log(obj)
+
+let deleteNode = (head, val)  => {
+  let node = new ListNode(0);
+  node.next = head;
+  let prev = node.next;
+  while(prev.next){
+    if(prev.next.val === val){
+      prev.next = prev.next;
+    }
+
+    prev = prev.next
   }
+
+  return node.next;
 }
 
-let  test = obj;
-test.p = "ppp";
-test.obj.obj = "4343"
-console.log(obj)
+// 合并两个有序列表
+let mergeList = (node01, node02) => {
+  if(node01 === null) return node02;
+  if(node02 === null) return node01;
+
+  let list = null;
+  if(node01.val > node02.val){
+    list = node02;
+    list.next = mergeList(node01, node02.next);
+  }else{
+    list = node01;
+    list.next = mergeList(node01.next, node02);
+  }
+
+  return list;
+}
