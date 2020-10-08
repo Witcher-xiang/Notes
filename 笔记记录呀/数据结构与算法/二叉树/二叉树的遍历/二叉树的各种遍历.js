@@ -154,7 +154,55 @@
      return res;
   };
 
-  /*    二叉树锯齿形层次遍历    */
-  var zigzagLevelOrder = function(root) {
+  /*    二叉树锯齿形层次遍历    
+    先从左往右，再从右往左
+  */
+ var zigzagLevelOrder = function(root) {
+    if(!root) return [];
 
+    let queeue = [], res = [], mode = "left";
+    queeue.push(root);
+
+    while(queeue.length){
+        let count = queeue.length;
+        let newArr = []
+        while(count--){
+            let tempNode = queeue.shift();
+            newArr.push(tempNode.val)
+         if(tempNode.left) queeue.push(tempNode.left);
+         if(tempNode.right) queeue.push(tempNode.right);
+        }
+
+        if(mode === "left") mode = "right";
+        else if(mode === "right") {
+            newArr.reverse()
+            mode = "left";
+        }
+        res.push(newArr)
+    }
+
+    return res;
 };
+
+/*
+    二叉树的右视图（使用BFS会好做很多）：， 从顶部到底部 只返回右侧能看到的值（也就是队列最后一项）*/
+    var rightSideView = function(root) {
+        if(!root) return [];
+
+        let res = [], queeue = [];
+        let levle = 0;
+        queeue.push(root);
+        while(queeue.length){
+            let count = queeue.length;
+            res.push(queeue[queeue.length -1].val); // 返回最后一项
+    
+            while(count--){
+                let tempNode = queeue.shift();
+                if(tempNode.left) queeue.push(tempNode.left);
+                if(tempNode.right) queeue.push(tempNode.right);
+            };
+            levle++
+        }
+    
+        return res;
+    };
