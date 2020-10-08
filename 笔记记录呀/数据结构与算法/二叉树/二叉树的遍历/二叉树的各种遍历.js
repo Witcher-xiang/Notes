@@ -52,7 +52,7 @@
        }
        let tempNode = stack.pop();
        arr.push(tempNode.val);
-        p = tempNode.right;
+        p = tempNode.right; // 其实他左边已经遍历OK，我们取出中间的记录，再去遍历右边即可
     }
 
     return arr;
@@ -60,8 +60,24 @@
 
  /*
  * 后序遍历
- * 这个非递归很难 多去理解理解
+ * 
  * */
+    /* 递归版本*/
+    var postorderTraversal = function(root) {
+        if(!root) return [];
+        
+        const arr = [];
+        const fn = (tree) => {
+            if(tree.left) fn(tree.left);
+            if(tree.right) fn(tree.right);
+            arr.push(tree.val);
+        }
+        fn(root);
+    
+        return arr;
+    };
+
+ /* 这个非递归很难 多去理解理解    */
  function behindOrder(root) {
      if (!root) return [];
      let arr = [] , stack = [];
@@ -93,8 +109,10 @@
  * 二叉树的层序遍历
  * 利用队列的方式
  * */
+// 使用数组index的方式
  function levelOrder (root) {
      if(!root) return [];
+
      let queue = [];
      let res = [];
      let level = 0;
@@ -112,3 +130,31 @@
      }
      return res
  }
+
+ // 不使用数组索引的方式
+ var levelOrder = function(root) {
+    if(!root) return [];
+    
+     let res = [];
+     let queeue = [];
+     queeue.push(root);
+     while(queeue.length){
+       let count = queeue.length, newArr = [];
+       while(count > 0){
+         let tempNode = queeue.shift(); 
+        newArr.push(tempNode.val)
+         if(tempNode.left) queeue.push(tempNode.left);
+         if(tempNode.right) queeue.push(tempNode.right);
+  
+         count--;
+       }
+       res.push(newArr);
+     }
+  
+     return res;
+  };
+
+  /*    二叉树锯齿形层次遍历    */
+  var zigzagLevelOrder = function(root) {
+
+};

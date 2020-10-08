@@ -318,4 +318,43 @@ function inorder(root) {//中序非递归   BST第K小的数   第K大见下面
         }
       };
 
-/* 后序 */
+/* 二叉树中序遍历非递归,也是利用栈 */
+
+const fn = (tree) => {
+  let arr = [], res = [];
+  let p = tree;
+
+  while( arr.length || p){
+    while(p){
+      arr.push(p.left);
+      p = p.left
+    };
+    let temp = arr.pop();
+    res.push(temp.val);
+    p = temp.right;
+  }
+
+   return res;
+}
+/* 二叉树的广度优先遍历——利用队列 */
+var levelOrder = function(root) {
+  if(!root) return [];
+  
+   let res = [];
+   let queeue = [];
+   queeue.push(root);
+   while(queeue.length){
+     let count = queeue.length, newArr = [];
+     while(count > 0){
+       let tempNode = queeue.shift(); 
+      newArr.push(tempNode.val)
+       if(tempNode.left) queeue.push(tempNode.left);
+       if(tempNode.right) queeue.push(tempNode.right);
+
+       count--;
+     }
+     res.push(newArr);
+   }
+
+   return res;
+};
