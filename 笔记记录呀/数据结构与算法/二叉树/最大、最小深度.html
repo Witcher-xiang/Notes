@@ -62,13 +62,37 @@
             let size = stack.length
             while (size--){
                 let temp = stack.shift()
-                if (!temp.left || !temp.right) return level
+                if (!temp.left && !temp.right) return level; // 注意这里要更长&& 最小深度是从根节点到最近叶子节点的最短路径上的节点数量。注意是叶子节点！ 如果一边有叶子一边没有叶子那深度就是2
                 if (temp.left) stack.push(temp.left)
                 if (temp.right) stack.push(temp.right)
 
             }
         }
     }
+
+    /*
+        var minDepth = function(root) {
+     if(!root) return 0;
+    let p =null, max = 0, level = 0;
+    let queue = [];
+    queue.push(root);
+    while(queue.length){
+        let count = queue.length;
+        level++
+        while(count--){
+            let item = queue.shift();
+            if(!item.left && !item.right ) return level
+            if(item.left) queue.push(item.left)
+       
+            if(item.right) queue.push(item.right)
+       
+        }
+        
+    }
+
+    return level;
+};
+    */
 
 </script>
 </html>

@@ -58,5 +58,20 @@
 
         return true
     }
+    /* 思路三，在思路二的版本上自己做拓展 */
+    // 判断链表是否有环
+var hasCycle03 = function(head) {
+  if(!head) return false
+
+    let first = head;
+    let second = head.next;
+    while(first.next!== null && second){
+      if(first === second) return true;
+      first = first.next;
+      second = second.next.next;
+    }
+
+    return false;
+};
 </script>
 </html>
