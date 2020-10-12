@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* 三角形 */
+        .triangle {
+            width: 0;
+            height: 0;
+            border: 100px solid transparent; /* transparent 意思边框为透明，这里可以决定三角形的宽度*/
+            border-top: 200px solid #f00; /*  如果内容没有宽高，则边界默认为如此  */
+            margin-bottom: 100px;
+        }
+        /* 梯形 */
+        .trapezoid{
+            width: 100;
+            height: 100;
+            border: 100px solid transparent;
+            border-bottom: 100px solid goldenrod;
+            margin-bottom: 100px;
+        }
+        /* 画扇形  其实也很容易变成一个园*/
+        .sector{
+            width: 0;
+            height: 0;
+            border: 30px solid transparent;
+            border:30px solid tomato;
+            border-radius: 30px/25px; /* 水平半径 / 垂直半径  这样可以搞成椭圆*/
+        }
+
+        /* 画箭头 靠着伪元素的叠加来完成的这个*/
+        .arrow{
+            width: 0;
+            height: 0;
+            border: 50px solid;
+            border-color: transparent #0f0 transparent transparent;
+            position: relative;
+        }
+        .arrow::after{
+            content: '';
+            position: absolute;
+            right: -55px;
+            top: -50px;
+            border: 50px solid;
+            border-color: transparent rgb(0, 0, 0) transparent transparent;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="triangle"></div>
+    <div class="trapezoid"></div>
+    <div class="sector"></div>
+    <div class="arrow">arrow</div>
+</body>
+</html>
