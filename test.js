@@ -447,27 +447,59 @@
 
 //console.log(getBiggist(1,0,[1,3,3,2,2,3]))
 
+/*
+    js每隔一秒打印一个数
+*/
+// var arr = []
+//     var output = (i) => new Promise(res => {
+//       setTimeout(()=>{
+//         console.log(i)
+//         res()
+//       }, 1000*i)
+//     })
 
-var permute = function(nums) {
-    let result = [];
-    const fn = (road, choseList)=> {
-        const track = [...road]
-        if(choseList.length === 0) {
-            result.push(track);
-            return;
-        }
+//     for (var i=0; i<5; i++) {
+//       arr.push(output(i))
+//     }
 
-        for(const key in choseList){
-            const newArr = [...choseList];
-            newArr.splice(key, 1)
-            track.push(choseList[key]);
-            fn(track,newArr);
-            track.pop()
-        }
+//     Promise.all(arr)
+
+const arr = []
+const fn = (val) => {
+    return new Promise(resolve => {
+        setTimeout( () =>{
+            resolve()
+            console.log(val)
+        }, val * 1000)
+    })
+}
+
+for(let i=0; i<5; i++){
+    arr.push(fn(i))
+}
+
+
+/*   使用async和await实现   */
+
+// const sleep = (val) => new Promise( resolve => {
+//     setTimeout(() => {
+//         resolve(val)
+//     }, 1000)    
+// })
+// (async function(){
+//     for(let i = 0; i<5; i++){
+//         console.log(await sleep(i))
+//     }
+// }())
+
+const fun = () => new Promise(resolve => {
+    setTimeout(() => resolve(), 1000)
+})
+
+(async function(){
+    for(let i= 0; i<5; i++){
+        await fun()
+        console.log(i);
+        console.log("i:")
     }
-    fn([],nums)
-
-    return result;
-};
-
-console.log(permute([1,2,3]))
+}())
