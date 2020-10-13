@@ -36,7 +36,6 @@
      fn(strArr);
     return res
 }
-console.log( letterComb("23"))
 
 /*
     二次感受回溯 2020.10
@@ -146,3 +145,49 @@ var permuteUnique = function(nums) {
 
     return result;
 };
+
+/* 组合总合 
+leetcode 40 
+https://leetcode-cn.com/problems/combination-sum-ii/
+*/
+var combinationSum2 = function(candidates, target) {
+    let result = [];
+    let set = new Set();
+    const fn = (track, choseList, sum, start = 0) => { // 这里我没懂为撒大家都要加个指针进来 按照我写的构型不需要加指针， 如果你不做那个删除的操作 那是需要加指针的，因为每次传入都是一整个数组 挺抓的
+        if(sum > target) return
+        
+        if(sum === target){
+            const temp = track.slice().sort((a,b) => a - b).join(".");  // 这是一种非常新奇的思路 将数组用做字符串存储起来 利用set来去重，有用但是不高效
+            console.log(sum,temp)
+                if(!set.has(temp)) {
+                    result.push([...track]);
+                    set.add(temp)
+                } // 这里额外需要注意一下 有时会出现添加后result出现奇怪情况的时候
+                
+            return
+        }
+
+        const newTrack = [...track];
+
+        for(let key= 0;  key<choseList.length; key++){
+            if(key >0 && choseList[key -1] === choseList[key]){
+                continue;
+            }
+
+            const newArr = [...choseList];
+            newArr.splice(key, 1);
+            newTrack.push(choseList[key])
+            
+            fn(newTrack,newArr, sum + choseList[key], key + 1)
+            newTrack.pop();
+        }
+    }
+
+    candidates.sort((a,b) => a-b)
+    
+    fn([],candidates, 0, 0)
+
+    return result;
+};
+
+console.log(combinationSum2([10,1,2,7,6,1,5], 8))
