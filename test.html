@@ -5,41 +5,19 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <style type="text/css">
-        .gent{
-            height: 300px;
-        }
-        .container{
-            margin-left: 200px;
-            margin-right: 300px;
-            
-        }
-        .between{
-            background-color: aqua;
-            width: 100%;
-            float: left;
-        }
-        .left{
-            background-color: blanchedalmond;
-            width: 200px;
-            float: left;
-            margin-left: -100%;
-        }
-        .right{
-            background-color: blue;
-            width: 300px;
-            float: left;
-            margin-left: -300px;
+    /* 三角形 */
+    .triangle {
+            width: 0;
+            height: 0;
+            border: 100px solid transparent; /* transparent 意思边框为透明，这里可以决定三角形的宽度*/
+            border: 200px solid #f00; /*  如果内容没有宽高，则边界默认为如此  */
+            margin-bottom: 100px;
+            border-radius: 300px;
         }
     </style>
 </head>
 <body>
-    <div class="container gent">
-        <div class="between gent">3232</div>
-
-        <div class="left gent"></div>
-        <div class="right gent"></div>
-    </div>
-    
+    <div class="triangle"></div>
 </body>
 <script>
     function Son(val){

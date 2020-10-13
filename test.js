@@ -367,4 +367,107 @@
 //   let second = node.next;
 
 // }
-console.log(1 + [])
+
+// Function.prototype.myBind = function(that,...params01) {
+//     const fn = this;
+//     return function (...params02) {
+//         return fn.call(that,[...params01,...params02])
+//     }
+// }
+
+// // 构造单例模式
+// function proxySingal(obj, ...params) {
+//     let instance = null;
+
+//     return (function name() {
+//       if(!instance) return new obj(params) 
+//       return instance;
+//     })()
+// }
+
+
+// const judge = (arr, nums) => {
+//     arr.forEach( (item,index) => {
+//         item.forEach( (item01,index) =>{
+//             if(item01 === nums){
+//                 index === 0 ? defaultNum = 0 : defaultNum =1;
+//             }
+//         })
+//     })
+// }
+
+// // 有点难 是真点有的难
+// const fn = (NNnum, arr) => {
+//     let defaultNum = 0;
+//     const result = [];
+
+//     arr.forEach(element => {
+//         element.forEach( (item,index) =>{
+//             if(item === NNnum){
+//                 index === 0 ? defaultNum = 0 : defaultNum =1;
+//             }
+//         })
+//     });
+
+//     arr.forEach( (item,index) =>{
+//         result.push(index + defaultNum + 1)
+//     })
+
+//     return result
+// }
+
+// // console.log(fn(4,[[1,2],[2,3],[4,3]]))
+
+
+// // 牛牛搞硬币
+// const getBiggist = (n, p, arr2N) => {
+//     const bigP = p, smallP = 1 - p;
+//     const getSingleHope = (arr) => (Math.max(...arr) * bigP + Math.min(...arr) * smallP );
+
+//     const result = [];
+//     const fn = (arr, res) => {
+//         if(arr.length < 2) return;
+
+//         for(let i=0; i<arr.length; i++){
+//             const newArr = [...arr]
+//             for(let j= i +1; j<arr.length; j++){
+//                 res.push([newArr[i],newArr[j]])
+//                 newArr.splice(i,1);
+//                 newArr.splice(j,1);
+//                 fn(newArr,res)
+//             }
+//         }
+//         result.push(res);
+//     }
+
+//     fn(arr2N,[])
+
+//     return result;
+// }
+
+//console.log(getBiggist(1,0,[1,3,3,2,2,3]))
+
+
+var permute = function(nums) {
+    let result = [];
+    const fn = (road, choseList)=> {
+        const track = [...road]
+        if(choseList.length === 0) {
+            result.push(track);
+            return;
+        }
+
+        for(const key in choseList){
+            const newArr = [...choseList];
+            newArr.splice(key, 1)
+            track.push(choseList[key]);
+            fn(track,newArr);
+            track.pop()
+        }
+    }
+    fn([],nums)
+
+    return result;
+};
+
+console.log(permute([1,2,3]))
