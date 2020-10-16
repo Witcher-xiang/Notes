@@ -5,59 +5,30 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <style type="text/css">
-    /* 三角形 */
-    .triangle {
-            width: 0;
-            height: 0;
-            border: 100px solid transparent; /* transparent 意思边框为透明，这里可以决定三角形的宽度*/
-            border-top: 200px solid #f00; /*  如果内容没有宽高，则边界默认为如此  */
-            margin-bottom: 100px;
-        }
+    
     </style>
 </head>
 <body>
-    <div class="triangle"></div>
+    <div class="triangle" id="outter">
+        外部
+        <div id="inner">内部</div>
+    </div>
 </body>
 <script>
-    function Son(val){
-  this.name = "Son",
-  this.value = val;
-
-}
-
-function Father(val){
-  this.name = "father";
-  this.value01 = val;
-  Son.call(this,val);
-}
-
-/*寄生组合继承*/
-Son.prototype = Object.create(Father.prototype);
-Son.prototype.constructor = Father;
-/*   最最简单的class继承   */
-// class classFather {
-//     constructor(val){
-//         this.fat= val
-//     }
-// }
-// class classSon extends classFather{
-//     constructor(val){
-//         super("213")
-//         this.son = val;
-//     }
-// }
-// let test = new classSon("实例传值")
-// console.dir(test)
-
-
-/* 最简单的原型链继承*/
-// Son.prototype = new Father("这里是继承时传入啊！！")
-// Son.prototype.constructor = Father;
-// let son  = new Son("这是son自己的传入")
-// console.dir(son)
-// console.dir(Father)
-
-
+    const outter = document.getElementById("outter");
+    const innner = document.getElementById("inner");
+    outter.addEventListener('click',() => {
+        console.log("外部");
+    },false);
+    outter.addEventListener('click',() => {
+        console.log("外部:true");
+    },true);
+    innner.addEventListener("click",() =>{
+        console.log("内部");
+    },false)
+    innner.addEventListener("click",() =>{
+        console.log("内部:true");
+    }, true)
 </script>
 
 </html>

@@ -54,4 +54,12 @@
     <div class="sector"></div>
     <div class="arrow">arrow</div>
 </body>
+<script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>
+<script>
+// 使用函数名 filterXSS，用法一样
+var html = filterXSS('<script>alert("xss");</scr' + 'ipt>');
+alert(html);
+console.log("html:",html)
+</script>
+
 </html>
