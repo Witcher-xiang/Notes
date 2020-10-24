@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <style type="text/css">
-        #outter{
+        #outter {
             width: 800px;
             height: 800px;
             background-color: grey;
-            
+
         }
-        #inner{
+
+        #inner {
             position: relative;
             top: 50%;
             transform: translateY(-50%);
             width: 100px;
             height: 100px;
             background-color: red;
-            margin:0 auto;
-            
-        }   
+            margin: 0 auto;
+
+        }
     </style>
 </head>
+
 <body>
     <div class="triangle" id="outter">
         外部
@@ -33,16 +36,16 @@
 <script>
     const outter = document.getElementById("outter");
     const innner = document.getElementById("inner");
-    outter.addEventListener('click',() => {
+    outter.addEventListener('click', () => {
         console.log("外部");
-    },false);
-    outter.addEventListener('click',() => {
+    }, false);
+    outter.addEventListener('click', () => {
         console.log("外部:true");
-    },true);
-    innner.addEventListener("click",() =>{
+    }, true);
+    innner.addEventListener("click", () => {
         console.log("内部");
-    },false)
-    innner.addEventListener("click",() =>{
+    }, false)
+    innner.addEventListener("click", () => {
         console.log("内部:true");
     }, true)
 
@@ -50,37 +53,37 @@
 
     const throttle = (fn) => {
         let timer = null;
-        return function(...arg){
-            if(!timer)
-            timer = setTimeout(() => {
-                fn(...arg)
-                timer = null;
-            },500)
+        return function (...arg) {
+            if (!timer)
+                timer = setTimeout(() => {
+                    fn(...arg)
+                    timer = null;
+                }, 500)
         }
     };
 
     const debounce = (fn) => {
         let timer = null;
-        return function(...arg){
-            if(timer) clearTimeout(timer);
+        return function (...arg) {
+            if (timer) clearTimeout(timer);
 
             console.log("函数触发了")
             timer = setTimeout(() => {
                 fn(...arg);
                 timer = null;
-            },500)
+            }, 500)
         }
     }
 
     dian.addEventListener('click', throttle(() => console.log("我动了")))
 
 
-    function father (){
+    function father() {
         this.name = "father";
     }
 
     // 原型链继承
-    function son(){
+    function son() {
         father.call(this);
         this.son = "son"
     }
@@ -92,6 +95,7 @@
     son.prototype = Object.create(son.prototype)
 
 
+   
 </script>
 
 </html>
