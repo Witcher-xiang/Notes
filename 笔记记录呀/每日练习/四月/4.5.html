@@ -103,6 +103,17 @@
     }
     console.log(filter(arr))
 
+    function filter(arr){
+        let res= [];
+        const fn = (ary) => {
+            ary.forEach(item => {
+                Array.isArray(item) ? fn(item) : res.push(item)
+            })
+        }
+
+        return res;
+    }
+
     /*
     * 冒泡排序
     * 思想：后一项去和前一项比较，如果大的话则前后交换

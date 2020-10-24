@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <style type="text/css">
-    
+        #outter{
+            width: 800px;
+            height: 800px;
+            background-color: grey;
+            
+        }
+        #inner{
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin:0 auto;
+            
+        }   
     </style>
 </head>
 <body>
@@ -13,6 +28,7 @@
         外部
         <div id="inner">内部</div>
     </div>
+    <button id="dian">点点！</button>
 </body>
 <script>
     const outter = document.getElementById("outter");
@@ -29,6 +45,53 @@
     innner.addEventListener("click",() =>{
         console.log("内部:true");
     }, true)
+
+    const dian = document.getElementById("dian");
+
+    const throttle = (fn) => {
+        let timer = null;
+        return function(...arg){
+            if(!timer)
+            timer = setTimeout(() => {
+                fn(...arg)
+                timer = null;
+            },500)
+        }
+    };
+
+    const debounce = (fn) => {
+        let timer = null;
+        return function(...arg){
+            if(timer) clearTimeout(timer);
+
+            console.log("函数触发了")
+            timer = setTimeout(() => {
+                fn(...arg);
+                timer = null;
+            },500)
+        }
+    }
+
+    dian.addEventListener('click', throttle(() => console.log("我动了")))
+
+
+    function father (){
+        this.name = "father";
+    }
+
+    // 原型链继承
+    function son(){
+        father.call(this);
+        this.son = "son"
+    }
+
+    son.prototype = new father()
+    son.prototype.constructor = father;
+
+    // 组合继承
+    son.prototype = Object.create(son.prototype)
+
+
 </script>
 
 </html>

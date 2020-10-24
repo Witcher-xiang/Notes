@@ -20,7 +20,7 @@ var twoSum01 = function(nums, target) {
     return [];
 };
 
-// 第二种方法 用哈希表，一次遍历创建哈希表，用空间换时间
+// 第二种方法 用哈希表，一次遍历创建哈希表，用空间换时间 速度快了三倍
 var twoSum02 = function(nums, target) {
     const hashMap = {};
     for(let i=0; i< nums.length; i++){
@@ -36,5 +36,3 @@ var twoSum02 = function(nums, target) {
 
 
 let arr = [2,7,11,15];
-
-console.log(twoSum02(arr, 9))
