@@ -95,7 +95,36 @@
     son.prototype = Object.create(son.prototype)
 
 
-   
+    /*
+        到这一步依然不能解决问题
+    */
+    function deepClone(param, hashMap) {
+    if(typeof param == "object"){
+        if(hashMap.get(param)) return hashMap.get(param);
+
+        const newObj = Array.isArray(param) ? new Array() : new Object();
+        hashMap.set(param,newObj)
+
+        for(const key in param){
+                newObj[key] = deepClone(param[key], hashMap)
+        }
+        return newObj;
+    }
+    else return param;
+    
+   }
+
+   let obj = {
+       a: {
+           name:"1",
+       }
+   }
+
+   obj.test = obj
+
+   const newObj = deepClone(obj, new WeakMap())
+   obj.a.name = "66"
+   console.log(newObj)
 </script>
 
 </html>

@@ -866,11 +866,12 @@ var singleNumbers = function(nums) {
 let a = [43,63,2,5,98,43,1];
 
 const quickSort = (arr) => {
-  if(arr.length === 0 ) return []
+  if(arr.length === 0 ) return [];
+
   const middleInex = 0;
   const middleValue  = arr[middleInex];
-
   const left = [], right = [], middle = [];
+
   arr.forEach( item => {
     if(item > middleValue){
       left.push(item);
@@ -886,8 +887,3 @@ const quickSort = (arr) => {
   return [...quickSort(left),...middle, ...quickSort(right)];
 }
 
-console.log(quickSort(a))
-
-function father (){
-  this.name = "father";
-}
