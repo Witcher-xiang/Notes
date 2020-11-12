@@ -39,15 +39,16 @@
     outter.addEventListener('click', () => {
         console.log("外部");
     }, false);
-    outter.addEventListener('click', () => {
-        console.log("外部:true");
-    }, true);
     innner.addEventListener("click", () => {
         console.log("内部");
     }, false)
     innner.addEventListener("click", () => {
         console.log("内部:true");
     }, true)
+
+    outter.addEventListener('click', () => {
+        console.log("外部:true");
+    }, true);
 
     const dian = document.getElementById("dian");
 
