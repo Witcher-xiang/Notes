@@ -39,6 +39,7 @@ var getIntersectionNode = function(headA, headB) {
 
 /**
  * 第二种思路 a+c=b= b+c+a
+ * 如果不相交为null，则都为null
  * Definition for singly-linked list.
  * function ListNode(val) {
  *     this.val = val;

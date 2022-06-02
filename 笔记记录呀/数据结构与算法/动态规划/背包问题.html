@@ -27,10 +27,7 @@
 
 </body>
 <script>
-    let fn = res01 => res02 => {
-        console.log("我是测试函数", res01)
-        console.log("我是测试函数", res02)
-    }
+
     console.log(fn("\"我是呵呵1号")("我是呵呵2号"))
 
     function judge(arr) {
@@ -47,6 +44,17 @@
         return state
     }
     console.log(judge([1, 3, 9]))
+    /*
+        背包问题01： 背包容量固定问当前容量下能装的最大物品价值
+        dp[i][j] i 代表 物品，j代表背包容量
+        递推公式：
+        i不放进去：dp[i][j] = dp[i-1][j]
+        i放进去：dp[i][j] = dp[i-1][j] - Wedigth[i]]
+
+    */
+    const backpack = () => {
+
+    }
 </script>
 
 </html>

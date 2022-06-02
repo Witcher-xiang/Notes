@@ -4,6 +4,39 @@
  * [5] 最长回文子串
  */
 
+ /*
+  新版去中心化思想
+ */
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ // 中心化思想
+var longestPalindrome = function(s) {
+    
+    let res = ""
+    for(let i=0;i < s.length;i++){
+        let str01 = getCycleString(s,i,i);
+        let str02 = getCycleString(s,i,i+1);
+        
+        let str = str01.length > str02.length ? str01 : str02;
+        
+        res = str.length > res.length ? str : res;
+         
+    }
+    return res;
+};
+
+function getCycleString ( s,left,right){
+    while(s[left] == s[right] && left >= 0 && right < s.length){
+    right++;
+    left--;
+     
+    }
+    return s.substring(left+1,right);
+    
+}
+
 /**
  * @param {string} 
  * @return {string}

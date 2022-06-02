@@ -1,0 +1,1 @@
+// 思路挂载到window上，使用Object.defineProperty挂载到window，我们设置set做拦截即可

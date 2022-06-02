@@ -20,29 +20,8 @@
     this.left = null;
     this.right = null;
 } */
-    /*
-    * 个人思路，做个先序遍历，当他遍历到根的右边节点时 重新计数
-    * */
-    function FindPath(root, expectNumber)
-    {
-        let smallArr = [],result = [],stack = [],sum = 0;
-        // write code here
-        let p = root;
-        stack.push(p)
-        /*
-        * 遇到个问题stack.pop分不出左右
-        * */
-        while (stack.length){
-            let temp = stack.pop();
-            sum+= temp.val;
-            if (sum == expectNumber && !temp.left && !temp.right){
-                result.push()
-            }
-            stack.push(p.right);
-            stack.push(p.left);
-        }
-    }
 
+    // 这道题用递归做很好解，如果使用非递归就比较麻烦
     function find(root, sum, path, expectNumber, result){
         path.push(root.val);
         sum+= root.val
