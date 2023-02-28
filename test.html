@@ -5,309 +5,130 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <style type="text/css">
-        #container {
-            
-        }
-
-        #content {
-             float: left;
-             width: 100%;
-            flex: 1;
-            height: 800px;
-            background-color: aqua;
-        }
-        #left {
-            margin-left: -100%;
-            float: left;
-            width: 300px;
-            height: 800px;
-            background-color: black;
-            
-        }
-        #right {
-            margin-left: -300px;
-            float: left;
-            width: 300px;
-            height: 800px;
-            background-color: grey;
-            
-        }
-        #father {
-            position: fixed;
-            top: 100px;
-            left: 100px;
-            width: 200px;
-            height: 200px;
-            background-color: red;
-        }
-        #son {
-            /* z-index: 99; */
-            width: 50px;
-            height: 50px;
-               top: 20px;
-            left: 20px;
-            position: absolute;
-            color: black;
-            background: wheat;
-        }
-      
-    </style>
+   
 </head>
 
 <body>
-    <div id="father">
+    <div id="contentBox">
         <div id="son">1</div>
     </div>
-    <!-- <div class="container" id="container">
-        <div id="content"></div>
-        <div id="left"></div>
-        
-        <div id="right"></div>
+    <div>
+        <input/>
+        <button id="button" >呵呵呵大傻叉</button>
     </div>
-    <button id="dian">点点！</button> -->
-
+ 
 </body>
 <script>
-//     const outter = document.getElementById("outter");
-//     const innner = document.getElementById("inner");
-//     outter.addEventListener('click', () => {
-//         console.log("外部");
-//     }, false);
-//     innner.addEventListener("click", () => {
-//         console.log("内部");
-//     }, false)
-//     innner.addEventListener("click", () => {
-//         console.log("内部:true");
-//     }, true)
-
-//     outter.addEventListener('click', () => {
-//         console.log("外部:true");
-//     }, true);
-
-//     const dian = document.getElementById("dian");
-
-//     const throttle = (fn) => {
-//         let timer = null;
-//         return function (...arg) {
-//             if (!timer)
-//                 timer = setTimeout(() => {
-//                     fn(...arg)
-//                     timer = null;
-//                 }, 500)
-//         }
-//     };
-
-//     const debounce = (fn) => {
-//         let timer = null;
-//         return function (...arg) {
-//             if (timer) clearTimeout(timer);
-
-//             console.log("函数触发了")
-//             timer = setTimeout(() => {
-//                 fn(...arg);
-//                 timer = null;
-//             }, 500)
-//         }
-//     }
-
-//     dian.addEventListener('click', throttle(() => console.log("我动了")))
 
 
-//     function father() {
-//         this.name = "father";
-//     }
+// 实现模式：
+/*
+    1、队列取工作
+    2、队列取工作 + 优先级
+    增加scheduleCallback(priority, cb)
+*/ 
+// 值越小优先级越高
+const immediatePriority = -1;
+const userBlockingPriority = 0;
+const normalPriority = 10;
+const lowPriority = 100;
+const idlePriority = 1000;
 
-//     // 原型链继承
-//     function son() {
-//         father.call(this);
-//         this.son = "son"
-//     }
-
-//     son.prototype = new father()
-//     son.prototype.constructor = father;
-
-//     // 组合继承
-//     son.prototype = Object.create(son.prototype)
+const workList = [];
+let prevPriority = idlePriority;
+// 当前调度的callback
+let curCallback;
 
 
-//     /*
-//         到这一步依然不能解决问题
-//     */
-//     function deepClone(param, hashMap) {
-//     if(typeof param == "object"){
-//         if(hashMap.get(param)) return hashMap.get(param);
+// 生成一个task,并执行perform
+function scheduleCallback(priority,fn ){
+    const startTime = Date.now();
+ return {
+    expirationTime:startTime + priority,
+    callback: fn()
+ }
+}
 
-//         const newObj = Array.isArray(param) ? new Array() : new Object();
-//         hashMap.set(param,newObj)
+// 是否需要中断
+function isShouldYield(){
+    return false;
+}
 
-//         for(const key in param){
-//                 newObj[key] = deepClone(param[key], hashMap)
-//         }
-//         return newObj;
-//     }
-//     else return param;
+function cancelCallback(task){
+    task.callback = null;
+}
+
+function schedule(){
+    // 尝试获取当前正在调度的cb（正在执行）
+    const cbNode = getFirstCallbackNode();
+
+    // 取出当前最高优先级的work
+    const curWork = workList.sort((w1,w2) =>{
+        return w1.priority - w2.priority;
+    })[0];
+
+    // 策略
+    if(!curWork){
+        curCallback = null;
+        cbNode && cancelCallback(cbNode);
+        return
+    }
+
+    // 获取当前优先级最高的work的优先级
+    const { priority:curPriority } = curWork;
+    if(prevPriority === curPriority){
+        // 如果优先级相同则不需要调度，退出调度
+        return;
+    }
+    // 准备调度当前最高优先级的work
+    // 调度前如果有工作再执行中、，则中断她
+    cbNode && cancelCallback(cbNode)
     
-//    }
+    //调度当前优先级最高的woirk
+    curCallback = scheduleCallback(priority,perform.bind(null,curWork));
+}
 
-//    let obj = {
-//        a: {
-//            name:"1",
-//        }
-//    }
-
-//    obj.test = obj
-
-//    const newObj = deepClone(obj, new WeakMap())
-//    obj.a.name = "66"
-//    console.log(newObj)
-//  function myInstance(needJudge,original){
-//      while(needJudge){
-//          if(needJudge == original.prototype) return true;
-//          needJudge = needJudge.__proto__;
-//      }
-//      return false;
-//  }
-// let a = [];
-// console.log(myInstance(a, Array));
-// Promise.resolve().then(() => {console.log("b")})
-// setTimeout(()=>{console.log("A")
-//  requestAnimationFrame(() =>{
-//                 console.log("而是")
-//             })
-// queueMicrotask(() => console.log("e"))
-//  requestAnimationFrame(() =>{
-//                 console.log("而是1")
-//             })
-//             queueMicrotask(() => console.log("e2"))
-
-// },0)
-
-
-// console.log("1")
-//   requestAnimationFrame(() =>{
-//                 console.log("c")
-//             })
-//             queueMicrotask(() => console.log("mic"))
-// let obj = {
-//     fn: function(){
-//         setTimeout(() =>{
-//             console.log("E")
-//             requestAnimationFrame(() =>{
-//                 console.log("B")
-//             })
-//             console.log("D")
-//         },0)
-//     }
-// }
-
-// Promise.resolve().then(()=> {
-//     console.log("C")
-//     obj.fn()
-// })
-//  let a = new MyPromise(1);
-   
-//   let a = new MyPromise((resolve,reject) => {
-     
-//     setTimeout(()=>{
-//       resolve("I am SB")
-//     },1000)
-//    }).then(res => {
-//        console.log(`then的返回值:${res}`)
-//         return "Big SB"
-//     }).then(res => console.log(`then02的返回值:${res}`))
-//   let url = "http://www.baidu.com?name=elephant&age=25&sex=male&num=100"
-
- 
-
-// console.log(flate(arr));
-
-
-function throttle(callBack,millSeconds = 1000){
-
-    let timer = null;
-    return function(...arg){
-    const that = this;
-        if(!timer){
-            timer =  setTimeout(() => {
-                timer = null
-                callBack.call(that,...arg)
-            },millSeconds);
-            
-        }
+// 小循环
+function perform(work){
+    // 本次调度是否过期
+    let didTimeout = false;
+    // 是否需要同步执行
+    const needSync = work.priority === immediatePriority || didTimeout;
+    while(work.count && (!isShouldYield() || needSync)){
+        work.count--;
+        insertItem("哈")
+    }
+    // 如果work执行完了 就清除work
+    if(!work.count){
+        const index  = workList.indexOf(work);
+        workList.splice(index,1);
+        // 重制优先级
+        prevPriority = idlePriority;
+    }
+    const preCallback= curCallback;
+    // 如果是被中断，则需要重新调度
+    schedule();
+    const newCallback = curCallback;
+    if(newCallback && preCallback === newCallback){
+        return perform.bind(null,work);
     }
 }
 
-
-const getCurrentMillSeconds = () => {
-    return (new Date()).valueOf()
+function insertItem(content){
+    const ele = document.createElement('span');
+    ele.innerText = `${content}`;
+    const contentBox = document.getElementById('contentBox');
+    contentBox.appendChild(ele);
 }
 
-function debounce(callback,milleconds = 1000){
-  let timer = null;
-  return function(...arg){
-    if(timer != null) clearTimeout(timer)
-    timer = setTimeout(function() {
-      callback(...arg),1000
+const button  = document.getElementById('button')
+button.onclick = () => {
+    workList.unshift({
+        count: 100,
+        priority: normalPriority,
     })
-  }
+    schedule();
 }
-
-
-// const test = () => {
-//     console.log(111);
-// }
-// const fn = debounce(test);
-
-// setInterval(fn,2000)
-
-// const arr = [1,2,3,4,5];
-
-// const promiseArr = arr.map( item => {
-//     return new Promise((resolve) => {
-//         if(item ==3 ) throw Error("啦啦啦")
-        
-//         setTimeout(() => {
-//             console.log("我是SN",item)
-//             resolve(item)
-//         }, 300)
-//     })
-// })
-
-// Promise.all(promiseArr)
-// .then(res => console.log(res))
-// .catch(err => console.log("错误:",err))
-
-
-// let a = () => {}
-// let b = function(){
-
-// }
-// console.log(b.prototype)
-// console.dir(a)
-// console.dir(new b())
-// class A {
-//     constructor(){
-//         console.log("44")
-//     }
-// }
-
-// class B extends A {}
-
-// function C() {}
-// C.prototype = Object.create(new B())
-
-// // console.log(Object.prototype.toString.call(new B()))
-// let a  = new B();
-// console.dir(a)
-// var name = 'window'; 
- function a (){}
-
-let A = new a()
-
-// A.sayHello();// 还是以为输出A ? 错啦，其实输出的是window
-console.dir(Function.prototype)
-console.dir(A)
 </script>
 
 </html>
