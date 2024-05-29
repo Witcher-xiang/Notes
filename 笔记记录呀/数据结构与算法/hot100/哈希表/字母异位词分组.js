@@ -19,3 +19,4 @@ const fun = (str) => {
 
 // fun(test)
 console.log(fun(test));
+
