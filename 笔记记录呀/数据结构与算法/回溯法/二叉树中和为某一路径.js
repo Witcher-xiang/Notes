@@ -23,3 +23,4 @@ var pathSum = function(root, target) {
     console.log(finalArr)
     return finalArr;
 };
+
