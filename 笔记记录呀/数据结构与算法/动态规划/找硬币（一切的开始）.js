@@ -78,3 +78,46 @@ var coinChange = function(coins, amount) {
             // const last = dp.pop();
             return dp[amount] == 9999 ? -1 : dp[amount]
 };
+
+
+// 2024.8.26 
+/** 
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+// 很明显是个完全背包问题
+var coinChange = function(coins, amount) {
+  if(amount === 0) return 0
+  // dp[i] 代表金额为i时凑成总金额所需要的最少硬币个数
+  const dp = new Array(amount+1).fill(Infinity);
+  dp[0] = 0;
+  for(const coin of coins){
+      if(coin <= amount)
+      dp[coin] = 1;
+  }
+
+  
+  // 先物品再背包
+  for(let i=0;i<coins.length;i++){
+      const coin = coins[i]
+      for(let j=i;j<=amount;j++){
+          if(dp[j-coin])
+          dp[j] = Math.min(dp[j-coin] + 1 , dp[j])
+      }
+  }
+  //   先背包再物品都可以，完全背包问题 怎么样都可以
+  for(let i = 1; i<=amount; i++){
+    for(let j = 0; j<coins.length; j++){
+      if(i - coins[j] > 0)
+      dp[i] = Math.min(dp[i - coins[j]] + 1,dp[i])
+  }
+}
+  
+  
+
+  const final =dp.pop()
+  return  final === Infinity ? -1 : final;
+};
+
+
